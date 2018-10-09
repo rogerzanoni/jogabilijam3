@@ -1,8 +1,12 @@
 extern crate ggez;
 
+use entities::*;
 use ggez::conf::*;
 use ggez::graphics::{Color, DrawMode, Point2};
 use ggez::*;
+
+mod entities;
+mod utils;
 
 struct MainState {
     officers: Vec<Officer>,
@@ -26,6 +30,7 @@ impl MainState {
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.5,
             color: Color::from_rgb(0, 0, 255),
+            size: Point2::new(10.0, 10.0),
         });
 
         vec.push(Officer {
@@ -33,6 +38,7 @@ impl MainState {
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.5,
             color: Color::from_rgb(0, 0, 255),
+            size: Point2::new(10.0, 10.0),
         });
 
         vec.push(Officer {
@@ -40,6 +46,7 @@ impl MainState {
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.5,
             color: Color::from_rgb(0, 0, 255),
+            size: Point2::new(10.0, 10.0),
         });
 
         vec
@@ -50,6 +57,14 @@ impl MainState {
 
         vec.push(Demonstrator {
             position: Point2::new(400.0, 400.0),
+            velocity: Point2::new(0.2, 0.2),
+            max_velocity: 0.7,
+            size: Point2::new(10.0, 10.0),
+            color: Color::from_rgb(255, 0, 0),
+        });
+
+        vec.push(Demonstrator {
+            position: Point2::new(200.0, 300.0),
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.7,
             size: Point2::new(10.0, 10.0),
@@ -89,98 +104,6 @@ impl event::EventHandler for MainState {
 
         Ok(())
     }
-}
-
-struct Officer {
-    position: Point2,
-    velocity: Point2,
-    max_velocity: f32,
-    color: Color,
-}
-
-impl Officer {
-    fn update(&mut self, targets: &Vec<Demonstrator>) {
-        let target = &targets[0];
-
-        // Seek behaviour
-        let desired_velocity =
-            normalize_vector(sub_vectors(target.position, self.position)) * self.max_velocity;
-        let steering = desired_velocity - self.velocity;
-        self.velocity = self.velocity + steering;
-
-        // Update position
-        self.position = sum_vectors(self.position, self.velocity);
-    }
-}
-
-struct Demonstrator {
-    position: Point2,
-    velocity: Point2,
-    max_velocity: f32,
-    size: Point2,
-    color: Color,
-}
-
-impl Demonstrator {
-    fn update(&mut self, officers: &Vec<Officer>) {
-        let mut closest = &officers[0];
-        let closest_distance = distance(self.position, closest.position);
-
-        for officer in officers {
-            let distance = distance(self.position, officer.position);
-            if distance < closest_distance {
-                closest = officer;
-            }
-        }
-
-        // Seek behaviour
-        let desired_velocity =
-            normalize_vector(sub_vectors(self.position, closest.position)) * self.max_velocity;
-        let steering = desired_velocity - self.velocity;
-        self.velocity = self.velocity + steering;
-
-        // Update position
-        self.position = sum_vectors(self.position, self.velocity);
-        self.position = truncate_vector(
-            self.position,
-            Point2::new(0.0, 0.0),
-            Point2::new(800.0 - self.size.x / 2.0, 600.0 - self.size.y / 2.0),
-        );
-    }
-}
-
-fn truncate_vector(p: Point2, min: Point2, max: Point2) -> Point2 {
-    let mut trunc = p.clone();
-
-    if trunc.x < 0.0 {
-        trunc.x = 0.0;
-    } else if trunc.x > max.x {
-        trunc.x = max.x;
-    }
-
-    if trunc.y < 0.0 {
-        trunc.y = 0.0;
-    } else if trunc.y > max.y {
-        trunc.y = max.y;
-    }
-    trunc
-}
-
-fn sum_vectors(p1: Point2, p2: Point2) -> Point2 {
-    Point2::new(p1.x + p2.x, p1.y + p2.y)
-}
-
-fn sub_vectors(p1: Point2, p2: Point2) -> Point2 {
-    Point2::new(p1.x - p2.x, p1.y - p2.y)
-}
-
-fn normalize_vector(p: Point2) -> Point2 {
-    let module = (p.x.powi(2) + p.y.powi(2)).sqrt();
-    Point2::new(p.x / module, p.y / module)
-}
-
-fn distance(p1: Point2, p2: Point2) -> f32 {
-    ((p1.x - p2.x).powi(2) + (p1.y - p2.y).powi(2)).sqrt()
 }
 
 pub fn main() {
