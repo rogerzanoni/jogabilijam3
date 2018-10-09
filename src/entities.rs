@@ -32,7 +32,7 @@ impl Demonstrator {
         self.position = truncate_vector(
             self.position,
             Point2::new(0.0, 0.0),
-            Point2::new(800.0 - self.size.x / 2.0, 600.0 - self.size.y / 2.0),
+            Point2::new(1280.0 - self.size.x / 2.0, 720.0 - self.size.y / 2.0),
         );
     }
 }

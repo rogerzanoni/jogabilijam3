@@ -26,7 +26,7 @@ impl MainState {
         let mut vec = Vec::new();
 
         vec.push(Officer {
-            position: Point2::new(120.0, 400.0),
+            position: Point2::new(120.0, 200.0),
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.5,
             color: Color::from_rgb(0, 0, 255),
@@ -34,7 +34,7 @@ impl MainState {
         });
 
         vec.push(Officer {
-            position: Point2::new(420.0, 180.0),
+            position: Point2::new(120.0, 250.0),
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.5,
             color: Color::from_rgb(0, 0, 255),
@@ -42,7 +42,7 @@ impl MainState {
         });
 
         vec.push(Officer {
-            position: Point2::new(600.0, 400.0),
+            position: Point2::new(120.0, 300.0),
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.5,
             color: Color::from_rgb(0, 0, 255),
@@ -56,7 +56,7 @@ impl MainState {
         let mut vec = Vec::new();
 
         vec.push(Demonstrator {
-            position: Point2::new(400.0, 400.0),
+            position: Point2::new(400.0, 225.0),
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.7,
             size: Point2::new(10.0, 10.0),
@@ -64,7 +64,7 @@ impl MainState {
         });
 
         vec.push(Demonstrator {
-            position: Point2::new(200.0, 300.0),
+            position: Point2::new(400.0, 275.0),
             velocity: Point2::new(0.2, 0.2),
             max_velocity: 0.7,
             size: Point2::new(10.0, 10.0),
