@@ -1,5 +1,6 @@
 extern crate ggez;
 
+use ggez::conf::*;
 use ggez::graphics::{Color, DrawMode, Point2};
 use ggez::*;
 
@@ -90,14 +91,6 @@ impl event::EventHandler for MainState {
     }
 }
 
-pub fn main() {
-    let c = conf::Conf::new();
-    let ctx = &mut Context::load_from_conf("super_simple", "ggez", c).unwrap();
-    let state = &mut MainState::new(ctx).unwrap();
-    event::run(ctx, state).unwrap();
-}
-
-#[derive(Debug)]
 struct Officer {
     position: Point2,
     velocity: Point2,
@@ -188,4 +181,25 @@ fn normalize_vector(p: Point2) -> Point2 {
 
 fn distance(p1: Point2, p2: Point2) -> f32 {
     ((p1.x - p2.x).powi(2) + (p1.y - p2.y).powi(2)).sqrt()
+}
+
+pub fn main() {
+    let conf = Conf {
+        window_mode: WindowMode {
+            width: 1280,
+            height: 720,
+            borderless: false,
+            fullscreen_type: FullscreenType::Desktop,
+            vsync: true,
+            min_width: 0,
+            max_width: 0,
+            min_height: 0,
+            max_height: 0,
+        },
+        window_setup: WindowSetup::default(),
+        backend: Backend::OpenGL { major: 3, minor: 2 },
+    };
+    let ctx = &mut Context::load_from_conf("Jogabilijam 3", "Largato Games", conf).unwrap();
+    let state = &mut MainState::new(ctx).unwrap();
+    event::run(ctx, state).unwrap();
 }
