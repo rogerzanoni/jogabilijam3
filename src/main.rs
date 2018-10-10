@@ -2,7 +2,7 @@ extern crate ggez;
 
 use entities::*;
 use ggez::conf::*;
-use ggez::graphics::Point2;
+use ggez::graphics::*;
 use ggez::*;
 
 mod entities;
@@ -11,6 +11,7 @@ mod utils;
 struct MainState {
     officers: Vec<Officer>,
     demonstrators: Vec<Demonstrator>,
+    objects: Vec<StationaryObject>,
 }
 
 impl MainState {
@@ -18,28 +19,42 @@ impl MainState {
         let s = MainState {
             officers: MainState::create_officers(ctx),
             demonstrators: MainState::create_demonstrators(ctx),
+            objects: MainState::create_objects(ctx),
         };
         Ok(s)
     }
 
     fn create_officers(ctx: &mut Context) -> Vec<Officer> {
         let mut vec = Vec::new();
-        vec.push(Officer::build_officer(ctx, Point2::new(120.0, 200.0)));
-        vec.push(Officer::build_officer(ctx, Point2::new(120.0, 250.0)));
-        vec.push(Officer::build_officer(ctx, Point2::new(120.0, 300.0)));
+        vec.push(Officer::build(ctx, Point2::new(120.0, 200.0)));
+        vec.push(Officer::build(ctx, Point2::new(120.0, 250.0)));
+        vec.push(Officer::build(ctx, Point2::new(120.0, 300.0)));
         vec
     }
 
     fn create_demonstrators(ctx: &mut Context) -> Vec<Demonstrator> {
         let mut vec = Vec::new();
-        vec.push(Demonstrator::build_demonstrator(
-            ctx,
-            Point2::new(400.0, 225.0),
-        ));
-        vec.push(Demonstrator::build_demonstrator(
-            ctx,
-            Point2::new(400.0, 275.0),
-        ));
+        vec.push(Demonstrator::build(ctx, Point2::new(400.0, 225.0)));
+        vec.push(Demonstrator::build(ctx, Point2::new(400.0, 275.0)));
+        vec
+    }
+
+    fn create_objects(ctx: &mut Context) -> Vec<StationaryObject> {
+        let mut vec = Vec::new();
+        vec.push(StationaryObject {
+            color: Color::from_rgb(255, 255, 255),
+            position: Point2::new(230.0, 230.0),
+            shape: Mesh::new_polygon(
+                ctx,
+                DrawMode::Fill,
+                &[
+                    Point2::new(0.0, 0.0),
+                    Point2::new(20.0, 0.0),
+                    Point2::new(20.0, 40.0),
+                    Point2::new(0.0, 40.0),
+                ],
+            ).unwrap(),
+        });
         vec
     }
 }
@@ -65,6 +80,10 @@ impl event::EventHandler for MainState {
 
         for officer in &self.officers {
             officer.draw(ctx);
+        }
+
+        for object in &self.objects {
+            object.draw(ctx);
         }
 
         graphics::present(ctx);
