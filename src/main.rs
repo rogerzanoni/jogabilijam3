@@ -2,7 +2,7 @@ extern crate ggez;
 
 use entities::*;
 use ggez::conf::*;
-use ggez::graphics::{Color, DrawMode, Point2};
+use ggez::graphics::Point2;
 use ggez::*;
 
 mod entities;
@@ -14,63 +14,32 @@ struct MainState {
 }
 
 impl MainState {
-    fn new(_ctx: &mut Context) -> GameResult<MainState> {
+    fn new(ctx: &mut Context) -> GameResult<MainState> {
         let s = MainState {
-            officers: MainState::create_officers(),
-            demonstrators: MainState::create_demonstrators(),
+            officers: MainState::create_officers(ctx),
+            demonstrators: MainState::create_demonstrators(ctx),
         };
         Ok(s)
     }
 
-    fn create_officers() -> Vec<Officer> {
+    fn create_officers(ctx: &mut Context) -> Vec<Officer> {
         let mut vec = Vec::new();
-
-        vec.push(Officer {
-            position: Point2::new(120.0, 200.0),
-            velocity: Point2::new(0.2, 0.2),
-            max_velocity: 0.5,
-            color: Color::from_rgb(0, 0, 255),
-            size: Point2::new(10.0, 10.0),
-        });
-
-        vec.push(Officer {
-            position: Point2::new(120.0, 250.0),
-            velocity: Point2::new(0.2, 0.2),
-            max_velocity: 0.5,
-            color: Color::from_rgb(0, 0, 255),
-            size: Point2::new(10.0, 10.0),
-        });
-
-        vec.push(Officer {
-            position: Point2::new(120.0, 300.0),
-            velocity: Point2::new(0.2, 0.2),
-            max_velocity: 0.5,
-            color: Color::from_rgb(0, 0, 255),
-            size: Point2::new(10.0, 10.0),
-        });
-
+        vec.push(Officer::build_officer(ctx, Point2::new(120.0, 200.0)));
+        vec.push(Officer::build_officer(ctx, Point2::new(120.0, 250.0)));
+        vec.push(Officer::build_officer(ctx, Point2::new(120.0, 300.0)));
         vec
     }
 
-    fn create_demonstrators() -> Vec<Demonstrator> {
+    fn create_demonstrators(ctx: &mut Context) -> Vec<Demonstrator> {
         let mut vec = Vec::new();
-
-        vec.push(Demonstrator {
-            position: Point2::new(400.0, 225.0),
-            velocity: Point2::new(0.2, 0.2),
-            max_velocity: 0.7,
-            size: Point2::new(10.0, 10.0),
-            color: Color::from_rgb(255, 0, 0),
-        });
-
-        vec.push(Demonstrator {
-            position: Point2::new(400.0, 275.0),
-            velocity: Point2::new(0.2, 0.2),
-            max_velocity: 0.7,
-            size: Point2::new(10.0, 10.0),
-            color: Color::from_rgb(255, 0, 0),
-        });
-
+        vec.push(Demonstrator::build_demonstrator(
+            ctx,
+            Point2::new(400.0, 225.0),
+        ));
+        vec.push(Demonstrator::build_demonstrator(
+            ctx,
+            Point2::new(400.0, 275.0),
+        ));
         vec
     }
 }
@@ -91,13 +60,11 @@ impl event::EventHandler for MainState {
         graphics::clear(ctx);
 
         for demonstrator in &self.demonstrators {
-            graphics::set_color(ctx, demonstrator.color);
-            graphics::circle(ctx, DrawMode::Fill, demonstrator.position, 10.0, 0.2);
+            demonstrator.draw(ctx);
         }
 
         for officer in &self.officers {
-            graphics::set_color(ctx, officer.color);
-            graphics::circle(ctx, DrawMode::Fill, officer.position, 10.0, 0.2)?;
+            officer.draw(ctx);
         }
 
         graphics::present(ctx);
