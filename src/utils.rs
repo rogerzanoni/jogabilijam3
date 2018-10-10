@@ -3,14 +3,14 @@ use ggez::graphics::Point2;
 pub fn truncate_vector(p: Point2, min: Point2, max: Point2) -> Point2 {
     let mut trunc = p.clone();
 
-    if trunc.x < 0.0 {
-        trunc.x = 0.0;
+    if trunc.x < min.x {
+        trunc.x = min.x;
     } else if trunc.x > max.x {
         trunc.x = max.x;
     }
 
-    if trunc.y < 0.0 {
-        trunc.y = 0.0;
+    if trunc.y < min.y {
+        trunc.y = min.y;
     } else if trunc.y > max.y {
         trunc.y = max.y;
     }
