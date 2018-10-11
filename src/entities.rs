@@ -59,7 +59,19 @@ pub struct Officer {
     velocity: Point2,
     max_velocity: f32,
     shape: Mesh,
+    state: OfficerState,
 }
+
+pub enum OfficerState {
+    Idle,
+    Seeking,
+    Fleeing,
+    Loading,
+    Aiming,
+    Attacking,
+}
+
+const SIGHT: u32 = 300;
 
 impl Officer {
     pub fn build(ctx: &mut Context, pos: Point2) -> Officer {
@@ -69,22 +81,52 @@ impl Officer {
             max_velocity: 0.5,
             color: Color::from_rgb(0, 0, 255),
             shape: Mesh::new_circle(ctx, DrawMode::Fill, Point2::new(0.0, 0.0), 10.0, 0.2).unwrap(),
+            state: OfficerState::Idle,
         }
     }
 
     pub fn update(&mut self, targets: &Vec<Demonstrator>) {
-        let target = &targets[0];
+        match &self.state {
+            OfficerState::Idle => {
+                self.color = Color::from_rgb(0, 0, 255);
+                self.state = OfficerState::Seeking;
+            }
+            OfficerState::Seeking => {
+                self.color = Color::from_rgb(255, 255, 255);
 
-        // Seek behaviour
-        let desired_velocity =
-            normalize_vector(sub_vectors(target.position, self.position)) * self.max_velocity;
-        let steering = desired_velocity - self.velocity;
-        self.velocity = self.velocity + steering;
+                let mut lesser_distance = 1000.0;
+                let mut chosen_target = &targets[0];
+                for target in targets {
+                    let dist = distance(self.position, target.position);
+                    if dist < lesser_distance {
+                        lesser_distance = dist;
+                        chosen_target = target;
+                    }
+                }
 
-        // Update position
-        let new_position = sum_vectors(self.position, self.velocity);
-        // TODO: update new position considering collision
-        self.position = new_position;
+                // Seek behaviour
+                let desired_velocity =
+                    normalize_vector(sub_vectors(chosen_target.position, self.position))
+                        * self.max_velocity;
+                let steering = desired_velocity - self.velocity;
+                self.velocity = self.velocity + steering;
+
+                self.position = sum_vectors(self.position, self.velocity);
+            }
+            OfficerState::Fleeing => {
+                self.color = Color::from_rgb(255, 255, 255);
+            }
+            OfficerState::Loading => {
+                // TODO: just wait to load
+                // self.color = Color::from_rgb(0, 255, 255);
+            }
+            OfficerState::Aiming => {
+                // TODO: wait for aiming
+            }
+            OfficerState::Attacking => {
+                // TODO: create projectile
+            }
+        }
     }
 
     pub fn draw(&self, ctx: &mut Context) {

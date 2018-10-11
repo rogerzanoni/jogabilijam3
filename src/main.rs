@@ -28,13 +28,13 @@ impl MainState {
         let mut vec = Vec::new();
         vec.push(Officer::build(ctx, Point2::new(120.0, 200.0)));
         vec.push(Officer::build(ctx, Point2::new(120.0, 250.0)));
-        vec.push(Officer::build(ctx, Point2::new(120.0, 300.0)));
+        vec.push(Officer::build(ctx, Point2::new(500.0, 300.0)));
         vec
     }
 
     fn create_demonstrators(ctx: &mut Context) -> Vec<Demonstrator> {
         let mut vec = Vec::new();
-        vec.push(Demonstrator::build(ctx, Point2::new(400.0, 225.0)));
+        vec.push(Demonstrator::build(ctx, Point2::new(300.0, 125.0)));
         vec.push(Demonstrator::build(ctx, Point2::new(400.0, 275.0)));
         vec
     }
@@ -87,7 +87,6 @@ impl event::EventHandler for MainState {
         }
 
         graphics::present(ctx);
-
         Ok(())
     }
 }
