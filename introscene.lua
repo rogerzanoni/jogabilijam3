@@ -40,12 +40,11 @@ function IntroScene:startTimer()
 end
 
 function IntroScene:nextSlide()
-   print("nextSlide")
    if self.currentSlide < #self.slides then
       self.currentSlide = self.currentSlide+1
       self:startTimer()
    else
-      sceneManager:setCurrent('menu')
+      sceneManager:setCurrent('game')
    end
 end
 
