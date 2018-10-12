@@ -1,0 +1,6 @@
+[submodule "libs/classic"]
+	path = libs/classic
+	url = git@github.com:rxi/classic.git
+[submodule "libs/knife"]
+	path = libs/knife
+	url = git@github.com:airstruck/knife.git
