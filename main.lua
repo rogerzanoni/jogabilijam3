@@ -6,7 +6,7 @@ require "scenemanager"
 
 -- local Map = require "libs/Simple-Tiled-Implementation/sti"
 -- local Camera = require "camera"
--- local Scene = require "scene"
+local GameScene = require "gamescene"
 -- local EndScene = require "endscene"
 -- local MenuScene = require "menuscene"
 -- local DialogScene = require "dialogscene"
@@ -27,7 +27,8 @@ function love.load()
    sceneManager:add("intro", IntroScene())
    -- sceneManager:add("menu", MenuScene())
    -- sceneManager:add("prologue", DialogScene('prologue', "battle"))
-   -- sceneManager:add("battle", Scene(Camera(), map))
+   -- sceneManager:add("battle", GameScene(Camera(), map))
+   sceneManager:add("game", GameScene())
    -- sceneManager:add("PlayerWon", EndScene("Jogador"))
    -- sceneManager:add("EnemyWon", EndScene("Inimigo"))
    -- sceneManager:add("settings", SettingsScene())
