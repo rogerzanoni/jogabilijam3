@@ -35,6 +35,24 @@ end
 function IntroScene:keyPressed(key, code, isRepeat)
 end
 
+function IntroScene:mousepressed(x, y, button, istouch, presses)
+end
+
+function IntroScene:mousereleased(x, y, button, istouch, presses)
+end
+
+function IntroScene:mousemoved(x, y, dx, dy, istouch)
+end
+
+function IntroScene:wheelmoved(dx, dy)
+end
+
+function IntroScene:gamepadpressed(joystick, button)
+end
+
+function IntroScene:gamepadreleased(joystick, button)
+end
+
 function IntroScene:startTimer()
    Timer.after(DEFAULT_INTERVAL, function() self:nextSlide() end)
 end

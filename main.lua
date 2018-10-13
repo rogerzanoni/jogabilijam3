@@ -50,9 +50,41 @@ function love.draw()
    end
 end
 
+-- keyboard
+
 function love.keypressed(key, scancode, isRepeat)
    sceneManager:keyPressed(key, scancode, isRepeat)
 end
+
+-- mouse
+
+function love.mousepressed(x, y, button, istouch, presses)
+    sceneManager:mousepressed(x, y, button, istouch, presses)
+end
+
+function love.mousereleased(x, y, button, istouch, presses)
+    sceneManager:mousereleased(x, y, button, istouch, presses)
+end
+
+function love.mousemoved(x, y, dx, dy, istouch)
+    sceneManager:mousemoved(x, y, dx, dy, istouch)
+end
+
+function love.wheelmoved(dx, dy)
+    sceneManager:wheelmoved(dx, dy)
+end
+
+-- gamepad
+
+function love.gamepadpressed(joystick, button)
+    sceneManager:gamepadpressed(joystick, button)
+end
+
+function love.gamepadreleased(joystick, button)
+    sceneManager:gamepadreleased(joystick, button)
+end
+
+--
 
 function drawDebugInfo()
    love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), 10, 10)
