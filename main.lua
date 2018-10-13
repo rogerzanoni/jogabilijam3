@@ -74,6 +74,16 @@ function love.wheelmoved(dx, dy)
     sceneManager:wheelmoved(dx, dy)
 end
 
+-- gamepad
+
+function love.gamepadpressed(joystick, button)
+    sceneManager:gamepadpressed(joystick, button)
+end
+
+function love.gamepadreleased(joystick, button)
+    sceneManager:gamepadreleased(joystick, button)
+end
+
 --
 
 function drawDebugInfo()

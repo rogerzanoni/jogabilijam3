@@ -47,6 +47,12 @@ end
 function IntroScene:wheelmoved(dx, dy)
 end
 
+function IntroScene:gamepadpressed(joystick, button)
+end
+
+function IntroScene:gamepadreleased(joystick, button)
+end
+
 function IntroScene:startTimer()
    Timer.after(DEFAULT_INTERVAL, function() self:nextSlide() end)
 end

@@ -56,5 +56,12 @@ function SceneManager:wheelmoved(dx, dy)
     SceneManager.current:wheelmoved(dx, dy)
 end
 
+function SceneManager:gamepadpressed(joystick, button)
+    SceneManager.current:gamepadpressed(joystick, button)
+end
+
+function SceneManager:gamepadreleased(joystick, button)
+    SceneManager.current:gamepadreleased(joystick, button)
+end
 
 sceneManager = SceneManager()

@@ -56,4 +56,12 @@ function GameScene:wheelmoved(dx, dy)
     end
 end
 
+function GameScene:gamepadpressed(joystick, button)
+    print("Gamepad pressed", button)
+end
+
+function GameScene:gamepadreleased(joystick, button)
+    print("Gamepad released", button)
+end
+
 return GameScene
