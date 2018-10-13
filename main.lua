@@ -59,19 +59,19 @@ end
 -- mouse
 
 function love.mousepressed(x, y, button, istouch, presses)
-    print("Mouse pressed", x, y, button, istouch, presses)
+    sceneManager:mousepressed(x, y, button, istouch, presses)
 end
 
 function love.mousereleased(x, y, button, istouch, presses)
-    print("Mouse released", x, y, button, istouch, presses)
+    sceneManager:mousereleased(x, y, button, istouch, presses)
 end
 
 function love.mousemoved(x, y, dx, dy, istouch)
-    print("Mouse moved", x, y, dx, dy, istouch)
+    sceneManager:mousemoved(x, y, dx, dy, istouch)
 end
 
-function love.wheelmoved(x, y)
-    print("Mouse wheel moved", x, y)
+function love.wheelmoved(dx, dy)
+    sceneManager:wheelmoved(dx, dy)
 end
 
 --

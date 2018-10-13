@@ -40,4 +40,21 @@ function SceneManager:keyPressed(key, scancode, isRepeat)
    SceneManager.current:keyPressed(key, scancode, isRepeat)
 end
 
+function SceneManager:mousepressed(x, y, button, istouch, presses)
+    SceneManager.current:mousepressed(x, y, button, istouch, presses)
+end
+
+function SceneManager:mousereleased(x, y, button, istouch, presses)
+    SceneManager.current:mousereleased(x, y, button, istouch, presses)
+end
+
+function SceneManager:mousemoved(x, y, dx, dy, istouch)
+    SceneManager.current:mousemoved(x, y, dx, dy, istouch)
+end
+
+function SceneManager:wheelmoved(dx, dy)
+    SceneManager.current:wheelmoved(dx, dy)
+end
+
+
 sceneManager = SceneManager()
