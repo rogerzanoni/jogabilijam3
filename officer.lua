@@ -1,4 +1,5 @@
 local Character = require 'character'
+local sodapop = require "libs/sodapop/sodapop"
 
 Officer = Character:extend()
 
@@ -22,9 +23,25 @@ function Officer:new(x, y)
    -- Timers
    self.loading_timer = 0
    self.attacking_timer = 0
+
+   -- sprite
+   self.sprite = sodapop.newAnimatedSprite(x, y)
+
+   self.sprite:addAnimation("idle",
+       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 1, 7, 1, .1} } })
+
+   self.sprite:addAnimation("running",
+       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 3, 7, 3, .1} } })
+
+   self.sprite:addAnimation("attacking",
+       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 9, 7, 9, .1} } })
 end
 
 function Officer:update(dt)
+   Officer.super.update(self, dt)
    if self.state == IDLE then
       self:look()
    elseif self.state == MOVING then
@@ -40,6 +57,8 @@ function Officer:look()
    self:seek_target()
    if not (self.target == nil) then
       print("[state] IDLE -> MOVING")
+      self.sprite:switch 'running'
+      self.sprite.flipX = self.target.position.x < self.position.x
       self.state = MOVING
    end
 end
@@ -54,6 +73,7 @@ function Officer:move()
          self.position = self.position + self.velocity
       else
          print("[state] MOVING -> LOADING")
+         self.sprite:switch 'idle'
          self.state = LOADING
       end
    end
@@ -64,6 +84,7 @@ function Officer:load()
       self.loading_timer = 0
       print("[state] LOADING -> ATTACKING")
       self.state = ATTACKING
+      self.sprite:switch 'attacking'
    else
       self.loading_timer = self.loading_timer + 1
    end

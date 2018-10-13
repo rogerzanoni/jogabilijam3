@@ -2,7 +2,7 @@ vector = require "libs/hump/vector"
 
 require "utils"
 -- require "entitymanager"
--- require "stringhelper"
+require "stringhelper"
 require "scenemanager"
 -- require "settings"
 -- require "soundmanager"
