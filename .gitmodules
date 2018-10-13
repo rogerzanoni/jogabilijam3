@@ -10,3 +10,6 @@
 [submodule "libs/sodapop"]
 	path = libs/sodapop
 	url = https://github.com/tesselode/sodapop.git
+[submodule "libs/cargo"]
+	path = libs/cargo
+	url = https://github.com/bjornbytes/cargo.git
