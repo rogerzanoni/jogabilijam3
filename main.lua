@@ -1,3 +1,6 @@
+vector = require "libs/hump/vector"
+
+require "utils"
 -- require "entitymanager"
 -- require "stringhelper"
 require "scenemanager"
@@ -33,7 +36,7 @@ function love.load()
    -- sceneManager:add("EnemyWon", EndScene("Inimigo"))
    -- sceneManager:add("settings", SettingsScene())
    -- sceneManager:add("credits", CreditsScene())
-   sceneManager:setCurrent("intro")
+   sceneManager:setCurrent("game")
 end
 
 function love.update(dt)

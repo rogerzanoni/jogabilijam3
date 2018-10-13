@@ -1,26 +1,52 @@
 local Object = require 'libs/classic/classic'
+local Character = require 'character'
+local Officer = require 'officer'
 
 GameScene = Object:extend()
 
+gameworld_officers = {}
+gameworld_demonstrators = {}
+
 function GameScene:new()
-    self.mouseX = 0
-    self.mouseY = 0
-    self.mousePressed = false
-    self.circleRadius = 10
+   table.insert(gameworld_officers, Officer(20,30));
+   table.insert(gameworld_officers, Officer(200,330));
+   table.insert(gameworld_officers, Officer(134,350));
+
+   table.insert(gameworld_demonstrators, Character(120,130));
+   table.insert(gameworld_demonstrators, Character(300,430));
+   table.insert(gameworld_demonstrators, Character(434,450));
+
+   self.mouseX = 0
+   self.mouseY = 0
+   self.mousePressed = false
+   self.circleRadius = 10
 end
 
 function GameScene:init()
 end
 
 function GameScene:update(dt)
+   for i, officer in ipairs(gameworld_officers) do
+      officer:update(dt)
+   end
+
+   for i, demonstrator in ipairs(gameworld_demonstrators) do
+      demonstrator:update(dt)
+   end   
 end
 
 function GameScene:draw()
-   love.graphics.print("GAME SCENE", 200, 200)
+   for i, officer in ipairs(gameworld_officers) do
+      love.graphics.print("O", officer.position.x, officer.position.y);
+   end
+
+   for i, demonstrator in ipairs(gameworld_demonstrators) do
+      love.graphics.print("D", demonstrator.position.x, demonstrator.position.y);
+   end
 
    love.graphics.setColor(255, 255, 255)
    love.graphics.circle(self.mousePressed and 'fill' or 'line',
-    self.mouseX, self.mouseY, self.circleRadius, 25)
+   self.mouseX, self.mouseY, self.circleRadius, 25)
 end
 
 function GameScene:keyPressed(key, code, isRepeat)
