@@ -1,4 +1,4 @@
-require "assets"
+require "stringhelper"
 
 local Object = require "libs/classic/classic"
 
@@ -22,7 +22,7 @@ function Settings:loadSettings()
       for j, setting in ipairs(assets.config.defaultsettings) do
          if storedSetting[1] == setting[1] then
             setting[3] = storedSetting[2]
-            -- self:applySetting(setting)
+            self:applySetting(setting)
          end
       end
    end

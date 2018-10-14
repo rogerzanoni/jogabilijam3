@@ -1,9 +1,9 @@
 vector = require "libs/hump/vector"
 assets = require("libs/cargo/cargo").init("assets")
 
+Scene = require "scene"
 require "utils"
 -- require "entitymanager"
-require "stringhelper"
 require "scenemanager"
 require "settings"
 require "soundmanager"
@@ -16,7 +16,7 @@ local PrologueScene = require "prologuescene"
 local GameScene = require "gamescene"
 -- local EndScene = require "endscene"
 -- local DialogScene = require "dialogscene"
--- local SettingsScene = require "settingsscene"
+local SettingsScene = require "settingsscene"
 -- local CreditsScene = require "creditsscene"
 
 local debugMode = true
@@ -37,7 +37,7 @@ function love.load()
    sceneManager:add("game", GameScene())
    -- sceneManager:add("PlayerWon", EndScene("Jogador"))
    -- sceneManager:add("EnemyWon", EndScene("Inimigo"))
-   -- sceneManager:add("settings", SettingsScene())
+   sceneManager:add("settings", SettingsScene())
    -- sceneManager:add("credits", CreditsScene())
    sceneManager:setCurrent("menu")
 end
