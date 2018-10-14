@@ -2,6 +2,8 @@ local Object = require 'libs/classic/classic'
 local Character = require 'character'
 local Officer = require 'officer'
 
+require "character"
+
 GameScene = Object:extend()
 
 gameworld_officers = {}
@@ -11,6 +13,8 @@ function GameScene:new()
    table.insert(gameworld_officers, Officer(20,30));
    table.insert(gameworld_officers, Officer(200,330));
    table.insert(gameworld_officers, Officer(134,350));
+   table.insert(gameworld_officers, Officer(700,350));
+   table.insert(gameworld_officers, Officer(600,500));
 
    table.insert(gameworld_demonstrators, Character(120,130));
    table.insert(gameworld_demonstrators, Character(300,430));
@@ -32,12 +36,12 @@ function GameScene:update(dt)
 
    for i, demonstrator in ipairs(gameworld_demonstrators) do
       demonstrator:update(dt)
-   end   
+   end
 end
 
 function GameScene:draw()
    for i, officer in ipairs(gameworld_officers) do
-      love.graphics.print("O", officer.position.x, officer.position.y);
+      officer:draw(0, 0)
    end
 
    for i, demonstrator in ipairs(gameworld_demonstrators) do
@@ -45,6 +49,7 @@ function GameScene:draw()
    end
 
    love.graphics.setColor(255, 255, 255)
+
    love.graphics.circle(self.mousePressed and 'fill' or 'line',
    self.mouseX, self.mouseY, self.circleRadius, 25)
 end
