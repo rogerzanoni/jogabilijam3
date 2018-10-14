@@ -102,7 +102,7 @@ function Settings:applySetting(setting)
 end
 
 function Settings:screenScaleFactor()
-   return love.graphics.getWidth() / 1920
+   return love.graphics.getHeight() / 1080
 end
 
 function Settings:nextString(setting)
