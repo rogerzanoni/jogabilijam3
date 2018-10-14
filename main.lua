@@ -6,7 +6,7 @@ require "utils"
 require "stringhelper"
 require "scenemanager"
 require "settings"
--- require "soundmanager"
+require "soundmanager"
 
 local MenuScene = require "menuscene"
 local IntroScene = require "introscene"
@@ -22,11 +22,11 @@ local GameScene = require "gamescene"
 local debugMode = true
 
 function love.load()
-   -- soundManager:add("battle", "assets/sounds/battle.mp3")
-   -- soundManager:add("menu", "assets/sounds/menu.mp3")
-   -- soundManager:add("menuselect", "assets/sounds/menuselect.wav", true)
-   -- soundManager:add("accept", "assets/sounds/accept.mp3", true)
-   -- soundManager:playLoop("menu")
+   soundManager:add("battle", "assets/sounds/battle.ogg")
+   soundManager:add("menu", "assets/sounds/menu.mp3")
+   soundManager:add("menuselect", "assets/sounds/menuselect.wav", true)
+   soundManager:add("accept", "assets/sounds/accept.mp3", true)
+   soundManager:playLoop("menu")
 
    -- local map = Map("assets/maps/green_valley.lua")
    sceneManager:add("menu", MenuScene())
