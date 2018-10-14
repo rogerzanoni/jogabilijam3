@@ -62,7 +62,7 @@ function IntroScene:nextSlide()
       self.currentSlide = self.currentSlide+1
       self:startTimer()
    else
-      sceneManager:setCurrent('game')
+      sceneManager:setCurrent('prologue')
    end
 end
 

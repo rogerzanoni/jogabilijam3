@@ -1,4 +1,5 @@
 vector = require "libs/hump/vector"
+assets = require("libs/cargo/cargo").init("assets")
 
 require "utils"
 -- require "entitymanager"
@@ -7,15 +8,16 @@ require "scenemanager"
 -- require "settings"
 -- require "soundmanager"
 
+local IntroScene = require "introscene"
+-- local MenuScene = require "menuscene"
+local PrologueScene = require "prologuescene"
 -- local Map = require "libs/Simple-Tiled-Implementation/sti"
 -- local Camera = require "camera"
 local GameScene = require "gamescene"
 -- local EndScene = require "endscene"
--- local MenuScene = require "menuscene"
 -- local DialogScene = require "dialogscene"
 -- local SettingsScene = require "settingsscene"
 -- local CreditsScene = require "creditsscene"
-local IntroScene = require "introscene"
 
 local debugMode = true
 
@@ -29,6 +31,7 @@ function love.load()
    -- local map = Map("assets/maps/green_valley.lua")
    sceneManager:add("intro", IntroScene())
    -- sceneManager:add("menu", MenuScene())
+   sceneManager:add("prologue", PrologueScene())
    -- sceneManager:add("prologue", DialogScene('prologue', "battle"))
    -- sceneManager:add("battle", GameScene(Camera(), map))
    sceneManager:add("game", GameScene())
