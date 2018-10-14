@@ -40,6 +40,8 @@ function GameScene:update(dt)
 end
 
 function GameScene:draw()
+   love.graphics.clear(67/255, 139/255, 126/255)
+
    for i, officer in ipairs(gameworld_officers) do
       officer:draw(0, 0)
    end
