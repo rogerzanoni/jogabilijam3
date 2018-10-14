@@ -27,6 +27,8 @@ function GameScene:new()
 end
 
 function GameScene:init()
+    soundManager:stopAll()
+    soundManager:play("battle")
 end
 
 function GameScene:update(dt)

@@ -1,4 +1,4 @@
--- require "soundmanager"
+require "soundmanager"
 
 local Object = require 'libs/classic/classic'
 
@@ -79,15 +79,15 @@ end
 function MenuScene:keyPressed(key, scancode,  isRepeat)
    if key=="up" and not isRepeat then
       self.line = (self.line - 2) % #self.items + 1
-      -- soundManager:stop("menuselect")
-      -- soundManager:play("menuselect")
+       soundManager:stop("menuselect")
+       soundManager:play("menuselect")
    elseif key=="down" and not isRepeat then
       self.line = self.line % #self.items + 1
-      -- soundManager:stop("menuselect")
-      -- soundManager:play("menuselect")
+       soundManager:stop("menuselect")
+       soundManager:play("menuselect")
    elseif key=="return" and not isRepeat then
       self:itemSelected(self.line)
-      -- soundManager:play("accept")
+       soundManager:play("accept")
    end
 end
 
