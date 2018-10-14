@@ -2,6 +2,7 @@ vector = require "libs/hump/vector"
 assets = require("libs/cargo/cargo").init("assets")
 
 Scene = require "scene"
+require "steer"
 require "utils"
 -- require "entitymanager"
 require "scenemanager"
