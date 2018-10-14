@@ -1,15 +1,23 @@
 local Character = require 'character'
+local steer = require 'steer'
 
 Demonstrator = Character:extend()
 
-local IDLE, MOVING, LOADING, RUNNING = 0, 1, 2, 3
-local LOAD_FRAMES = 100
+local IDLE, MOVING, RUNNING = 0, 1, 2
+
+local IDLE_FRAMES = 5
+local MOVING_FRAMES = 20
 local RUNNING_FRAMES = 30
+
+local WANDER_DISTANCE = 40
+local WANDER_RADIUS = 10
+local WANDER_MIN_PROXIMITY = 5
 
 function Demonstrator:new(x, y)
    Demonstrator.super.new(self, x, y)
    self.state = IDLE
-   self.target = nil
+   self.menace = nil
+   self.target_position = nil
 
    -- Motion
    self.velocity = vector(0, 0)
@@ -20,73 +28,81 @@ function Demonstrator:new(x, y)
    self.running_distance = 20
 
    -- Timers
-   self.loading_timer = 0
+   self.idle_timer = 0
+   self.moving_timer = 0
    self.running_timer = 0
 end
 
 function Demonstrator:update(dt)
    if self.state == IDLE then
-      self:look()
+      self:think()
    elseif self.state == MOVING then
       self:move()
-   elseif self.state == LOADING then
-      self:load()
    elseif self.state == RUNNING then
       self:running()
    end
 end
 
-function Demonstrator:look()
-   self:seek_target()
-   if not (self.target == nil) then
-      print("[state] IDLE -> MOVING")
-      self.state = MOVING
+function Demonstrator:think()
+   self:look_for_menace()
+   if (self.menace == nil) then
+    if self.idle_timer >= IDLE_FRAMES then
+        self.target_position = steer.wander(self.position, self.velocity, WANDER_DISTANCE, WANDER_RADIUS)
+        self.state = MOVING
+    else
+        self.idle_timer = self.idle_timer + 1
+    end
+   else
+      self.state = RUNNING
    end
 end
 
 function Demonstrator:move()
-   if not (self.target==nil) then
-      local distance = self.position:dist(self.target.position)
-      if distance > self.running_distance then
-         local desired_velocity = (self.position - self.target.position):normalized() * self.max_velocity
+   self:look_for_menace()
+   if (self.menace == nil) then
+      print(self.position, self.target_position, type(self.position), type(self.target_position))
+      local distance = self.position:dist(self.target_position)
+
+      if (distance > WANDER_MIN_PROXIMITY) then
+         local desired_velocity = steer.seek(self.position, self.target_position) * self.max_velocity
          local steering = desired_velocity - self.velocity
+
          self.velocity = self.velocity + steering
          self.position = self.position + self.velocity
       else
-         print("[state] MOVING -> LOADING")
-         self.state = LOADING
+        self.state = IDLE
+        self.target_position = nil
       end
-   end
-end
-
-function Demonstrator:load()
-   if self.loading_timer >= LOAD_FRAMES then
-      self.loading_timer = 0
-      print("[state] LOADING -> RUNNING")
-      self.state = RUNNING
    else
-      self.loading_timer = self.loading_timer + 1
+      self.state = RUNNING
+      self.target_position = nil
    end
 end
 
 function Demonstrator:running()
    if self.running_timer >= RUNNING_FRAMES then
       self.running_timer = 0
-      -- TODO: cause damage
-      print("[state] RUNNING -> IDLE")
+
       self.state = IDLE
+      self.menace = nil
    else
       self.running_timer = self.running_timer + 1
+
+      local desired_velocity = steer.flee(self.position, self.menace.position) * self.max_velocity
+      local steering = desired_velocity - self.velocity
+
+      self.velocity = self.velocity + steering
+      self.position = self.position + self.velocity
    end
 end
 
-function Demonstrator:seek_target()
+function Demonstrator:look_for_menace()
    local closer = self.sight_distance
    for i, officer in ipairs(gameworld_officers) do
       local distance = self.position:dist(officer.position)
       if distance < closer then
          closer = distance
-         self.target = officer
+         self.menace = officer
       end
    end
 end
