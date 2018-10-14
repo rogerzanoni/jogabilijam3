@@ -5,11 +5,11 @@ require "utils"
 -- require "entitymanager"
 require "stringhelper"
 require "scenemanager"
--- require "settings"
+require "settings"
 -- require "soundmanager"
 
+local MenuScene = require "menuscene"
 local IntroScene = require "introscene"
--- local MenuScene = require "menuscene"
 local PrologueScene = require "prologuescene"
 -- local Map = require "libs/Simple-Tiled-Implementation/sti"
 -- local Camera = require "camera"
@@ -29,8 +29,8 @@ function love.load()
    -- soundManager:playLoop("menu")
 
    -- local map = Map("assets/maps/green_valley.lua")
+   sceneManager:add("menu", MenuScene())
    sceneManager:add("intro", IntroScene())
-   -- sceneManager:add("menu", MenuScene())
    sceneManager:add("prologue", PrologueScene())
    -- sceneManager:add("prologue", DialogScene('prologue', "battle"))
    -- sceneManager:add("battle", GameScene(Camera(), map))
@@ -39,7 +39,7 @@ function love.load()
    -- sceneManager:add("EnemyWon", EndScene("Inimigo"))
    -- sceneManager:add("settings", SettingsScene())
    -- sceneManager:add("credits", CreditsScene())
-   sceneManager:setCurrent("game")
+   sceneManager:setCurrent("menu")
 end
 
 function love.update(dt)
