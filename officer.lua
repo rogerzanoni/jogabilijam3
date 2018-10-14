@@ -1,5 +1,6 @@
 local Character = require 'character'
 local sodapop = require "libs/sodapop/sodapop"
+local steer = require 'steer'
 
 Officer = Character:extend()
 
@@ -67,7 +68,7 @@ function Officer:move()
    if not (self.target==nil) then
       local distance = self.position:dist(self.target.position)
       if distance > self.attack_distance then
-         local desired_velocity = (self.target.position - self.position):normalized() * self.max_velocity
+         local desired_velocity = steer.seek(self.position, self.target.position) * self.max_velocity
          local steering = desired_velocity - self.velocity
          self.velocity = self.velocity + steering
          self.position = self.position + self.velocity

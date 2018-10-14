@@ -2,6 +2,7 @@ vector = require "libs/hump/vector"
 assets = require("libs/cargo/cargo").init("assets")
 
 Scene = require "scene"
+require "steer"
 require "utils"
 -- require "entitymanager"
 require "scenemanager"
@@ -22,6 +23,7 @@ local SettingsScene = require "settingsscene"
 local debugMode = true
 
 function love.load()
+   math.randomseed(os.time())
    soundManager:add("battle", "assets/sounds/battle.ogg")
    soundManager:add("menu", "assets/sounds/menu.mp3")
    soundManager:add("menuselect", "assets/sounds/menuselect.wav", true)
