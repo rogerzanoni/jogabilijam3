@@ -47,7 +47,9 @@ function GameScene:draw()
    end
 
    for i, demonstrator in ipairs(gameworld_demonstrators) do
-      love.graphics.print("D", demonstrator.position.x, demonstrator.position.y);
+      if not demonstrator:isDead() then
+         love.graphics.print("D", demonstrator.position.x, demonstrator.position.y);
+      end
    end
 
    love.graphics.setColor(255, 255, 255)
