@@ -1,8 +1,6 @@
-local Object = require 'libs/classic/classic'
-
 local Timer = require 'libs/knife/knife/timer'
 
-IntroScene = Object:extend()
+IntroScene = Scene:extend()
 
 local DEFAULT_INTERVAL = 3
 
@@ -30,27 +28,6 @@ function IntroScene:draw()
       local y = (love.graphics.getHeight() / 2) - (logo:getHeight()/2)
       love.graphics.draw(logo, x, y)
    end
-end
-
-function IntroScene:keyPressed(key, code, isRepeat)
-end
-
-function IntroScene:mousepressed(x, y, button, istouch, presses)
-end
-
-function IntroScene:mousereleased(x, y, button, istouch, presses)
-end
-
-function IntroScene:mousemoved(x, y, dx, dy, istouch)
-end
-
-function IntroScene:wheelmoved(dx, dy)
-end
-
-function IntroScene:gamepadpressed(joystick, button)
-end
-
-function IntroScene:gamepadreleased(joystick, button)
 end
 
 function IntroScene:startTimer()

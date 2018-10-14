@@ -1,8 +1,4 @@
-require "soundmanager"
-
-local Object = require 'libs/classic/classic'
-
-MenuScene = Object:extend()
+MenuScene = Scene:extend()
 
 function MenuScene:new()
    self.items = {
@@ -29,9 +25,6 @@ function MenuScene:init()
    self.buttonScaleY = self.menuItemHeight / self.buttonOnImage:getHeight()
 end
 
-function MenuScene:update(dt)
-end
-
 function MenuScene:draw()
    local oldFont = love.graphics.getFont()
    local r, g, b, a = love.graphics.getColor()
@@ -44,15 +37,14 @@ function MenuScene:draw()
       love.graphics.setColor(r, g, b, a)
       local button = nil
       if i == self.line then
-         love.graphics.setColor(255, 255, 255, 255)
          button = self.buttonOnImage
       else
-         love.graphics.setColor(255, 255, 255, 255)
          button = self.buttonOffImage
       end
 
       love.graphics.draw(button, self.x, self.y + (i - 1) * self.menuItemHeight, 0, self.buttonScaleX, self.buttonScaleY)
 
+      love.graphics.setColor(255, 255, 255, 255)
       love.graphics.setFont(self.menuFont)
       love.graphics.printf(option, self.x,
                         self.y + (i - 1) * self.menuItemHeight + self.menuItemHeight / 2 - self.fontHeight / 2,
@@ -66,7 +58,7 @@ end
 
 function MenuScene:itemSelected(item)
    if item == 1 then
-      sceneManager:setCurrent("prologue")
+      sceneManager:setCurrent("intro")
    elseif item == 2 then
       sceneManager:setCurrent("settings")
    elseif item == 3 then
@@ -89,24 +81,6 @@ function MenuScene:keyPressed(key, scancode,  isRepeat)
       self:itemSelected(self.line)
        soundManager:play("accept")
    end
-end
-
-function MenuScene:mousepressed(x, y, button, istouch, presses)
-end
-
-function MenuScene:mousereleased(x, y, button, istouch, presses)
-end
-
-function MenuScene:mousemoved(x, y, dx, dy, istouch)
-end
-
-function MenuScene:wheelmoved(dx, dy)
-end
-
-function MenuScene:gamepadpressed(joystick, button)
-end
-
-function MenuScene:gamepadreleased(joystick, button)
 end
 
 return MenuScene

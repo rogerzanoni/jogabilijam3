@@ -1,10 +1,7 @@
-local Object = require 'libs/classic/classic'
 local Character = require 'character'
 local Officer = require 'officer'
 
-require "character"
-
-GameScene = Object:extend()
+GameScene = Scene:extend()
 
 gameworld_officers = {}
 gameworld_demonstrators = {}

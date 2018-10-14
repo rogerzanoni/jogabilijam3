@@ -1,8 +1,6 @@
-local Object = require 'libs/classic/classic'
-
 local Timer = require 'libs/knife/knife/timer'
 
-PrologueScene = Object:extend()
+PrologueScene = Scene:extend()
 
 local title_font = nil
 local scaleFactor = nil
@@ -12,9 +10,7 @@ end
 
 function PrologueScene:init()
    -- Fonts
-   -- TODO: Pegar do settings, quando houver
-   scale_factor = love.graphics.getWidth() / 1280 -- 1280 => max horizontal resolution
-   title_font = assets.fonts.hemi_head_bd_it(36 * scale_factor)
+   title_font = assets.fonts.hemi_head_bd_it(36 * settings:screenScaleFactor())
 
    self.drawFunction = nil
    self:startTimers()
@@ -67,27 +63,6 @@ end
 
 function PrologueScene:endScene()
    sceneManager:setCurrent('game')
-end
-
-function PrologueScene:keyPressed(key, code, isRepeat)
-end
-
-function PrologueScene:mousepressed(x, y, button, istouch, presses)
-end
-
-function PrologueScene:mousereleased(x, y, button, istouch, presses)
-end
-
-function PrologueScene:mousemoved(x, y, dx, dy, istouch)
-end
-
-function PrologueScene:wheelmoved(dx, dy)
-end
-
-function PrologueScene:gamepadpressed(joystick, button)
-end
-
-function PrologueScene:gamepadreleased(joystick, button)
 end
 
 return PrologueScene
