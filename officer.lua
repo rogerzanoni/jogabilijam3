@@ -5,8 +5,8 @@ local steer = require 'steer'
 Officer = Character:extend()
 
 local IDLE, MOVING, LOADING, ATTACKING = 0, 1, 2, 3
-local LOAD_FRAMES = 100
-local ATTACK_FRAMES = 30
+local LOAD_FRAMES = 20
+local ATTACK_FRAMES = 40
 
 function Officer:new(x, y)
    Officer.super.new(self, x, y)
@@ -35,6 +35,10 @@ function Officer:new(x, y)
    self.sprite:addAnimation("running",
        { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
          frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 3, 7, 3, .1} } })
+
+   self.sprite:addAnimation("loading",
+       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 7, 7, 7, .1} } })
 
    self.sprite:addAnimation("attacking",
        { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
@@ -74,7 +78,7 @@ function Officer:move()
          self.position = self.position + self.velocity
       else
          print("[state] MOVING -> LOADING")
-         self.sprite:switch 'idle'
+         self.sprite:switch 'loading'
          self.state = LOADING
       end
    end
