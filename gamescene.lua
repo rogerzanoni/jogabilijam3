@@ -1,5 +1,6 @@
 local Character = require 'character'
 local Officer = require 'officer'
+local Demonstrator = require 'demonstrator'
 
 GameScene = Scene:extend()
 
@@ -13,9 +14,9 @@ function GameScene:new()
    table.insert(gameworld_officers, Officer(700,350));
    table.insert(gameworld_officers, Officer(600,500));
 
-   table.insert(gameworld_demonstrators, Character(120,130));
-   table.insert(gameworld_demonstrators, Character(300,430));
-   table.insert(gameworld_demonstrators, Character(434,450));
+   table.insert(gameworld_demonstrators, Demonstrator(120,130));
+   table.insert(gameworld_demonstrators, Demonstrator(300,430));
+   table.insert(gameworld_demonstrators, Demonstrator(434,450));
 
    self.mouseX = 0
    self.mouseY = 0
