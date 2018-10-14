@@ -18,6 +18,7 @@ function Demonstrator:new(x, y)
    self.state = IDLE
    self.menace = nil
    self.target_position = nil
+   self.life = 100
 
    -- Motion
    self.velocity = vector(0, 0)

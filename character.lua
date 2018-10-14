@@ -8,6 +8,14 @@ function Character:new(x, y)
    self.position = vector(x, y)
 end
 
+function Character:receiveDamage(damage)
+   self.life = self.life - damage
+end
+
+function Character:isDead()
+   return self.life <= 0
+end
+
 function Character:update(dt)
    if self.sprite == nil then
       return
