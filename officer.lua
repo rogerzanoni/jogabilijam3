@@ -4,14 +4,21 @@ local steer = require 'steer'
 
 Officer = Character:extend()
 
-local IDLE, MOVING, LOADING, ATTACKING = 0, 1, 2, 3
-local LOAD_FRAMES = 100
-local ATTACK_FRAMES = 30
+-- States
+local IDLE = 'idle'
+local MOVING = 'moving'
+local LOADING = 'loading'
+local ATTACKING = 'attacking'
+
+local LOAD_FRAMES = 20
+local ATTACK_FRAMES = 40
 
 function Officer:new(x, y)
    Officer.super.new(self, x, y)
    self.state = IDLE
    self.target = nil
+   self.damage = 30
+   self.life = 100
 
    -- Motion
    self.velocity = vector(0, 0)
@@ -28,15 +35,19 @@ function Officer:new(x, y)
    -- sprite
    self.sprite = sodapop.newAnimatedSprite(x, y)
 
-   self.sprite:addAnimation("idle",
+   self.sprite:addAnimation(IDLE,
        { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
          frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 1, 7, 1, .1} } })
 
-   self.sprite:addAnimation("running",
+   self.sprite:addAnimation(MOVING,
        { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
          frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 3, 7, 3, .1} } })
 
-   self.sprite:addAnimation("attacking",
+   self.sprite:addAnimation(LOADING,
+       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 7, 7, 7, .1} } })
+
+   self.sprite:addAnimation(ATTACKING,
        { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
          frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 9, 7, 9, .1} } })
 end
@@ -54,13 +65,17 @@ function Officer:update(dt)
    end
 end
 
+function Officer:changeState(state)
+   self.sprite:switch(state)
+   self.state = state
+end
+
 function Officer:look()
    self:seek_target()
    if not (self.target == nil) then
       print("[state] IDLE -> MOVING")
-      self.sprite:switch 'running'
+      self:changeState(MOVING)
       self.sprite.flipX = self.target.position.x < self.position.x
-      self.state = MOVING
    end
 end
 
@@ -74,8 +89,7 @@ function Officer:move()
          self.position = self.position + self.velocity
       else
          print("[state] MOVING -> LOADING")
-         self.sprite:switch 'idle'
-         self.state = LOADING
+         self:changeState(LOADING)
       end
    end
 end
@@ -84,8 +98,7 @@ function Officer:load()
    if self.loading_timer >= LOAD_FRAMES then
       self.loading_timer = 0
       print("[state] LOADING -> ATTACKING")
-      self.state = ATTACKING
-      self.sprite:switch 'attacking'
+      self:changeState(ATTACKING)
    else
       self.loading_timer = self.loading_timer + 1
    end
@@ -94,19 +107,20 @@ end
 function Officer:attack()
    if self.attacking_timer >= ATTACK_FRAMES then
       self.attacking_timer = 0
-      -- TODO: cause damage
+      self.target:receiveDamage(self.damage)
       print("[state] ATTACKING -> IDLE")
-      self.state = IDLE
+      self:changeState(IDLE)
    else
       self.attacking_timer = self.attacking_timer + 1
    end
 end
 
 function Officer:seek_target()
+   self.target = nil
    local closer = self.sight_distance
    for i, dem in ipairs(gameworld_demonstrators) do
       local distance = self.position:dist(dem.position)
-      if distance < closer then
+      if distance < closer and (not dem:isDead()) then
          closer = distance
          self.target = dem
          print("Target found!" .. distance)

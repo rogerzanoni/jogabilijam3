@@ -18,6 +18,7 @@ function Demonstrator:new(x, y)
    self.state = IDLE
    self.menace = nil
    self.target_position = nil
+   self.life = 100
 
    -- Motion
    self.velocity = vector(0, 0)
@@ -48,19 +49,18 @@ function Demonstrator:think()
    if (self.menace == nil) then
     if self.idle_timer >= IDLE_FRAMES then
         self.target_position = steer.wander(self.position, self.velocity, WANDER_DISTANCE, WANDER_RADIUS)
-        self.state = MOVING
+        -- self.state = MOVING
     else
         self.idle_timer = self.idle_timer + 1
     end
    else
-      self.state = RUNNING
+      -- self.state = RUNNING
    end
 end
 
 function Demonstrator:move()
    self:look_for_menace()
    if (self.menace == nil) then
-      print(self.position, self.target_position, type(self.position), type(self.target_position))
       local distance = self.position:dist(self.target_position)
 
       if (distance > WANDER_MIN_PROXIMITY) then

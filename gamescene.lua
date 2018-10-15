@@ -40,12 +40,16 @@ function GameScene:update(dt)
 end
 
 function GameScene:draw()
+   love.graphics.clear(67/255, 139/255, 126/255)
+
    for i, officer in ipairs(gameworld_officers) do
       officer:draw(0, 0)
    end
 
    for i, demonstrator in ipairs(gameworld_demonstrators) do
-      love.graphics.print("D", demonstrator.position.x, demonstrator.position.y);
+      if not demonstrator:isDead() then
+         love.graphics.print("D", demonstrator.position.x, demonstrator.position.y);
+      end
    end
 
    love.graphics.setColor(255, 255, 255)
