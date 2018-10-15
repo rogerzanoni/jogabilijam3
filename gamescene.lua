@@ -7,7 +7,8 @@ GameScene = Scene:extend()
 gameworld_officers = {}
 gameworld_demonstrators = {}
 
-function GameScene:new()
+function GameScene:new(map)
+   GameScene.super:new(map)
    table.insert(gameworld_officers, Officer(20,30));
    table.insert(gameworld_officers, Officer(200,330));
    table.insert(gameworld_officers, Officer(134,350));
@@ -25,11 +26,13 @@ function GameScene:new()
 end
 
 function GameScene:init()
+    GameScene.super:init()
     soundManager:stopAll()
     soundManager:playLoop("battle")
 end
 
 function GameScene:update(dt)
+   GameScene.super:update(dt)
    for i, officer in ipairs(gameworld_officers) do
       officer:update(dt)
    end
@@ -40,7 +43,7 @@ function GameScene:update(dt)
 end
 
 function GameScene:draw()
-   love.graphics.clear(67/255, 139/255, 126/255)
+   GameScene.super:draw()
 
    for i, officer in ipairs(gameworld_officers) do
       officer:draw(0, 0)

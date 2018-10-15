@@ -12,7 +12,7 @@ require "soundmanager"
 local MenuScene = require "menuscene"
 local IntroScene = require "introscene"
 local PrologueScene = require "prologuescene"
--- local Map = require "libs/Simple-Tiled-Implementation/sti"
+local Map = require "libs/Simple-Tiled-Implementation/sti"
 -- local Camera = require "camera"
 local GameScene = require "gamescene"
 -- local EndScene = require "endscene"
@@ -23,6 +23,9 @@ local SettingsScene = require "settingsscene"
 local debugMode = true
 
 function love.load()
+
+   local map = Map("assets/maps/roadbattle.lua")
+
    math.randomseed(os.time())
    soundManager:add("battle", "assets/sounds/battle.ogg")
    soundManager:add("menu", "assets/sounds/menu.mp3")
@@ -36,7 +39,7 @@ function love.load()
    sceneManager:add("prologue", PrologueScene())
    -- sceneManager:add("prologue", DialogScene('prologue', "battle"))
    -- sceneManager:add("battle", GameScene(Camera(), map))
-   sceneManager:add("game", GameScene())
+   sceneManager:add("game", GameScene(map))
    -- sceneManager:add("PlayerWon", EndScene("Jogador"))
    -- sceneManager:add("EnemyWon", EndScene("Inimigo"))
    sceneManager:add("settings", SettingsScene())
