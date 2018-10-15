@@ -13,3 +13,6 @@
 [submodule "libs/cargo"]
 	path = libs/cargo
 	url = https://github.com/bjornbytes/cargo.git
+[submodule "libs/Simple-Tiled-Implementation"]
+	path = libs/Simple-Tiled-Implementation
+	url = https://github.com/karai17/Simple-Tiled-Implementation.git
