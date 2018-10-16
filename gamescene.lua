@@ -9,15 +9,21 @@ gameworld_officers = {}
 gameworld_demonstrators = {}
 
 function GameScene:new()
-   table.insert(gameworld_officers, Officer(20,30));
-   table.insert(gameworld_officers, Officer(200,330));
-   table.insert(gameworld_officers, Officer(134,350));
-   table.insert(gameworld_officers, Officer(700,350));
-   table.insert(gameworld_officers, Officer(600,500));
+   table.insert(gameworld_officers, Officer(600, 200));
+   table.insert(gameworld_officers, Officer(600, 250));
+   table.insert(gameworld_officers, Tank(434, 350));
+   table.insert(gameworld_officers, Officer(600, 300));
+   table.insert(gameworld_officers, Officer(600, 350));
 
-   table.insert(gameworld_demonstrators, Demonstrator(120,130));
-   table.insert(gameworld_demonstrators, Demonstrator(300,430));
-   table.insert(gameworld_demonstrators, Demonstrator(434,450));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,130));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,230));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,330));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,430));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,530));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,630));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,730));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,830));
+   table.insert(gameworld_demonstrators, Demonstrator(1300,930));
 
    self.mouseX = 0
    self.mouseY = 0
@@ -31,30 +37,28 @@ function GameScene:init()
 end
 
 function GameScene:update(dt)
-   for i, officer in ipairs(gameworld_officers) do
-      officer:update(dt)
+   for i, character in ipairs(gameworld_officers) do
+      character:update(dt)
    end
 
-   for i, demonstrator in ipairs(gameworld_demonstrators) do
-      demonstrator:update(dt)
+   for i, character in ipairs(gameworld_demonstrators) do
+      character:update(dt)
    end
 end
 
 function GameScene:draw()
    love.graphics.clear(67/255, 139/255, 126/255)
 
-   for i, officer in ipairs(gameworld_officers) do
-      officer:draw(0, 0)
+   for i, char in ipairs(gameworld_officers) do
+      char:draw(0, 0)
    end
 
-   for i, demonstrator in ipairs(gameworld_demonstrators) do
-      if not demonstrator:isDead() then
-         love.graphics.print("D", demonstrator.position.x, demonstrator.position.y);
-      end
+   for i, char in ipairs(gameworld_demonstrators) do
+      char:draw(0, 0)
    end
 
+   -- Mouse pointer rendering
    love.graphics.setColor(255, 255, 255)
-
    love.graphics.circle(self.mousePressed and 'fill' or 'line',
    self.mouseX, self.mouseY, self.circleRadius, 25)
 end
