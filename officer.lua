@@ -36,19 +36,19 @@ function Officer:new(x, y)
    self.sprite = sodapop.newAnimatedSprite(x, y)
 
    self.sprite:addAnimation(IDLE,
-       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
          frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 1, 7, 1, .1} } })
 
    self.sprite:addAnimation(MOVING,
-       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
          frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 3, 7, 3, .1} } })
 
    self.sprite:addAnimation(LOADING,
-       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
          frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 7, 7, 7, .1} } })
 
    self.sprite:addAnimation(ATTACKING,
-       { image = love.graphics.newImage 'assets/images/Officer_sheet_unboxed_0_0.png',
+       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
          frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 9, 7, 9, .1} } })
 end
 
