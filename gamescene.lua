@@ -1,6 +1,7 @@
 local Character = require 'character'
 local Officer = require 'officer'
 local Demonstrator = require 'demonstrator'
+local Tank = require "tank"
 
 GameScene = Scene:extend()
 
