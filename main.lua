@@ -1,5 +1,6 @@
 vector = require "libs/hump/vector"
 assets = require("libs/cargo/cargo").init("assets")
+sodapop = require "libs/sodapop/sodapop"
 
 Scene = require "scene"
 require "steer"

@@ -35,9 +35,26 @@ function Demonstrator:new(x, y)
    self.idle_timer = 0
    self.moving_timer = 0
    self.running_timer = 0
+
+   -- sprite
+   self.sprite = sodapop.newAnimatedSprite(x, y)
+   self.sprite.color = {255,0,0,255}
+
+   self.sprite:addAnimation(IDLE,
+       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
+         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 1, 7, 1, .1} } })
+
+   self.sprite:addAnimation(MOVING,
+       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
+         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 2, 7, 2, .2} } })
+
+   self.sprite:addAnimation(RUNNING,
+       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
+         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 3, 7, 3, .2} } })
 end
 
 function Demonstrator:update(dt)
+   Demonstrator.super.update(self, dt)
    if self.state == IDLE then
       self:think()
    elseif self.state == MOVING then
@@ -47,23 +64,29 @@ function Demonstrator:update(dt)
    end
 end
 
+function Demonstrator:changeState(state)
+   self.sprite:switch(state)
+   self.state = state
+end
+
 function Demonstrator:think()
    self:look_for_menace()
-   if (self.menace == nil) then
-    if self.idle_timer >= IDLE_FRAMES then
-        self.target_position = steer.wander(self.position, self.velocity, WANDER_DISTANCE, WANDER_RADIUS)
-        -- self.state = MOVING
-    else
-        self.idle_timer = self.idle_timer + 1
-    end
+   if self.menace == nil then
+      if self.idle_timer >= IDLE_FRAMES then
+         self.target_position = steer.wander(self.position, self.velocity, WANDER_DISTANCE, WANDER_RADIUS)
+         self:changeState(MOVING)
+      else
+         self.idle_timer = self.idle_timer + 1
+      end
    else
-      -- self.state = RUNNING
+      self:changeState(RUNNING)
+      self.sprite.flipX = self.menace.position.x < self.position.x
    end
 end
 
 function Demonstrator:move()
    self:look_for_menace()
-   if (self.menace == nil) then
+   if self.menace == nil then
       local distance = self.position:dist(self.target_position)
 
       if (distance > WANDER_MIN_PROXIMITY) then
@@ -73,11 +96,12 @@ function Demonstrator:move()
          self.velocity = self.velocity + steering
          self.position = self.position + self.velocity
       else
-        self.state = IDLE
-        self.target_position = nil
+         self:changeState(IDLE)
+         self.target_position = nil
       end
    else
-      self.state = RUNNING
+      self:changeState(RUNNING)
+      self.sprite.flipX = self.menace.position.x < self.position.x
       self.target_position = nil
    end
 end
@@ -86,7 +110,7 @@ function Demonstrator:running()
    if self.running_timer >= RUNNING_FRAMES then
       self.running_timer = 0
 
-      self.state = IDLE
+      self:changeState(IDLE)
       self.menace = nil
    else
       self.running_timer = self.running_timer + 1

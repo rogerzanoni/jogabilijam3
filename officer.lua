@@ -1,5 +1,4 @@
 local Character = require 'character'
-local sodapop = require "libs/sodapop/sodapop"
 local steer = require 'steer'
 
 Officer = Character:extend()
