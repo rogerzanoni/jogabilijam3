@@ -18,7 +18,10 @@ function Officer:new(x, y)
    self.state = IDLE
    self.target = nil
    self.damage = 30
-   self.life = 100
+   self.max_life = 100
+   self.life = self.max_life
+   self.box_height = 32
+   self.box_width = 32
 
    -- Motion
    self.velocity = vector(0, 0)

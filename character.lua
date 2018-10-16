@@ -32,6 +32,12 @@ function Character:draw(ox, oy)
    self.sprite.sx = settings:screenScaleFactor()
    self.sprite.sy = settings:screenScaleFactor()
    self.sprite:draw(ox, oy)
+
+   -- Draw life bar
+   love.graphics.setColor(0, 0, 0)
+   love.graphics.rectangle("fill", self.position.x - (self.box_width/2), self.position.y - (self.box_height/2) - 10, self.box_width, 5)
+   love.graphics.setColor(0, 255, 0)
+   love.graphics.rectangle("fill", self.position.x - (self.box_width/2), self.position.y - (self.box_height/2) - 10, self.box_width * (self.life/self.max_life), 5)
 end
 
 return Character
