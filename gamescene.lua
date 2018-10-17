@@ -2,7 +2,7 @@ local Character = require 'character'
 local Officer = require 'officer'
 local Demonstrator = require 'demonstrator'
 local Tank = require "tank"
-local Gun = require 'gun'
+local Gunner = require 'gunner'
 
 GameScene = Scene:extend()
 
@@ -15,18 +15,18 @@ function GameScene:new()
    table.insert(gameworld_officers, Tank(434, 350));
    table.insert(gameworld_officers, Officer(600, 300));
    table.insert(gameworld_officers, Officer(600, 350));
-   table.insert(gameworld_officers, Gun(600, 400));
-   table.insert(gameworld_officers, Gun(650, 450));
+   table.insert(gameworld_officers, Gunner(600, 400));
+   table.insert(gameworld_officers, Gunner(650, 450));
 
-   table.insert(gameworld_demonstrators, Demonstrator(1300,130));
-   table.insert(gameworld_demonstrators, Demonstrator(1300,230));
-   table.insert(gameworld_demonstrators, Demonstrator(1300,330));
-   table.insert(gameworld_demonstrators, Demonstrator(1300,430));
-   table.insert(gameworld_demonstrators, Demonstrator(1300,530));
-   table.insert(gameworld_demonstrators, Demonstrator(1300,630));
-   table.insert(gameworld_demonstrators, Demonstrator(1300,730));
-   table.insert(gameworld_demonstrators, Demonstrator(1300,830));
-   table.insert(gameworld_demonstrators, Demonstrator(1300,930));
+   table.insert(gameworld_demonstrators, Demonstrator(800,130));
+   table.insert(gameworld_demonstrators, Demonstrator(800,230));
+   table.insert(gameworld_demonstrators, Demonstrator(800,330));
+   table.insert(gameworld_demonstrators, Demonstrator(800,430));
+   table.insert(gameworld_demonstrators, Demonstrator(800,530));
+   table.insert(gameworld_demonstrators, Demonstrator(800,630));
+   table.insert(gameworld_demonstrators, Demonstrator(800,730));
+   table.insert(gameworld_demonstrators, Demonstrator(800,830));
+   table.insert(gameworld_demonstrators, Demonstrator(800,930));
 
    self.mouseX = 0
    self.mouseY = 0

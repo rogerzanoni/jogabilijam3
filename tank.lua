@@ -4,17 +4,18 @@ local steer = require 'steer'
 Tank = Character:extend()
 
 -- States
-local IDLE = 'idle'
-local MOVING = 'moving'
-local LOADING = 'loading'
-local ATTACKING = 'attacking'
+local STATE_IDLE = 'idle'
+local STATE_MOVING = 'moving'
+local STATE_LOADING = 'loading'
+local STATE_ATTACKING = 'attacking'
+local STATE_DEAD = 'dead'
 
 local LOAD_FRAMES = 60
 local ATTACK_FRAMES = 20
 
 function Tank:new(x, y)
    Tank.super.new(self, x, y)
-   self.state = IDLE
+   self.state = STATE_IDLE
    self.target = nil
    self.damage = 150
    self.max_life = 1000
@@ -37,46 +38,51 @@ function Tank:new(x, y)
    -- sprite
    self.sprite = sodapop.newAnimatedSprite(x, y)
 
-   self.sprite:addAnimation(IDLE,
+   self.sprite:addAnimation(STATE_IDLE,
        { image = love.graphics.newImage 'assets/images/tank-spritesheet.png',
-         frameWidth=256, frameHeight=175, stopAtEnd=false, frames={ {1, 1, 1, 1, .1} } })
+         frameWidth=256, frameHeight=175, stopAtEnd=true, frames={ {1, 1, 1, 1, .1} } })
 
-   self.sprite:addAnimation(MOVING,
+   self.sprite:addAnimation(STATE_MOVING,
        { image = love.graphics.newImage 'assets/images/tank-spritesheet.png',
          frameWidth=256, frameHeight=175, stopAtEnd=false, frames={ {1, 1, 4, 1, .1} } })
 
-   self.sprite:addAnimation(LOADING,
+   self.sprite:addAnimation(STATE_LOADING,
        { image = love.graphics.newImage 'assets/images/tank-spritesheet.png',
-         frameWidth=256, frameHeight=175, stopAtEnd=false, frames={ {1, 1, 1, 1, .1} } })
+         frameWidth=256, frameHeight=175, stopAtEnd=true, frames={ {1, 1, 1, 1, .1} } })
 
-   self.sprite:addAnimation(ATTACKING,
+   self.sprite:addAnimation(STATE_ATTACKING,
        { image = love.graphics.newImage 'assets/images/tank-spritesheet.png',
-         frameWidth=256, frameHeight=175, stopAtEnd=false, frames={ {1, 1, 1, 1, .1} } })
+         frameWidth=256, frameHeight=175, stopAtEnd=true, frames={ {1, 1, 1, 1, .1} } })
+
+   self.sprite:addAnimation(STATE_DEAD,
+       { image = love.graphics.newImage 'assets/images/tank-spritesheet.png',
+         frameWidth=256, frameHeight=175, stopAtEnd=true, frames={ {1, 1, 1, 1, .1} } })
 end
 
 function Tank:update(dt)
    Tank.super.update(self, dt)
-   if self.state == IDLE then
+   if self.state == STATE_IDLE then
       self:look()
-   elseif self.state == MOVING then
+   elseif self.state == STATE_MOVING then
       self:move()
-   elseif self.state == LOADING then
+   elseif self.state == STATE_LOADING then
       self:load()
-   elseif self.state == ATTACKING then
+   elseif self.state == STATE_ATTACKING then
       self:attack()
    end
 end
 
-function Tank:changeState(state)
-   self.sprite:switch(state)
-   self.state = state
+function Tank:receiveDamage(damage)
+   self.life = math.max(0, self.life - damage)
+   if self:isDead() then
+      self:changeState(STATE_DEAD)
+   end
 end
 
 function Tank:look()
    self:seek_target()
    if not (self.target == nil) then
-      print("[state] IDLE -> MOVING")
-      self:changeState(MOVING)
+      self:changeState(STATE_MOVING)
       self.sprite.flipX = self.target.position.x < self.position.x
    end
 end
@@ -90,8 +96,7 @@ function Tank:move()
          self.velocity = self.velocity + steering
          self.position = self.position + self.velocity
       else
-         print("[state] MOVING -> LOADING")
-         self:changeState(LOADING)
+         self:changeState(STATE_LOADING)
       end
    end
 end
@@ -99,8 +104,7 @@ end
 function Tank:load()
    if self.loading_timer >= LOAD_FRAMES then
       self.loading_timer = 0
-      print("[state] LOADING -> ATTACKING")
-      self:changeState(ATTACKING)
+      self:changeState(STATE_ATTACKING)
    else
       self.loading_timer = self.loading_timer + 1
    end
@@ -110,8 +114,7 @@ function Tank:attack()
    if self.attacking_timer >= ATTACK_FRAMES then
       self.attacking_timer = 0
       self.target:receiveDamage(self.damage)
-      print("[state] ATTACKING -> IDLE")
-      self:changeState(IDLE)
+      self:changeState(STATE_IDLE)
    else
       self.attacking_timer = self.attacking_timer + 1
    end
