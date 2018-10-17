@@ -88,6 +88,7 @@ function Officer:look()
 end
 
 function Officer:move()
+   self:seek_target()
    if not (self.target==nil) then
       local distance = self.position:dist(self.target.position)
       if distance > self.attack_distance then

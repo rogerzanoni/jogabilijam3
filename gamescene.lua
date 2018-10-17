@@ -3,6 +3,7 @@ local Officer = require 'officer'
 local Demonstrator = require 'demonstrator'
 local Tank = require "tank"
 local Gunner = require 'gunner'
+local Medic = require 'medic'
 
 GameScene = Scene:extend()
 
@@ -27,6 +28,8 @@ function GameScene:new()
    table.insert(gameworld_demonstrators, Demonstrator(800,730));
    table.insert(gameworld_demonstrators, Demonstrator(800,830));
    table.insert(gameworld_demonstrators, Demonstrator(800,930));
+   table.insert(gameworld_demonstrators, Medic(850,930));
+   table.insert(gameworld_demonstrators, Medic(850,530));
 
    self.mouseX = 0
    self.mouseY = 0
