@@ -12,6 +12,14 @@ function Character:isDead()
    return self.life <= 0
 end
 
+function Character:isHurt()
+   return self.life < self.max_life
+end
+
+function Character:isHealable()
+   return true
+end
+
 function Character:changeState(state)
    print("[state] " .. self.state .. " -> " .. state)
    self.sprite:switch(state)
