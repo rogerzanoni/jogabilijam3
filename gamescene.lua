@@ -105,10 +105,6 @@ end
 -- end
 
 function GameScene:gamepadpressed(joystick, button)
-   print("Gamepad pressed: " .. button)
-end
-
-function GameScene:gamepadreleased(joystick, button)
    print("Gamepad released: " ..  button)
    if self.state == STATE_IDLE then
       if button == "x" then
@@ -137,6 +133,10 @@ function GameScene:gamepadreleased(joystick, button)
          self:movePlacementLeft()
       end
    end
+end
+
+function GameScene:gamepadreleased(joystick, button)
+   print("Gamepad pressed: " .. button)
 end
 
 function GameScene:changeState(state)
