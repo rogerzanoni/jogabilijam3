@@ -16,17 +16,17 @@ function SettingsScene:draw()
    local oldFont = love.graphics.getFont()
    local r, g, b, a = love.graphics.getColor()
 
-   local bgScaleX = love.graphics.getWidth() / self.background:getWidth()
-   local bgScaleY = love.graphics.getHeight() / self.background:getHeight()
+   local bgScaleX = CONF_SCREEN_WIDTH / self.background:getWidth()
+   local bgScaleY = CONF_SCREEN_HEIGHT / self.background:getHeight()
    love.graphics.draw(self.background, 0, 0, 0, bgScaleX, bgScaleY)
 
-   fontHeight = assets.config.fonts.menuItemHeight * settings:screenScaleFactor()
+   fontHeight = assets.config.fonts.menuItemHeight
    menuFont = assets.fonts.hemi_head_bd_it(fontHeight)
-   menuWidth = love.graphics.getWidth() * 0.4
+   menuWidth = CONF_SCREEN_WIDTH * 0.4
    menuItemHeight = fontHeight * 2
    menuHeight = menuItemHeight * #self.items
-   x = love.graphics.getWidth() / 2 - menuWidth / 2
-   y = love.graphics.getHeight() / 2 - menuHeight / 2
+   x = CONF_SCREEN_WIDTH / 2 - menuWidth / 2
+   y = CONF_SCREEN_HEIGHT / 2 - menuHeight / 2
    buttonScaleX = menuWidth / self.buttonOnImage:getWidth()
    buttonScaleY = menuItemHeight / self.buttonOnImage:getHeight()
 

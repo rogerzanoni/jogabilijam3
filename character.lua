@@ -39,8 +39,6 @@ function Character:draw(ox, oy)
    if self.sprite == nil then
       return
    end
-   self.sprite.sx = settings:screenScaleFactor()
-   self.sprite.sy = settings:screenScaleFactor()
    self.sprite:draw(ox, oy)
 
    -- Draw life bar

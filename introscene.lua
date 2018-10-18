@@ -24,8 +24,8 @@ end
 function IntroScene:draw()
    if self.currentSlide > 0 then
       local logo = self.slides[self.currentSlide]
-      local x = (love.graphics.getWidth() / 2) - (logo:getWidth()/2)
-      local y = (love.graphics.getHeight() / 2) - (logo:getHeight()/2)
+      local x = (CONF_SCREEN_WIDTH / 2) - (logo:getWidth()/2)
+      local y = (CONF_SCREEN_HEIGHT / 2) - (logo:getHeight()/2)
       love.graphics.draw(logo, x, y)
    end
 end

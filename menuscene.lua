@@ -11,13 +11,13 @@ function MenuScene:new()
 end
 
 function MenuScene:init()
-   self.fontHeight = assets.config.fonts.menuItemHeight * settings:screenScaleFactor()
+   self.fontHeight = assets.config.fonts.menuItemHeight
    self.menuFont = assets.fonts.hemi_head_bd_it(self.fontHeight)
-   self.menuWidth = love.graphics.getWidth() * 0.4
+   self.menuWidth = CONF_SCREEN_WIDTH * 0.4
    self.menuItemHeight = self.fontHeight * 2
    self.menuHeight = self.menuItemHeight * #self.items
-   self.x = love.graphics.getWidth() / 2 - self.menuWidth / 2
-   self.y = love.graphics.getHeight() / 2 - self.menuHeight / 2
+   self.x = CONF_SCREEN_WIDTH / 2 - self.menuWidth / 2
+   self.y = CONF_SCREEN_HEIGHT / 2 - self.menuHeight / 2
    self.background = love.graphics.newImage('assets/images/bg_menu.png')
    self.buttonOnImage = love.graphics.newImage('assets/images/button_on.png')
    self.buttonOffImage = love.graphics.newImage('assets/images/button_off.png')
@@ -29,8 +29,8 @@ function MenuScene:draw()
    local oldFont = love.graphics.getFont()
    local r, g, b, a = love.graphics.getColor()
 
-   local bgScaleX = love.graphics.getWidth() / self.background:getWidth()
-   local bgScaleY = love.graphics.getHeight() / self.background:getHeight()
+   local bgScaleX = CONF_SCREEN_WIDTH / self.background:getWidth()
+   local bgScaleY = CONF_SCREEN_HEIGHT / self.background:getHeight()
    love.graphics.draw(self.background, 0, 0, 0, bgScaleX, bgScaleY)
 
    for i, option in pairs(self.items) do

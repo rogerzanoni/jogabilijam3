@@ -10,6 +10,9 @@ require "scenemanager"
 require "settings"
 require "soundmanager"
 
+CONF_SCREEN_WIDTH = 1920
+CONF_SCREEN_HEIGHT = 1080
+
 local MenuScene = require "menuscene"
 local IntroScene = require "introscene"
 local PrologueScene = require "prologuescene"
@@ -53,6 +56,7 @@ function love.update(dt)
 end
 
 function love.draw()
+   love.graphics.scale(settings:screenScaleFactor())
    sceneManager:draw()
    if debugMode then
       drawDebugInfo()

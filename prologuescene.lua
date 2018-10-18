@@ -9,7 +9,7 @@ end
 
 function PrologueScene:init()
    -- Fonts
-   title_font = assets.fonts.hemi_head_bd_it(36 * settings:screenScaleFactor())
+   title_font = assets.fonts.hemi_head_bd_it(36)
 
    self.drawFunction = nil
    self:startTimers()
@@ -34,46 +34,42 @@ function PrologueScene:startTimers()
 end
 
 function PrologueScene:hideo()
-   local scale_factor = settings:screenScaleFactor()
    love.graphics.setFont(title_font)
    love.graphics.setColor(255, 255, 255)
-   love.graphics.print("A HIDEO KOJIMA GAME", 1400 * scale_factor, 800 * scale_factor)
+   love.graphics.print("A HIDEO KOJIMA GAME", 1400, 800)
 end
 
 function PrologueScene:not_hideo()
-   local scale_factor = settings:screenScaleFactor()
    love.graphics.setFont(title_font)
    love.graphics.setColor(255, 255, 255)
-   love.graphics.print("NOT", 1320 * scale_factor, 800 * scale_factor)
-   love.graphics.print("A HIDEO KOJIMA GAME", 1400 * scale_factor, 800 * scale_factor)
+   love.graphics.print("NOT", 1320, 800)
+   love.graphics.print("A HIDEO KOJIMA GAME", 1400, 800)
 end
 
 function PrologueScene:place()
-   local scale_factor = settings:screenScaleFactor()
    local text = "SÃO PAULO, BRASIL DO SUL"
    local text_width = love.graphics.getFont():getWidth(text)
    love.graphics.setFont(title_font)
    love.graphics.setColor(255, 255, 255)
    love.graphics.print(text,
-                       (love.graphics.getWidth() - text_width)/2,
-                       love.graphics.getHeight()/2)
+                       (CONF_SCREEN_WIDTH - text_width)/2,
+                       CONF_SCREEN_HEIGHT/2)
 end
 
 function PrologueScene:place_and_time()
-   local scale_factor = settings:screenScaleFactor()
    local text = "SÃO PAULO, BRASIL DO SUL"
    local text_width = love.graphics.getFont():getWidth(text)
    love.graphics.setFont(title_font)
    love.graphics.setColor(255, 255, 255)
    love.graphics.print(text,
-                       (love.graphics.getWidth() - text_width)/2,
-                       love.graphics.getHeight()/2)
+                       (CONF_SCREEN_WIDTH - text_width)/2,
+                       CONF_SCREEN_HEIGHT/2)
    local text = "1 DE MAIO, 2077"
    local text_width = love.graphics.getFont():getWidth(text)
    love.graphics.setColor(255, 0, 0)
    love.graphics.print(text,
-                       (love.graphics.getWidth() - text_width)/2,
-                       (love.graphics.getHeight()/2) + 45)
+                       (CONF_SCREEN_WIDTH - text_width)/2,
+                       (CONF_SCREEN_HEIGHT/2) + 45)
 end
 
 function PrologueScene:endScene()
