@@ -55,30 +55,84 @@ end
 
 function SettingsScene:keyPressed(key, scancode, isRepeat)
    if key=="up" and not isRepeat then
-      self.line = (self.line - 2) % #self.items + 1
-      soundManager:stop("menuselect")
-      soundManager:play("menuselect")
+      self:moveUp()
    elseif key=="down" and not isRepeat then
-      self.line = self.line % #self.items + 1
-      soundManager:stop("menuselect")
-      soundManager:play("menuselect")
+      self:moveDown()
    elseif key=="escape" and not isRepeat then
-      sceneManager:setCurrent("menu")
+      self:back()
    elseif key=="return" and not isRepeat then
-      if self.items[self.line][1] == "Voltar" then -- XXX this is ugly, I know
-         sceneManager:setCurrent("menu")
-      else
-         settings:previousSetting(self.line)
-      end
+      self:selectItem()
    elseif key=="left" and not isRepeat then
-      settings:nextSetting(self.line)
-      soundManager:stop("menuselect")
-      soundManager:play("menuselect")
+      self:previousValue()
    elseif key=="right" and not isRepeat then
-      settings:nextSetting(self.line)
-      soundManager:stop("menuselect")
-      soundManager:play("menuselect")
+      self:nextValue()
    end
+end
+
+function SettingsScene:gamepadpressed(joystick, button)
+   if button == "dpup" then
+      self:moveUp()
+   elseif button == "dpdown" then
+      self:moveDown()
+   elseif button == "dpleft" then
+      self:previousValue()
+   elseif button == "dpright" then
+      self:nextValue()
+   elseif button == "a" then
+      self:selectItem()
+   elseif button == "b" then
+      self:back()
+   end
+end
+
+function SettingsScene:gamepadaxis(joystick, axis, value)
+   if axis == 'lefty' then
+      if value == 1 then
+         self:moveDown()
+      elseif value == -1 then
+         self:moveUp()
+      end
+   elseif axis == "leftx" then
+      if value == 1 then
+         self:nextValue()
+      elseif value == -1 then
+         self:previousValue()
+      end
+   end
+end
+
+function SettingsScene:moveUp()
+   self.line = (self.line - 2) % #self.items + 1
+   soundManager:stop("menuselect")
+   soundManager:play("menuselect")
+end
+
+function SettingsScene:moveDown()
+   self.line = self.line % #self.items + 1
+   soundManager:stop("menuselect")
+   soundManager:play("menuselect")
+end
+
+function SettingsScene:back()
+   sceneManager:setCurrent("menu")
+end
+
+function SettingsScene:selectItem()
+   if self.items[self.line][1] == "Voltar" then -- XXX this is ugly, I know
+      self:back()
+   else
+      self:nextValue()
+   end
+end
+
+function SettingsScene:previousValue()
+   settings:previousSetting(self.line)
+end
+
+function SettingsScene:nextValue()
+   settings:nextSetting(self.line)
+   soundManager:stop("menuselect")
+   soundManager:play("menuselect")
 end
 
 return SettingsScene
