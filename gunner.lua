@@ -39,24 +39,24 @@ function Gunner:new(x, y)
    self.sprite = sodapop.newAnimatedSprite(x, y)
 
    self.sprite:addAnimation(STATE_IDLE,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 1, 7, 1, .1} } })
+       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_MOVING,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 25, 7, 25, .1} } })
+       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_LOADING,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 27, 7, 27, .1} } })
+       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_ATTACKING,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 26, 7, 26, .1} } })
+       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_DEAD,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=true, frames={ {1, 17, 7, 17, .2} } })
+       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 end
 
 function Gunner:update(dt)
