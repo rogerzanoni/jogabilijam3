@@ -35,7 +35,7 @@ end
 function Scene:gamepadreleased(joystick, button)
 end
 
-function love.gamepadaxis(joystick, axis, value)
+function Scene:gamepadaxis(joystick, axis, value)
 end
 
 return Scene
