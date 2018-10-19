@@ -2,6 +2,9 @@ vector = require "libs/hump/vector"
 assets = require("libs/cargo/cargo").init("assets")
 sodapop = require "libs/sodapop/sodapop"
 
+CONF_SCREEN_WIDTH = 1920
+CONF_SCREEN_HEIGHT = 1080
+
 Scene = require "scene"
 require "steer"
 require "utils"
@@ -9,9 +12,6 @@ require "utils"
 require "scenemanager"
 require "settings"
 require "soundmanager"
-
-CONF_SCREEN_WIDTH = 1920
-CONF_SCREEN_HEIGHT = 1080
 
 local MenuScene = require "menuscene"
 local IntroScene = require "introscene"

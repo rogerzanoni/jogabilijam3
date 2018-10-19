@@ -22,3 +22,11 @@ function key_to_joy(key)
     return map[key]
 end
 
+function clamp(character)
+    character.position.x = math.Clamp(character.position.x, character.box_width / 2, CONF_SCREEN_WIDTH - character.box_width / 2)
+    character.position.y = math.Clamp(character.position.y, character.box_height / 2, CONF_SCREEN_HEIGHT - character.box_height / 2)
+end
+
+function math.Clamp(val, lower, upper)
+    return math.max(lower, math.min(upper, val))
+end

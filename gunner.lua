@@ -70,6 +70,8 @@ function Gunner:update(dt)
    elseif self.state == STATE_ATTACKING then
       self:attack()
    end
+
+   clamp(self)
 end
 
 function Character:receiveDamage(damage)
