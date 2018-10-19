@@ -94,6 +94,10 @@ end
 
 function GameScene:keyPressed(key, code, isRepeat)
    print("Key pressed: " .. key)
+   local button = key_to_joy(key)
+   if (button ~= nil) then
+      self:gamepadpressed(nil, button)
+   end
 end
 
 -- function GameScene:mousepressed(x, y, button, istouch, presses)
