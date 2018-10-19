@@ -64,4 +64,8 @@ function SceneManager:gamepadreleased(joystick, button)
     SceneManager.current:gamepadreleased(joystick, button)
 end
 
+function SceneManager:gamepadaxis(joystick, axis, value)
+    SceneManager.current:gamepadaxis(joystick, axis, value)
+end
+
 sceneManager = SceneManager()
