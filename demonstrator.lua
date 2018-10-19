@@ -69,6 +69,8 @@ function Demonstrator:update(dt)
    elseif self.state == STATE_RUNNING then
       self:running()
    end
+
+   clamp(self)
 end
 
 function Demonstrator:receiveDamage(damage)

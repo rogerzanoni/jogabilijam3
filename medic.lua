@@ -61,6 +61,8 @@ function Medic:update(dt)
    elseif self.state == STATE_HEALING then
       self:heal()
    end
+
+   clamp(self)
 end
 
 function Medic:receiveDamage(damage)
