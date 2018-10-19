@@ -105,6 +105,10 @@ function Settings:screenScaleFactor()
    return love.graphics.getHeight() / 1080
 end
 
+function Settings:menuScaleFactor()
+    return math.max(1, 1 / self:screenScaleFactor())
+end
+
 function Settings:nextString(setting)
    local current = setting[3]
    local index = 0

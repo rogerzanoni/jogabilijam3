@@ -20,9 +20,9 @@ function SettingsScene:draw()
    local bgScaleY = CONF_SCREEN_HEIGHT / self.background:getHeight()
    love.graphics.draw(self.background, 0, 0, 0, bgScaleX, bgScaleY)
 
-   fontHeight = assets.config.fonts.menuItemHeight
+   fontHeight = assets.config.fonts.menuItemHeight * settings:menuScaleFactor()
    menuFont = assets.fonts.hemi_head_bd_it(fontHeight)
-   menuWidth = CONF_SCREEN_WIDTH * 0.4
+   menuWidth = math.min(CONF_SCREEN_WIDTH * 0.4 * settings:menuScaleFactor(), CONF_SCREEN_WIDTH * 0.8)
    menuItemHeight = fontHeight * 2
    menuHeight = menuItemHeight * #self.items
    x = CONF_SCREEN_WIDTH / 2 - menuWidth / 2

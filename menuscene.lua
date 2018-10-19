@@ -11,9 +11,9 @@ function MenuScene:new()
 end
 
 function MenuScene:init()
-   self.fontHeight = assets.config.fonts.menuItemHeight
+   self.fontHeight = assets.config.fonts.menuItemHeight * settings:menuScaleFactor()
    self.menuFont = assets.fonts.hemi_head_bd_it(self.fontHeight)
-   self.menuWidth = CONF_SCREEN_WIDTH * 0.4
+   self.menuWidth = math.min(CONF_SCREEN_WIDTH * 0.4 * settings:menuScaleFactor(), CONF_SCREEN_WIDTH * 0.8)
    self.menuItemHeight = self.fontHeight * 2
    self.menuHeight = self.menuItemHeight * #self.items
    self.x = CONF_SCREEN_WIDTH / 2 - self.menuWidth / 2
