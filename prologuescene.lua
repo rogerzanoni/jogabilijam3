@@ -2,14 +2,12 @@ local Timer = require 'libs/knife/knife/timer'
 
 PrologueScene = Scene:extend()
 
-local title_font = nil
-
 function PrologueScene:new()
 end
 
 function PrologueScene:init()
    -- Fonts
-   title_font = assets.fonts.hemi_head_bd_it(36)
+   self.title_font = assets.fonts.hemi_head_bd_it(36)
 
    self.drawFunction = nil
    self:startTimers()
@@ -34,13 +32,13 @@ function PrologueScene:startTimers()
 end
 
 function PrologueScene:hideo()
-   love.graphics.setFont(title_font)
+   love.graphics.setFont(self.title_font)
    love.graphics.setColor(255, 255, 255)
    love.graphics.print("A HIDEO KOJIMA GAME", 1400, 800)
 end
 
 function PrologueScene:not_hideo()
-   love.graphics.setFont(title_font)
+   love.graphics.setFont(self.title_font)
    love.graphics.setColor(255, 255, 255)
    love.graphics.print("NOT", 1320, 800)
    love.graphics.print("A HIDEO KOJIMA GAME", 1400, 800)
@@ -49,7 +47,7 @@ end
 function PrologueScene:place()
    local text = "SÃO PAULO, BRASIL DO SUL"
    local text_width = love.graphics.getFont():getWidth(text)
-   love.graphics.setFont(title_font)
+   love.graphics.setFont(self.title_font)
    love.graphics.setColor(255, 255, 255)
    love.graphics.print(text,
                        (CONF_SCREEN_WIDTH - text_width)/2,
@@ -59,7 +57,7 @@ end
 function PrologueScene:place_and_time()
    local text = "SÃO PAULO, BRASIL DO SUL"
    local text_width = love.graphics.getFont():getWidth(text)
-   love.graphics.setFont(title_font)
+   love.graphics.setFont(self.title_font)
    love.graphics.setColor(255, 255, 255)
    love.graphics.print(text,
                        (CONF_SCREEN_WIDTH - text_width)/2,

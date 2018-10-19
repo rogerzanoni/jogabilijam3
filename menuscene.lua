@@ -70,17 +70,49 @@ end
 
 function MenuScene:keyPressed(key, scancode,  isRepeat)
    if key=="up" and not isRepeat then
-      self.line = (self.line - 2) % #self.items + 1
-       soundManager:stop("menuselect")
-       soundManager:play("menuselect")
+      self:moveUp()
    elseif key=="down" and not isRepeat then
-      self.line = self.line % #self.items + 1
-       soundManager:stop("menuselect")
-       soundManager:play("menuselect")
+      self:moveDown()
    elseif key=="return" and not isRepeat then
-      self:itemSelected(self.line)
-       soundManager:play("accept")
+      self:selectItem()
    end
+end
+
+function MenuScene:gamepadpressed(joystick, button)
+   if button == "dpup" then
+      self:moveUp()
+   elseif button == "dpdown" then
+      self:moveDown()
+   elseif button == "a" then
+      self:selectItem()
+   end
+end
+
+function MenuScene:gamepadaxis(joystick, axis, value)
+   if axis == 'lefty' then
+      if value == 1 then
+         self:moveDown()
+      elseif value == -1 then
+         self:moveUp()
+      end
+   end
+end
+
+function MenuScene:moveUp()
+   self.line = (self.line - 2) % #self.items + 1
+   soundManager:stop("menuselect")
+   soundManager:play("menuselect")
+end
+
+function MenuScene:moveDown()
+   self.line = self.line % #self.items + 1
+   soundManager:stop("menuselect")
+   soundManager:play("menuselect")
+end
+
+function MenuScene:selectItem()
+   self:itemSelected(self.line)
+   soundManager:play("accept")
 end
 
 return MenuScene

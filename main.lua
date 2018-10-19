@@ -97,6 +97,9 @@ function love.gamepadreleased(joystick, button)
     sceneManager:gamepadreleased(joystick, button)
 end
 
+function love.gamepadaxis(joystick, axis, value)
+   sceneManager:gamepadaxis(joystick, axis, value)
+end
 --
 
 function drawDebugInfo()
