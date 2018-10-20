@@ -7,7 +7,7 @@ local Medic = require 'medic'
 local Projectile = require 'projectile'
 
 local STATE_IDLE = "idle"
-local STATE_PLACEMENT = "placement"
+-- TODO: plan other states (gameover, victory, pause?)
 
 -- cooldown constants
 local COOLDOWN_MELEE = 3
@@ -108,14 +108,10 @@ function GameScene:draw()
 
    self:drawPlacementCursor()
 
-   if self.state == STATE_PLACEMENT then
-      self:drawPlacementInstructions()
-   end
+   self:drawPlacementInstructions()
 
-   if self.state == STATE_IDLE then
-      -- self:drawUnitCards()
-      self:drawUnitButtons()
-   end
+   -- self:drawUnitCards()
+   self:drawUnitButtons()
 
    -- Mouse pointer rendering
    -- love.graphics.setColor(255, 255, 255)
@@ -124,7 +120,6 @@ function GameScene:draw()
 end
 
 function GameScene:keyPressed(key, code, isRepeat)
-   print("Key pressed: " .. key)
    local button = key_to_joy(key)
    if (button ~= nil) then
       self:gamepadpressed(nil, button)
@@ -132,7 +127,6 @@ function GameScene:keyPressed(key, code, isRepeat)
 end
 
 function GameScene:keyReleased(key, code, isRepeat)
-   print("Key pressed: " .. key)
    local button = key_to_joy(key)
    if (button ~= nil) then
       self:gamepadreleased(nil, button)
@@ -188,34 +182,21 @@ function GameScene:updatePlacement(dt)
 end
 
 function GameScene:gamepadpressed(joystick, button)
-   print("Gamepad released: " ..  button)
-   if self.state == STATE_IDLE then
-      if button == "a" then
-         if self:allowNewMelee() then
-            self:changeState(STATE_PLACEMENT)
-            self.placement_unit = UNIT_TYPE_MELEE
-         end
-      elseif button == "b" then
-         if self:allowNewGunner() then
-            self:changeState(STATE_PLACEMENT)
-            self.placement_unit = UNIT_TYPE_GUNNER
-         end
-      elseif button == "x" then
-         if self:allowNewMedic() then
-            self:changeState(STATE_PLACEMENT)
-            self.placement_unit = UNIT_TYPE_MEDIC
-         end
-      elseif button == "y" then
-         if self:allowNewTank() then
-            self:changeState(STATE_PLACEMENT)
-            self.placement_unit = UNIT_TYPE_TANK
-         end
+   if button == "a" then
+      if self:allowNewMelee() then
+         self:placeUnit(UNIT_TYPE_MELEE)
       end
-   elseif self.state == STATE_PLACEMENT then
-      if button == "a" then
-         self:placeUnit()
-      elseif button == "b" then
-         self:changeState(STATE_IDLE)
+   elseif button == "b" then
+      if self:allowNewGunner() then
+         self:placeUnit(UNIT_TYPE_GUNNER)
+      end
+   elseif button == "x" then
+      if self:allowNewMedic() then
+         self:placeUnit(UNIT_TYPE_MEDIC)
+      end
+   elseif button == "y" then
+      if self:allowNewTank() then
+         self:placeUnit(UNIT_TYPE_TANK)
       end
    end
 
@@ -256,25 +237,23 @@ function GameScene:placeInitialTroops()
    table.insert(gameworld_officers, Gunner(400, 600));
 end
 
-function GameScene:placeUnit()
+function GameScene:placeUnit(unit_type)
    local x = self.placement_position.x + (PLACEMENT_WIDTH/2)
    local y = self.placement_position.y + (PLACEMENT_HEIGHT/2)
 
-   if self.placement_unit == UNIT_TYPE_MELEE then
+   if unit_type == UNIT_TYPE_MELEE then
       table.insert(gameworld_demonstrators, Demonstrator(x, y));
       self.melee_cooldown = COOLDOWN_MELEE
-   elseif self.placement_unit == UNIT_TYPE_GUNNER then
+   elseif unit_type == UNIT_TYPE_GUNNER then
       table.insert(gameworld_demonstrators, Gunner(x, y));
       self.gunner_cooldown = COOLDOWN_GUNNER
-   elseif self.placement_unit == UNIT_TYPE_MEDIC then
+   elseif unit_type == UNIT_TYPE_MEDIC then
       table.insert(gameworld_demonstrators, Medic(x, y));
       self.medic_cooldown = COOLDOWN_MEDIC
-   elseif self.placement_unit == UNIT_TYPE_TANK then
+   elseif unit_type == UNIT_TYPE_TANK then
       table.insert(gameworld_demonstrators, Tank(x, y));
       self.tank_cooldown = COOLDOWN_TANK
    end
-
-   self:changeState(STATE_IDLE)
 end
 
 function GameScene:allowNewMelee()
@@ -342,17 +321,13 @@ function GameScene:drawPlacementCursor()
 end
 
 function GameScene:drawPlacementInstructions()
-   local left_anchor = 60
+   local left_anchor = 1200
    love.graphics.setColor(255,255,255, 1)
-   love.graphics.draw(self.img_button_left_stick, left_anchor, 980)
-   love.graphics.draw(self.img_button_dpad, left_anchor + 70, 980)
-   love.graphics.print("Mover", left_anchor + 140, 990)
+   love.graphics.setFont(self.unit_card_font)
 
-   love.graphics.draw(self.img_button_a, left_anchor + 270, 980)
-   love.graphics.print("Enviar", left_anchor + 330, 990)
-
-   love.graphics.draw(self.img_button_b, left_anchor + 450, 980)
-   love.graphics.print("Cancelar", left_anchor + 510, 990)
+   love.graphics.draw(self.img_button_left_stick, left_anchor, 880)
+   love.graphics.draw(self.img_button_dpad, left_anchor + 70, 880)
+   love.graphics.print("Mover", left_anchor + 140, 890)
 end
 
 function GameScene:drawUnitButtons()
