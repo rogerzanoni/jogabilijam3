@@ -10,7 +10,7 @@ local STATE_LOADING = 'loading'
 local STATE_ATTACKING = 'attacking'
 local STATE_DEAD = 'dead'
 
-local LOAD_FRAMES = 60
+local LOAD_FRAMES = 200
 local ATTACK_FRAMES = 20
 
 function Tank:new(x, y, life, damage)
@@ -26,8 +26,8 @@ function Tank:new(x, y, life, damage)
    self.max_velocity = 0.2
 
    -- Distances
-   self.sight_distance = 1000
-   self.attack_distance = 200
+   self.sight_distance = 2000
+   self.attack_distance = 400
 
    -- Timers
    self.loading_timer = 0
@@ -130,7 +130,7 @@ function Tank:shoot()
                            self.position.y,
                            self.target.position.x,
                            self.target.position.y,
-                           1.0))
+                           0.2))
 end
 
 function Tank:seek_target()

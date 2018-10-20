@@ -30,8 +30,8 @@ local debugMode = false
 
 function love.load()
    math.randomseed(os.time())
-   soundManager:add("battle", "assets/sounds/battle.ogg")
-   soundManager:add("menu", "assets/sounds/menu.mp3")
+   soundManager:add("battle", "assets/sounds/battle.ogg", false)
+   soundManager:add("menu", "assets/sounds/menu.mp3", false)
    soundManager:add("melee", "assets/sounds/melee.mp3")
    soundManager:add("laser", "assets/sounds/laser.wav")
    soundManager:add("rain", "assets/sounds/rain.ogg")

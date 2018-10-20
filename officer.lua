@@ -25,7 +25,7 @@ function Officer:new(x, y, life, damage)
    self.max_velocity = 1.0
 
    -- Distances
-   self.sight_distance = 200
+   self.sight_distance = 2000
    self.attack_distance = 20
 
    -- Timers

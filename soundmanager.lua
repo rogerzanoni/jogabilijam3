@@ -20,6 +20,7 @@ end
 
 function SoundManager:play(name)
    local source = self.sounds[name]
+   source:stop()
    source:play()
 end
 
