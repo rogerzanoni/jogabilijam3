@@ -367,13 +367,34 @@ function GameScene:drawPlacementInstructions()
 end
 
 function GameScene:drawUnitButtons()
-   love.graphics.setColor(0.4, 0.4, 0.4, 1)
-   love.graphics.circle("fill", 1600, 800, 40)
-   love.graphics.circle("fill", 1500, 900, 40)
-   love.graphics.circle("fill", 1700, 900, 40)
-   love.graphics.circle("fill", 1600, 1000, 40)
+   local back_color = { 0.4, 0.4, 0.4, 1 }
+   local outline_color = { 0.2, 0.2, 0.2, 1 }
 
-   love.graphics.setColor(1, 1, 1, 1)
+   local percentage = 1 - (self.tank_cooldown/COOLDOWN_TANK)
+   love.graphics.setColor(outline_color)
+   love.graphics.circle("fill", 1600, 800, 43)
+   love.graphics.setColor(back_color)
+   love.graphics.circle("fill", 1600, 800, 40 * percentage)
+
+   local percentage = 1 - (self.medic_cooldown/COOLDOWN_MEDIC)
+   love.graphics.setColor(outline_color)
+   love.graphics.circle("fill", 1500, 900, 43)
+   love.graphics.setColor(back_color)
+   love.graphics.circle("fill", 1500, 900, 40 * percentage)
+
+   local percentage = 1 - (self.gunner_cooldown/COOLDOWN_GUNNER)
+   love.graphics.setColor(outline_color)
+   love.graphics.circle("fill", 1700, 900, 43)
+   love.graphics.setColor(back_color)
+   love.graphics.circle("fill", 1700, 900, 40 * percentage)
+
+   local percentage = 1 - (self.melee_cooldown/COOLDOWN_MELEE)
+   love.graphics.setColor(outline_color)
+   love.graphics.circle("fill", 1600, 1000, 43)
+   love.graphics.setColor(back_color)
+   love.graphics.circle("fill", 1600, 1000, 40 * percentage)
+
+   love.graphics.setColor(1,1,1,1)
    love.graphics.draw(self.img_tank_icon, 1573, 770, 0, 0.4)
    love.graphics.draw(self.img_medic_icon, 1483, 875, 0, 0.4)
    love.graphics.draw(self.img_gunner_icon, 1685, 875, 0, 0.4)
