@@ -16,7 +16,9 @@ local COOLDOWN_MEDIC = 10
 local COOLDOWN_TANK = 30
 
 -- UI constants
-local PLACEMENT_SIZE = 100
+local PLACEMENT_WIDTH = CONF_SCREEN_WIDTH / 25
+local PLACEMENT_HEIGHT = CONF_SCREEN_HEIGHT / 15
+local PLACEMENT_MOVE_INTERVAL = 0.1
 
 -- Unit constants
 UNIT_TYPE_MELEE = 'melee'
@@ -32,8 +34,15 @@ gameworld_projectiles = {}
 
 function GameScene:new()
    self.state = STATE_IDLE
+   self.placement_position = vector(CONF_SCREEN_WIDTH / PLACEMENT_WIDTH / 2 * PLACEMENT_WIDTH,
+                                    CONF_SCREEN_HEIGHT / PLACEMENT_HEIGHT / 2 * PLACEMENT_HEIGHT)
    -- Fonts
    self.unit_card_font = assets.fonts.hemi_head_bd_it(18)
+   self.up_pressed = false
+   self.down_pressed = false
+   self.left_pressed = false
+   self.right_pressed = false
+   self.placement_elapsed = 0.0
 
    -- Assets
    self.img_button_a = love.graphics.newImage('assets/images/xb_a.png')
@@ -74,7 +83,7 @@ function GameScene:update(dt)
    -- remove landed projectiles
    local n = #gameworld_projectiles
    for i=1,n do
-      if gameworld_projectiles[i]:hasLanded() then
+      if gameworld_projectiles[i] ~= nil and gameworld_projectiles[i]:hasLanded() then
          gameworld_projectiles[i] = nil
       end
    end
@@ -82,6 +91,8 @@ function GameScene:update(dt)
    for i, proj in ipairs(gameworld_projectiles) do
       proj:update(dt)
    end
+
+   self:updatePlacement(dt)
 
    self.melee_cooldown = math.max(0, self.melee_cooldown - dt)
    self.gunner_cooldown = math.max(0, self.gunner_cooldown - dt)
@@ -95,8 +106,9 @@ function GameScene:draw()
    self:drawUnits()
    self:drawProjectiles()
 
+   self:drawPlacementCursor()
+
    if self.state == STATE_PLACEMENT then
-      self:drawPlacementCursor()
       self:drawPlacementInstructions()
    end
 
@@ -116,6 +128,14 @@ function GameScene:keyPressed(key, code, isRepeat)
    local button = key_to_joy(key)
    if (button ~= nil) then
       self:gamepadpressed(nil, button)
+   end
+end
+
+function GameScene:keyReleased(key, code, isRepeat)
+   print("Key pressed: " .. key)
+   local button = key_to_joy(key)
+   if (button ~= nil) then
+      self:gamepadreleased(nil, button)
    end
 end
 
@@ -149,6 +169,24 @@ end
     -- end
 -- end
 
+function GameScene:updatePlacement(dt)
+    self.placement_elapsed = self.placement_elapsed + dt
+
+    if self.placement_elapsed >= PLACEMENT_MOVE_INTERVAL then
+        self.placement_elapsed = 0.0
+
+        if self.up_pressed then
+            self:movePlacementUp()
+        elseif self.down_pressed then
+            self:movePlacementDown()
+        elseif self.left_pressed then
+            self:movePlacementLeft()
+        elseif self.right_pressed then
+            self:movePlacementRight()
+        end
+    end
+end
+
 function GameScene:gamepadpressed(joystick, button)
    print("Gamepad released: " ..  button)
    if self.state == STATE_IDLE then
@@ -178,31 +216,34 @@ function GameScene:gamepadpressed(joystick, button)
          self:placeUnit()
       elseif button == "b" then
          self:changeState(STATE_IDLE)
-      elseif button == "dpup" then
-         self:movePlacementUp()
-      elseif button == "dpdown" then
-         self:movePlacementDown()
-      elseif button == "dpright" then
-         self:movePlacementRight()
-      elseif button == "dpleft" then
-         self:movePlacementLeft()
       end
+   end
+
+   if button == "dpup" then
+      self.up_pressed = true
+   elseif button == "dpdown" then
+      self.down_pressed = true
+   elseif button == "dpright" then
+      self.right_pressed = true
+   elseif button == "dpleft" then
+      self.left_pressed = true
    end
 end
 
 function GameScene:gamepadreleased(joystick, button)
-   print("Gamepad pressed: " .. button)
+   if button == "dpup" then
+      self.up_pressed = false
+   elseif button == "dpdown" then
+      self.down_pressed = false
+   elseif button == "dpright" then
+      self.right_pressed = false
+   elseif button == "dpleft" then
+      self.left_pressed = false
+   end
 end
 
 function GameScene:changeState(state)
    self.state = state
-
-   if self.state == STATE_IDLE then
-      self.placement_position = nil
-      self.placement_unit = nil
-   elseif self.state == STATE_PLACEMENT then
-      self.placement_position = vector(0,0)
-   end
 end
 
 function GameScene:placeInitialTroops()
@@ -216,8 +257,8 @@ function GameScene:placeInitialTroops()
 end
 
 function GameScene:placeUnit()
-   local x = self.placement_position.x + (PLACEMENT_SIZE/2)
-   local y = self.placement_position.y + (PLACEMENT_SIZE/2)
+   local x = self.placement_position.x + (PLACEMENT_WIDTH/2)
+   local y = self.placement_position.y + (PLACEMENT_HEIGHT/2)
 
    if self.placement_unit == UNIT_TYPE_MELEE then
       table.insert(gameworld_demonstrators, Demonstrator(x, y));
@@ -252,21 +293,27 @@ function GameScene:allowNewTank()
    return self.tank_cooldown == 0
 end
 
+function GameScene:clampPlacement(increment)
+   local new_pos = self.placement_position + increment
+   new_pos.x = math.Clamp(new_pos.x, 0, CONF_SCREEN_WIDTH - PLACEMENT_WIDTH)
+   new_pos.y = math.Clamp(new_pos.y, 0, CONF_SCREEN_HEIGHT - PLACEMENT_HEIGHT)
+   self.placement_position = new_pos
+end
 
 function GameScene:movePlacementDown()
-   self.placement_position = self.placement_position + vector(0, PLACEMENT_SIZE)
+   self:clampPlacement(vector(0, PLACEMENT_HEIGHT))
 end
 
 function GameScene:movePlacementUp()
-   self.placement_position = self.placement_position + vector(0, -PLACEMENT_SIZE)
+   self:clampPlacement(vector(0, -PLACEMENT_HEIGHT))
 end
 
 function GameScene:movePlacementRight()
-   self.placement_position = self.placement_position + vector(PLACEMENT_SIZE, 0)
+   self:clampPlacement(vector(PLACEMENT_WIDTH, 0))
 end
 
 function GameScene:movePlacementLeft()
-   self.placement_position = self.placement_position + vector(-PLACEMENT_SIZE, 0)
+   self:clampPlacement(vector(-PLACEMENT_WIDTH), 0)
 end
 
 -- Drawing
@@ -291,7 +338,7 @@ function GameScene:drawPlacementCursor()
    love.graphics.rectangle("fill",
                            self.placement_position.x,
                            self.placement_position.y,
-                           PLACEMENT_SIZE, PLACEMENT_SIZE)
+                           PLACEMENT_WIDTH, PLACEMENT_HEIGHT)
 end
 
 function GameScene:drawPlacementInstructions()

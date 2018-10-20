@@ -71,7 +71,7 @@ function Gunner:update(dt)
       self:attack()
    end
 
-   clamp(self)
+   self:clamp()
 end
 
 function Character:receiveDamage(damage)

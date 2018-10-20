@@ -71,7 +71,7 @@ function Tank:update(dt)
       self:attack()
    end
 
-   clamp(self)
+   self:clamp()
 end
 
 function Tank:receiveDamage(damage)

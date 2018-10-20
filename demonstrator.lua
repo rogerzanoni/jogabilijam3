@@ -69,7 +69,7 @@ function Demonstrator:update(dt)
       self:running()
    end
 
-   clamp(self)
+   self:clamp()
 end
 
 function Demonstrator:receiveDamage(damage)
