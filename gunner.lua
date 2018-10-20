@@ -117,6 +117,7 @@ function Gunner:attack()
       self:shoot()
       self.target:receiveDamage(self.damage)
       self:changeState(STATE_IDLE)
+      soundManager:play("laser")
    else
       self.attacking_timer = self.attacking_timer + 1
    end
