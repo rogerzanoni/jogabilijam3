@@ -18,6 +18,12 @@ function Character:isHealable()
    return true
 end
 
+function Character:clamp()
+    self.position.x = math.Clamp(self.position.x, self.box_width / 2, CONF_SCREEN_WIDTH - self.box_width / 2)
+    self.position.y = math.Clamp(self.position.y, self.box_height / 2, CONF_SCREEN_HEIGHT - self.box_height / 2)
+end
+
+
 function Character:changeState(state)
    print("[state] " .. self.state .. " -> " .. state)
    self.sprite:switch(state)

@@ -71,6 +71,10 @@ function love.keypressed(key, scancode, isRepeat)
    sceneManager:keyPressed(key, scancode, isRepeat)
 end
 
+function love.keyreleased(key, scancode, isRepeat)
+   sceneManager:keyReleased(key, scancode, isRepeat)
+end
+
 -- mouse
 
 function love.mousepressed(x, y, button, istouch, presses)

@@ -38,6 +38,10 @@ function SceneManager:keyPressed(key, scancode, isRepeat)
    SceneManager.current:keyPressed(key, scancode, isRepeat)
 end
 
+function SceneManager:keyReleased(key, scancode, isRepeat)
+   SceneManager.current:keyReleased(key, scancode, isRepeat)
+end
+
 function SceneManager:mousepressed(x, y, button, istouch, presses)
     SceneManager.current:mousepressed(x, y, button, istouch, presses)
 end

@@ -15,6 +15,9 @@ end
 function Scene:keyPressed(key, scancode, isRepeat)
 end
 
+function Scene:keyReleased(key, scancode, isRepeat)
+end
+
 function Scene:mousepressed(x, y, button, istouch, presses)
 end
 

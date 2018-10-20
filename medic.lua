@@ -61,7 +61,7 @@ function Medic:update(dt)
       self:heal()
    end
 
-   clamp(self)
+   self:clamp()
 end
 
 function Medic:receiveDamage(damage)
