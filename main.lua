@@ -24,7 +24,7 @@ local GameScene = require "gamescene"
 -- local EndScene = require "endscene"
 -- local DialogScene = require "dialogscene"
 local SettingsScene = require "settingsscene"
--- local CreditsScene = require "creditsscene"
+local CreditsScene = require "creditsscene"
 
 local debugMode = false
 
@@ -50,7 +50,7 @@ function love.load()
    -- sceneManager:add("PlayerWon", EndScene("Jogador"))
    -- sceneManager:add("EnemyWon", EndScene("Inimigo"))
    sceneManager:add("settings", SettingsScene())
-   -- sceneManager:add("credits", CreditsScene())
+   sceneManager:add("credits", CreditsScene())
    sceneManager:setCurrent("menu")
 end
 

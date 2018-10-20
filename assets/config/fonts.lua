@@ -4,9 +4,9 @@ return {
    menuItemHeight = 22,
    actionMenuItemHeight = 15,
    dialogTextHeight = 20,
-   creditsTitleSize = 32,
-   creditsSubtitleSize = 26,
-   creditsTextSize = 20,
+   creditsTitleSize = 42,
+   creditsSubtitleSize = 36,
+   creditsTextSize = 26,
    battleTurnSize = 24,
    battleCharNameSize = 16,
    battleCharAttributeSize = 12

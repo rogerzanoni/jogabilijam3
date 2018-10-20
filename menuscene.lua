@@ -26,15 +26,12 @@ function MenuScene:init()
 end
 
 function MenuScene:draw()
-   local oldFont = love.graphics.getFont()
-   local r, g, b, a = love.graphics.getColor()
-
    local bgScaleX = CONF_SCREEN_WIDTH / self.background:getWidth()
    local bgScaleY = CONF_SCREEN_HEIGHT / self.background:getHeight()
+   love.graphics.setColor({1,1,1,1})
    love.graphics.draw(self.background, 0, 0, 0, bgScaleX, bgScaleY)
 
    for i, option in pairs(self.items) do
-      love.graphics.setColor(r, g, b, a)
       local button = nil
       if i == self.line then
          button = self.buttonOnImage
@@ -51,9 +48,6 @@ function MenuScene:draw()
                         self.menuWidth, 'center')
 
    end
-
-   love.graphics.setFont(oldFont)
-   love.graphics.setColor(r, g, b, a)
 end
 
 function MenuScene:itemSelected(item)
