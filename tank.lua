@@ -141,7 +141,8 @@ function Tank:shoot()
                            self.position.y,
                            self.target.position.x,
                            self.target.position.y,
-                           0.2))
+                           0.2,
+                           self.loyalty))
 end
 
 function Tank:seek_target()

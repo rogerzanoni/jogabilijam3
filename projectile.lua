@@ -1,8 +1,10 @@
 local Timer = require "libs/hump/timer"
+local Character = require "character"
 
 Projectile = Object:extend()
 
-function Projectile:new(size, ox, oy, dx, dy, duration)
+function Projectile:new(size, ox, oy, dx, dy, duration, loyalty)
+   self.loyalty = loyalty
    self.size = size
    self.pos = { ox, oy }
    self.dst = { dx, dy }
@@ -15,7 +17,12 @@ end
 
 function Projectile:draw()
    -- love.
-   love.graphics.setColor(255,127,0)
+   if self.loyalty == Character.LOYALTY_ENEMY then
+      love.graphics.setColor(0, 0, 255)
+   else
+      love.graphics.setColor(255, 0 , 0)
+   end
+
    love.graphics.setLineWidth(self.size)
    love.graphics.line(self.pos[1], self.pos[2],
                       self.dst[1], self.dst[2])
