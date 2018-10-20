@@ -9,17 +9,25 @@ function manhattan(p, q)
 end
 
 function key_to_joy(key)
-    local map = {
-        up = "dpup",
-        down = "dpdown",
-        left = "dpleft",
-        right = "dpright",
-        a = "x",
-        s = "y",
-        z = "a",
-        x = "b",
-    }
-    return map[key]
+   if key == "up" then
+      return "dpup"
+   elseif key == "down" then
+      return "dpdown"
+   elseif key == "left" then
+      return "dpleft"
+   elseif key == "right" then
+      return "dpright"
+   elseif key == "1" then
+      return "a"
+   elseif key == "2" then
+      return "b"
+   elseif key == "3" then
+      return "x"
+   elseif key == "4" then
+      return "y"
+   else
+      return nil
+   end
 end
 
 function gamepadConnected()
