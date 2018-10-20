@@ -323,11 +323,28 @@ function GameScene:drawProjectiles()
 end
 
 function GameScene:drawPlacementCursor()
-   love.graphics.setColor(0, 0, 1, 0.5)
-   love.graphics.rectangle("fill",
-                           self.placement_position.x,
-                           self.placement_position.y,
-                           PLACEMENT_WIDTH, PLACEMENT_HEIGHT)
+   love.graphics.setColor(1, 0, 0, 1)
+   love.graphics.setLineWidth(2)
+
+   local corner_x = self.placement_position.x
+   local corner_y = self.placement_position.y
+   love.graphics.line(corner_x, corner_y, corner_x + 40, corner_y)
+   love.graphics.line(corner_x, corner_y, corner_x, corner_y + 40)
+
+   corner_x = self.placement_position.x + PLACEMENT_WIDTH
+   corner_y = self.placement_position.y
+   love.graphics.line(corner_x, corner_y, corner_x - 40, corner_y)
+   love.graphics.line(corner_x, corner_y, corner_x, corner_y + 40)
+
+   corner_x = self.placement_position.x
+   corner_y = self.placement_position.y + PLACEMENT_HEIGHT
+   love.graphics.line(corner_x, corner_y, corner_x + 40, corner_y)
+   love.graphics.line(corner_x, corner_y, corner_x, corner_y - 40)
+
+   corner_x = self.placement_position.x + PLACEMENT_WIDTH
+   corner_y = self.placement_position.y + PLACEMENT_HEIGHT
+   love.graphics.line(corner_x, corner_y, corner_x - 40, corner_y)
+   love.graphics.line(corner_x, corner_y, corner_x, corner_y - 40)
 end
 
 function GameScene:drawPlacementInstructions()
