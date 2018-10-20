@@ -6,6 +6,9 @@ end
 function Scene:init()
 end
 
+function Scene:reset()
+end
+
 function Scene:update(dt)
 end
 

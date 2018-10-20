@@ -5,6 +5,7 @@ function SceneManager:new()
 end
 
 function SceneManager:add(sceneName, scene)
+   scene.initialized = false
    self.scenes[sceneName] = scene
 end
 
@@ -16,7 +17,14 @@ end
 
 function SceneManager:setCurrent(sceneName)
    local scene = self.scenes[sceneName]
-   scene:init()
+
+   if not scene.initialized then
+      scene:init()
+      scene.initialized = true
+   else
+      scene:reset()
+   end
+
    SceneManager.current = scene
 end
 

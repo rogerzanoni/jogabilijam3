@@ -17,7 +17,6 @@ require "soundmanager"
 
 local MenuScene = require "menuscene"
 local IntroScene = require "introscene"
-local PrologueScene = require "prologuescene"
 -- local Map = require "libs/Simple-Tiled-Implementation/sti"
 -- local Camera = require "camera"
 local GameScene = require "gamescene"
@@ -43,8 +42,6 @@ function love.load()
    -- local map = Map("assets/maps/green_valley.lua")
    sceneManager:add("menu", MenuScene())
    sceneManager:add("intro", IntroScene())
-   sceneManager:add("prologue", PrologueScene())
-   -- sceneManager:add("prologue", DialogScene('prologue', "battle"))
    -- sceneManager:add("battle", GameScene(Camera(), map))
    sceneManager:add("game", GameScene())
    -- sceneManager:add("PlayerWon", EndScene("Jogador"))
