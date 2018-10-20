@@ -11,13 +11,10 @@ local STATE_DEAD = 'dead'
 
 local HEALING_FRAMES = 60
 
-function Medic:new(x, y)
-   Medic.super.new(self, x, y)
+function Medic:new(x, y, life, damage)
+   Medic.super.new(self, x, y, life, damage)
    self.state = STATE_IDLE
    self.patient = nil
-   self.damage = -20
-   self.max_life = 100
-   self.life = self.max_life
    self.box_height = 32
    self.box_width = 32
 

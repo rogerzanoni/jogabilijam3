@@ -13,13 +13,10 @@ local STATE_DEAD = 'dead'
 local LOAD_FRAMES = 20
 local ATTACK_FRAMES = 40
 
-function Gunner:new(x, y)
-   Gunner.super.new(self, x, y)
+function Gunner:new(x, y, life, damage)
+   Gunner.super.new(self, x, y, life, damage)
    self.state = STATE_IDLE
    self.target = nil
-   self.damage = 60
-   self.max_life = 70
-   self.life = self.max_life
    self.box_height = 32
    self.box_width = 32
 

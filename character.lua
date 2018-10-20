@@ -2,8 +2,11 @@ require "assets"
 
 Character = Object:extend()
 
-function Character:new(x, y)
+function Character:new(x, y, life, damage)
    self.position = vector(x, y)
+   self.life = life
+   self.max_life = life
+   self.damage = damage
 end
 
 function Character:isDead()
