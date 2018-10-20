@@ -22,6 +22,11 @@ function key_to_joy(key)
     return map[key]
 end
 
+function gamepadConnected()
+   joysticks = love.joystick.getJoysticks()
+   return #joysticks > 0
+end
+
 function math.Clamp(val, lower, upper)
     return math.max(lower, math.min(upper, val))
 end
