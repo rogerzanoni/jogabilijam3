@@ -2,6 +2,8 @@ local Timer = require 'libs/knife/knife/timer'
 
 IntroScene = Scene:extend()
 
+local PrologueScene = require "prologuescene"
+
 local DEFAULT_INTERVAL = 3
 
 function IntroScene:new()
@@ -16,6 +18,13 @@ function IntroScene:init()
    table.insert(self.slides, largato_logo)
    love_logo = love.graphics.newImage('assets/images/love_logo.png')
    table.insert(self.slides, love_logo)
+   self:nextSlide()
+end
+
+function IntroScene:reset()
+   Timer.clear()
+   soundManager:stopAll()
+   self.currentSlide = 0
    self:nextSlide()
 end
 
@@ -43,6 +52,9 @@ function IntroScene:nextSlide()
       self.currentSlide = self.currentSlide+1
       self:startTimer()
    else
+      -- Reloading the timer on prologue scene wasn't working
+      sceneManager:remove("prologue")
+      sceneManager:add("prologue", PrologueScene())
       sceneManager:setCurrent('prologue')
    end
 end

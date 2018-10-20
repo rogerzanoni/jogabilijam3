@@ -1,10 +1,12 @@
 Scene = Object:extend()
 
 function Scene:new()
-    self.initialized = false
 end
 
 function Scene:init()
+end
+
+function Scene:reset()
 end
 
 function Scene:update(dt)
