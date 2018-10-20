@@ -2,11 +2,18 @@ require "assets"
 
 Character = Object:extend()
 
+Character.LOYALTY_NONE  = 'none'
+Character.LOYALTY_USER  = 'user'
+Character.LOYALTY_ENEMY = 'enemy'
+Character.LOYALTY_ALLY  = 'ally'
+
 function Character:new(x, y, life, damage)
    self.position = vector(x, y)
    self.life = life
    self.max_life = life
    self.damage = damage
+   self.position = vector(x, y)
+   self.loyalty = self.LOYALTY_USER
 end
 
 function Character:isDead()
