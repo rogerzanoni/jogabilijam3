@@ -144,18 +144,16 @@ function GameScene:keyReleased(key, code, isRepeat)
 end
 
 function GameScene:gamepadaxis(joystick, axis, value)
+   if self.prevent_axis_movement then
+       return
+   end
+
    if axis == 'lefty' then
-      if value == 1 then
-         self:movePlacementDown()
-      elseif value == -1 then
-         self:movePlacementUp()
-      end
+      self.down_pressed = value > 0.9
+      self.up_pressed = value < -0.9
    elseif axis == 'leftx' then
-      if value == 1 then
-         self:movePlacementRight()
-      elseif value == -1 then
-         self:movePlacementLeft()
-      end
+      self.right_pressed = value > 0.9
+      self.left_pressed = value < -0.9
    end
 end
 
@@ -235,17 +233,22 @@ function GameScene:gamepadpressed(joystick, button)
    elseif button == "dpleft" then
       self.left_pressed = true
    end
+   self.prevent_axis_movement = self.up_pressed or self.down_pressed or self.left_pressed or self.right_pressed
 end
 
 function GameScene:gamepadreleased(joystick, button)
    if button == "dpup" then
       self.up_pressed = false
+      self.prevent_axis_movement = false
    elseif button == "dpdown" then
       self.down_pressed = false
+      self.prevent_axis_movement = false
    elseif button == "dpright" then
       self.right_pressed = false
+      self.prevent_axis_movement = false
    elseif button == "dpleft" then
       self.left_pressed = false
+      self.prevent_axis_movement = false
    end
 end
 
