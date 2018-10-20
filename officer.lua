@@ -34,6 +34,7 @@ function Officer:new(x, y, life, damage, loyalty)
 
    -- sprite
    self.sprite = sodapop.newAnimatedSprite(x, y)
+   self.sprite.flipX = self.loyalty == self.LOYALTY_USER
 
    self.sprite:addAnimation(STATE_IDLE,
        { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
