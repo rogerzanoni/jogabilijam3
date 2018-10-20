@@ -19,6 +19,7 @@ local COOLDOWN_TANK = 30
 -- UI constants
 local PLACEMENT_WIDTH = CONF_SCREEN_WIDTH / 16
 local PLACEMENT_HEIGHT = CONF_SCREEN_HEIGHT / 9
+local PLACEMENT_ROWS = 4
 local PLACEMENT_MOVE_INTERVAL = 0.1
 
 -- Unit constants
@@ -289,7 +290,9 @@ end
 
 function GameScene:clampPlacement(increment)
    local new_pos = self.placement_position + increment
-   new_pos.x = math.Clamp(new_pos.x, CONF_SCREEN_WIDTH - (3*PLACEMENT_WIDTH) , CONF_SCREEN_WIDTH - PLACEMENT_WIDTH)
+   new_pos.x = math.Clamp(new_pos.x,
+                          CONF_SCREEN_WIDTH - (PLACEMENT_ROWS * PLACEMENT_WIDTH),
+                          CONF_SCREEN_WIDTH - PLACEMENT_WIDTH)
    new_pos.y = math.Clamp(new_pos.y, 0, CONF_SCREEN_HEIGHT - PLACEMENT_HEIGHT)
    self.placement_position = new_pos
 end
