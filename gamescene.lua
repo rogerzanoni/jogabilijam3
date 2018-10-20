@@ -388,10 +388,10 @@ function GameScene:drawUnitButtons()
    love.graphics.circle("fill", 1610, 980, 60 * percentage)
 
    love.graphics.setColor(1,1,1,1)
-   love.graphics.draw(self.img_tank_icon, 1550, 720)
-   love.graphics.draw(self.img_medic_icon, 1450, 820)
-   love.graphics.draw(self.img_gunner_icon, 1650, 820)
-   love.graphics.draw(self.img_melee_icon, 1550, 920)
+   love.graphics.draw(self.img_tank_icon, 1548, 718)
+   love.graphics.draw(self.img_medic_icon, 1448, 818)
+   love.graphics.draw(self.img_gunner_icon, 1648, 818)
+   love.graphics.draw(self.img_melee_icon, 1548, 918)
 
    if self:allowNewTank() then
       love.graphics.draw(self.img_button_y, 1590, 825)
