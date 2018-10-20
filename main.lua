@@ -26,7 +26,7 @@ local GameScene = require "gamescene"
 local SettingsScene = require "settingsscene"
 -- local CreditsScene = require "creditsscene"
 
-local debugMode = true
+local debugMode = false
 
 function love.load()
    math.randomseed(os.time())
