@@ -16,8 +16,8 @@ local WANDER_DISTANCE = 40
 local WANDER_RADIUS = 10
 local WANDER_MIN_PROXIMITY = 5
 
-function Demonstrator:new(x, y)
-   Demonstrator.super.new(self, x, y)
+function Demonstrator:new(x, y, life, damage, loyalty)
+   Demonstrator.super.new(self, x, y, life, damage, loyalty)
    self.state = STATE_IDLE
    self.menace = nil
    self.target_position = nil

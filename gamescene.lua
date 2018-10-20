@@ -257,16 +257,16 @@ function GameScene:placeUnit(unit_type)
    local y = self.placement_position.y + (PLACEMENT_HEIGHT/2)
 
    if unit_type == UNIT_TYPE_MELEE then
-      table.insert(gameworld_demonstrators, Demonstrator(x, y, 100, 30));
+      table.insert(gameworld_demonstrators, Demonstrator(x, y, 100, 30, Character.LOYALTY_USER));
       self.melee_cooldown = COOLDOWN_MELEE
    elseif unit_type == UNIT_TYPE_GUNNER then
-      table.insert(gameworld_demonstrators, Gunner(x, y, 100, 70));
+      table.insert(gameworld_demonstrators, Gunner(x, y, 100, 70, Character.LOYALTY_USER));
       self.gunner_cooldown = COOLDOWN_GUNNER
    elseif unit_type == UNIT_TYPE_MEDIC then
-      table.insert(gameworld_demonstrators, Medic(x, y, 100, -20));
+      table.insert(gameworld_demonstrators, Medic(x, y, 100, -20, Character.LOYALTY_USER));
       self.medic_cooldown = COOLDOWN_MEDIC
    elseif unit_type == UNIT_TYPE_TANK then
-      table.insert(gameworld_demonstrators, Tank(x, y, 1000, 150));
+      table.insert(gameworld_demonstrators, Tank(x, y, 1000, 150, Character.LOYALTY_USER));
       self.tank_cooldown = COOLDOWN_TANK
    end
 end

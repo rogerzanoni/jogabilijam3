@@ -13,8 +13,8 @@ local STATE_DEAD = 'dead'
 local LOAD_FRAMES = 200
 local ATTACK_FRAMES = 20
 
-function Tank:new(x, y, life, damage)
-   Tank.super.new(self, x, y, life, damage)
+function Tank:new(x, y, life, damage, loyalty)
+   Tank.super.new(self, x, y, life, damage, loyalty)
 
    self.state = STATE_IDLE
    self.target = nil
