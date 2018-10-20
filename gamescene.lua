@@ -82,26 +82,33 @@ end
 function GameScene:update(dt)
     self.eventManager:update(dt)
 
+   -- remove gone officers
+   for i=#gameworld_officers,1,-1 do
+      if gameworld_officers[i]:isGone() then
+         table.remove(gameworld_officers, i)
+      end
+   end
+
+   -- remove gone demonstrators
+   for i=#gameworld_demonstrators,1,-1 do
+      if gameworld_demonstrators[i]:isGone() then
+         table.remove(gameworld_demonstrators, i)
+      end
+   end
+
+   -- remove landed projectiles
+   for i=#gameworld_projectiles,1,-1 do
+      if gameworld_projectiles[i]:hasLanded() then
+         table.remove(gameworld_projectiles, i)
+      end
+   end
+
    for i, character in ipairs(gameworld_officers) do
       character:update(dt)
    end
 
    for i, character in ipairs(gameworld_demonstrators) do
       character:update(dt)
-   end
-
-   -- remove landed projectiles
-   local n = #gameworld_projectiles
-   for i=1,n do
-      if gameworld_projectiles[i] ~= nil and gameworld_projectiles[i]:hasLanded() then
-         gameworld_projectiles[i] = nil
-      end
-   end
-
-   for i=#gameworld_projectiles,1,-1 do
-      if not gameworld_projectiles[i] then
-         table.remove(gameworld_projectiles, i)
-      end
    end
 
    for i, proj in ipairs(gameworld_projectiles) do
