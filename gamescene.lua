@@ -98,6 +98,12 @@ function GameScene:update(dt)
       end
    end
 
+   for i=#gameworld_projectiles,1,-1 do
+      if not gameworld_projectiles[i] then
+         table.remove(gameworld_projectiles, i)
+      end
+   end
+
    for i, proj in ipairs(gameworld_projectiles) do
       proj:update(dt)
    end
