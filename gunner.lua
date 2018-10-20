@@ -34,6 +34,8 @@ function Gunner:new(x, y, life, damage, loyalty)
    self.sprite = sodapop.newAnimatedSprite(x, y)
    self.sprite.flipX = self.loyalty == self.LOYALTY_USER
 
+   local spritesheet = "assets/images/enemy_gunner.png"
+
    if self.loyalty==self.LOYALTY_USER then
       spritesheet = "assets/images/player_gunner.png"
    end
