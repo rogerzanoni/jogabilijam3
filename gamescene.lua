@@ -35,7 +35,7 @@ gameworld_projectiles = {}
 
 function GameScene:new()
    self.state = STATE_IDLE
-   self.placement_position = vector(CONF_SCREEN_WIDTH / PLACEMENT_WIDTH / 2 * PLACEMENT_WIDTH,
+   self.placement_position = vector(CONF_SCREEN_WIDTH - PLACEMENT_WIDTH,
                                     CONF_SCREEN_HEIGHT / PLACEMENT_HEIGHT / 2 * PLACEMENT_HEIGHT)
    -- Fonts
    self.unit_card_font = assets.fonts.hemi_head_bd_it(18)
@@ -268,7 +268,7 @@ end
 
 function GameScene:clampPlacement(increment)
    local new_pos = self.placement_position + increment
-   new_pos.x = math.Clamp(new_pos.x, 0, CONF_SCREEN_WIDTH - PLACEMENT_WIDTH)
+   new_pos.x = math.Clamp(new_pos.x, CONF_SCREEN_WIDTH - (3*PLACEMENT_WIDTH) , CONF_SCREEN_WIDTH - PLACEMENT_WIDTH)
    new_pos.y = math.Clamp(new_pos.y, 0, CONF_SCREEN_HEIGHT - PLACEMENT_HEIGHT)
    self.placement_position = new_pos
 end
