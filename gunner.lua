@@ -96,12 +96,6 @@ function Gunner:move()
          local steering = desired_velocity - self.velocity
          self.velocity = self.velocity + steering
          self.position = self.position + self.velocity
-
-         local polar = self.velocity:toPolar()
-         if (polar.x ~= nil) then
-            self.sprite.flipX = math.sin(polar.x) >= 0
-         end
-
       else
          self:changeState(STATE_LOADING)
       end

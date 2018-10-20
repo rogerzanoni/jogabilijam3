@@ -45,6 +45,10 @@ function Character:update(dt)
    end
    self.sprite.x = self.position.x
    self.sprite.y = self.position.y
+   local polar = self.velocity:toPolar()
+   if (polar.y ~= 0) then
+      self.sprite.flipX = math.sin(polar.x) < 0
+   end
    self.sprite:update(dt)
 end
 

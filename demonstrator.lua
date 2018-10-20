@@ -106,21 +106,12 @@ function Demonstrator:move()
 
          self.velocity = self.velocity + steering
          self.position = self.position + self.velocity
-
-         local polar = self.velocity:toPolar()
-         if (polar.x ~= nil) then
-            self.sprite.flipX = math.sin(polar.x) >= 0
-         end
       else
          self:changeState(STATE_IDLE)
          self.target_position = nil
       end
    else
       self:changeState(STATE_RUNNING)
-      local polar = self.velocity:toPolar()
-      if (polar.x ~= nil) then
-         self.sprite.flipX = math.sin(polar.x) >= 0
-      end
       self.target_position = nil
    end
 end
