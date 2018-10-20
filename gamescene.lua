@@ -50,8 +50,7 @@ function GameScene:new()
    self.img_button_b = love.graphics.newImage('assets/images/xb_b.png')
    self.img_button_x = love.graphics.newImage('assets/images/xb_x.png')
    self.img_button_y = love.graphics.newImage('assets/images/xb_y.png')
-   self.img_button_dpad = love.graphics.newImage('assets/images/xb_dpad.png')
-   self.img_button_left_stick = love.graphics.newImage('assets/images/xb_left_stick.png')
+   self.img_button_move = love.graphics.newImage('assets/images/xb_move.png')
 
    self.img_key_z = love.graphics.newImage('assets/images/key_z.png')
    self.img_key_x = love.graphics.newImage('assets/images/key_x.png')
@@ -122,7 +121,6 @@ function GameScene:draw()
 
    self:drawPlacementInstructions()
 
-   -- self:drawUnitCards()
    self:drawUnitButtons()
 
    -- Mouse pointer rendering
@@ -373,12 +371,11 @@ function GameScene:drawPlacementInstructions()
    love.graphics.setFont(self.unit_card_font)
 
    if gamepadConnected() then
-      love.graphics.draw(self.img_button_left_stick, left_anchor, 880)
-      love.graphics.draw(self.img_button_dpad, left_anchor + 70, 880)
+      love.graphics.draw(self.img_button_move, left_anchor, 880)
    else
       love.graphics.draw(self.img_key_arrows, left_anchor + 70, 880)
+      love.graphics.print("Mover", left_anchor + 140, 890)
    end
-   love.graphics.print("Mover", left_anchor + 140, 890)
 end
 
 function GameScene:drawUnitButtons()
