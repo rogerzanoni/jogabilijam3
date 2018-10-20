@@ -15,9 +15,9 @@ end
 function Projectile:draw()
    -- love.
    love.graphics.setColor(255,127,0)
-   love.graphics.setLineWidth(2)
+   love.graphics.setLineWidth(8)
    love.graphics.line(self.pos[1], self.pos[2],
-                      self.pos[1]+2, self.pos[2])
+                      self.dst[1], self.dst[2])
 end
 
 function Projectile:hasLanded()
