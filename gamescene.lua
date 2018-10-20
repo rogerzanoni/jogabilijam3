@@ -4,6 +4,7 @@ local Demonstrator = require 'demonstrator'
 local Tank = require "tank"
 local Gunner = require 'gunner'
 local Medic = require 'medic'
+local Projectile = require 'projectile'
 
 local STATE_IDLE = "idle"
 local STATE_PLACEMENT = "placement"
@@ -27,6 +28,7 @@ GameScene = Scene:extend()
 
 gameworld_officers = {}
 gameworld_demonstrators = {}
+gameworld_projectiles = {}
 
 function GameScene:new()
    self.state = STATE_IDLE
@@ -63,6 +65,18 @@ function GameScene:update(dt)
       character:update(dt)
    end
 
+   -- remove landed projectiles
+   local n = #gameworld_projectiles
+   for i=1,n do
+      if gameworld_projectiles[i]:hasLanded() then
+         gameworld_projectiles[i] = nil
+      end
+   end
+
+   for i, proj in ipairs(gameworld_projectiles) do
+      proj:update(dt)
+   end
+
    self.melee_cooldown = math.max(0, self.melee_cooldown - dt)
    self.gunner_cooldown = math.max(0, self.gunner_cooldown - dt)
    self.medic_cooldown = math.max(0, self.medic_cooldown - dt)
@@ -73,6 +87,7 @@ function GameScene:draw()
    love.graphics.clear(67/255, 139/255, 126/255)
 
    self:drawUnits()
+   self:drawProjectiles()
 
    if self.state == STATE_PLACEMENT then
       self:drawPlacementCursor()
@@ -255,6 +270,12 @@ function GameScene:drawUnits()
 
    for i, char in ipairs(gameworld_demonstrators) do
       char:draw(0, 0)
+   end
+end
+
+function GameScene:drawProjectiles()
+   for i, proj in ipairs(gameworld_projectiles) do
+      proj:draw()
    end
 end
 

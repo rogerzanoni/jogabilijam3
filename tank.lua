@@ -90,6 +90,7 @@ function Tank:look()
 end
 
 function Tank:move()
+   self:seek_target()
    if not (self.target==nil) then
       local distance = self.position:dist(self.target.position)
       if distance > self.attack_distance then
@@ -113,13 +114,24 @@ function Tank:load()
 end
 
 function Tank:attack()
-   if self.attacking_timer >= ATTACK_FRAMES then
+   self:seek_target()
+   if self.target~=nil and self.attacking_timer >= ATTACK_FRAMES then
       self.attacking_timer = 0
+      self:shoot()
       self.target:receiveDamage(self.damage)
       self:changeState(STATE_IDLE)
    else
       self.attacking_timer = self.attacking_timer + 1
    end
+end
+
+function Tank:shoot()
+   table.insert(gameworld_projectiles,
+                Projectile(self.position.x,
+                           self.position.y,
+                           self.target.position.x,
+                           self.target.position.y,
+                           1.0))
 end
 
 function Tank:seek_target()
