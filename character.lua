@@ -14,7 +14,7 @@ function Character:new(x, y, life, damage, loyalty)
    self.damage = damage
    self.loyalty = loyalty
    self.box_height = 120
-   self.box_width = 80
+   self.box_width = 120
 end
 
 function Character:isDead()
@@ -77,7 +77,6 @@ function Character:getEnemiesList()
    elseif self.loyalty == self.LOYALTY_ENEMY then
       return gameworld_demonstrators
    end
-
 end
 
 function Character:getFriendsList()

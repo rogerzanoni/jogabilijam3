@@ -31,21 +31,27 @@ function Medic:new(x, y, life, damage, loyalty)
    self.sprite = sodapop.newAnimatedSprite(x, y)
    self.sprite.flipX = self.loyalty == self.LOYALTY_USER
 
+   local spritesheet = "assets/images/enemy_medic.png"
+
+   if self.loyalty==self.LOYALTY_USER then
+      spritesheet = "assets/images/player_medic.png"
+   end
+
    self.sprite:addAnimation(STATE_IDLE,
-       { image = love.graphics.newImage 'assets/images/medic-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_MOVING,
-       { image = love.graphics.newImage 'assets/images/medic-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 3, 4, 3, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=false, frames={ {1, 4, 4, 4, .2} } })
 
    self.sprite:addAnimation(STATE_HEALING,
-       { image = love.graphics.newImage 'assets/images/medic-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=false, frames={ {1, 3, 4, 3, .2} } })
 
    self.sprite:addAnimation(STATE_DEAD,
-       { image = love.graphics.newImage 'assets/images/medic-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=true, frames={ {1, 2, 4, 2, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=true, frames={ {1, 2, 4, 2, .2} } })
 end
 
 function Medic:update(dt)
