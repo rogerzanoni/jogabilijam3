@@ -18,7 +18,7 @@ function Medic:new(x, y, life, damage, loyalty)
 
    -- Motion
    self.velocity = vector(0, 0)
-   self.max_velocity = 1.5
+   self.max_velocity = 2.5
 
    -- Distances
    self.sight_distance = 1000

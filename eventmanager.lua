@@ -7,7 +7,12 @@ function EventManager:new(eventScript)
 end
 
 function EventManager:init()
-   for i, event in ipairs(self.eventScript) do
+   self:deploy();
+   Timer.every(60, function() self:deploy() end)
+end
+
+function EventManager:deploy()
+    for i, event in ipairs(self.eventScript) do
        Timer.after(event.time,  function() table.insert(gameworld_officers, event.unit(event.x, event.y, event.life, event.damage, Character.LOYALTY_ENEMY)) end)
    end
 end

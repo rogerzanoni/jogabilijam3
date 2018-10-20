@@ -23,7 +23,7 @@ function Gunner:new(x, y, life, damage, loyalty)
    self.max_velocity = 0.8
 
    -- Distances
-   self.sight_distance = 500
+   self.sight_distance = 1000
    self.attack_distance = 370
 
    -- Timers
