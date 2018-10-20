@@ -1,6 +1,7 @@
 local Character = require 'character'
 local Officer = require 'officer'
 local Demonstrator = require 'demonstrator'
+local EventManager = require 'eventmanager'
 local Tank = require "tank"
 local Gunner = require 'gunner'
 local Medic = require 'medic'
@@ -63,15 +64,18 @@ function GameScene:new()
    self.gunner_cooldown = COOLDOWN_GUNNER
    self.medic_cooldown = COOLDOWN_MEDIC
    self.tank_cooldown = COOLDOWN_TANK
+   self.eventManager = EventManager(assets.scripts.events.gamescene)
 end
 
 function GameScene:init()
     soundManager:stopAll()
     soundManager:playLoop("battle")
-    self:placeInitialTroops()
+    self.eventManager:init()
 end
 
 function GameScene:update(dt)
+    self.eventManager:update(dt)
+
    for i, character in ipairs(gameworld_officers) do
       character:update(dt)
    end
@@ -227,31 +231,21 @@ function GameScene:changeState(state)
    self.state = state
 end
 
-function GameScene:placeInitialTroops()
-   table.insert(gameworld_officers, Officer(600, 200));
-   table.insert(gameworld_officers, Officer(600, 400));
-   table.insert(gameworld_officers, Officer(600, 600));
-   table.insert(gameworld_officers, Officer(600, 800));
-   table.insert(gameworld_officers, Tank(200, 500));
-   table.insert(gameworld_officers, Gunner(400, 400));
-   table.insert(gameworld_officers, Gunner(400, 600));
-end
-
 function GameScene:placeUnit(unit_type)
    local x = self.placement_position.x + (PLACEMENT_WIDTH/2)
    local y = self.placement_position.y + (PLACEMENT_HEIGHT/2)
 
    if unit_type == UNIT_TYPE_MELEE then
-      table.insert(gameworld_demonstrators, Demonstrator(x, y));
+      table.insert(gameworld_demonstrators, Demonstrator(x, y, 100, 30));
       self.melee_cooldown = COOLDOWN_MELEE
    elseif unit_type == UNIT_TYPE_GUNNER then
-      table.insert(gameworld_demonstrators, Gunner(x, y));
+      table.insert(gameworld_demonstrators, Gunner(x, y, 100, 70));
       self.gunner_cooldown = COOLDOWN_GUNNER
    elseif unit_type == UNIT_TYPE_MEDIC then
-      table.insert(gameworld_demonstrators, Medic(x, y));
+      table.insert(gameworld_demonstrators, Medic(x, y, 100, -20));
       self.medic_cooldown = COOLDOWN_MEDIC
    elseif unit_type == UNIT_TYPE_TANK then
-      table.insert(gameworld_demonstrators, Tank(x, y));
+      table.insert(gameworld_demonstrators, Tank(x, y, 1000, 150));
       self.tank_cooldown = COOLDOWN_TANK
    end
 end

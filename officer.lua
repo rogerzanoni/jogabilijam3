@@ -13,13 +13,10 @@ local STATE_DEAD = 'dead'
 local LOAD_FRAMES = 20
 local ATTACK_FRAMES = 40
 
-function Officer:new(x, y)
-   Officer.super.new(self, x, y)
+function Officer:new(x, y, life, damage)
+   Officer.super.new(self, x, y, life, damage)
    self.state = STATE_IDLE
    self.target = nil
-   self.damage = 30
-   self.max_life = 100
-   self.life = self.max_life
    self.box_height = 32
    self.box_width = 32
 
