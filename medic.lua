@@ -34,22 +34,21 @@ function Medic:new(x, y)
 
    -- sprite
    self.sprite = sodapop.newAnimatedSprite(x, y)
-   self.sprite.color = { 0,0,255,255 }
    self.sprite:addAnimation(STATE_IDLE,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 1, 7, 1, .1} } })
+       { image = love.graphics.newImage 'assets/images/medic-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_MOVING,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 3, 7, 3, .1} } })
+       { image = love.graphics.newImage 'assets/images/medic-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 3, 4, 3, .2} } })
 
    self.sprite:addAnimation(STATE_HEALING,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 7, 7, 7, .1} } })
+       { image = love.graphics.newImage 'assets/images/medic-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_DEAD,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=true, frames={ {1, 17, 7, 17, .2} } })
+       { image = love.graphics.newImage 'assets/images/medic-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=true, frames={ {1, 2, 4, 2, .2} } })
 end
 
 function Medic:update(dt)
