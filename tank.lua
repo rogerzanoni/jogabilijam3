@@ -125,7 +125,8 @@ end
 
 function Tank:shoot()
    table.insert(gameworld_projectiles,
-                Projectile(self.position.x,
+                Projectile(15,
+                           self.position.x,
                            self.position.y,
                            self.target.position.x,
                            self.target.position.y,

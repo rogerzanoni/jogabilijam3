@@ -125,7 +125,8 @@ end
 
 function Gunner:shoot()
    table.insert(gameworld_projectiles,
-                Projectile(self.position.x,
+                Projectile(8,
+                           self.position.x,
                            self.position.y,
                            self.target.position.x,
                            self.target.position.y,
