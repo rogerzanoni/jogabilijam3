@@ -25,6 +25,10 @@ end
 
 function PrologueScene:startTimers()
    Timer.after(1, function() self.drawFunction = self.hideo end)
+   Timer.after(1, function() soundManager:play("thunder") end)
+
+   Timer.after(2, function() soundManager:play("rain") end)
+
    Timer.after(4, function() self.drawFunction = self.not_hideo end)
    Timer.after(7, function() self.drawFunction = self.place end)
    Timer.after(9, function() self.drawFunction = self.place_and_time end)
