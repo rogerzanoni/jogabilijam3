@@ -1,5 +1,3 @@
-local Object = require 'libs/classic/classic'
-
 Scene = Object:extend()
 
 function Scene:new()

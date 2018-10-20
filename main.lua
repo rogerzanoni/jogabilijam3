@@ -5,7 +5,9 @@ sodapop = require "libs/sodapop/sodapop"
 CONF_SCREEN_WIDTH = 1920
 CONF_SCREEN_HEIGHT = 1080
 
+Object = require "libs/classic/classic"
 Scene = require "scene"
+
 require "steer"
 require "utils"
 -- require "entitymanager"

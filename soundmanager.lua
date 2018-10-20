@@ -1,5 +1,3 @@
-local Object = require "libs/classic/classic"
-
 SoundManager = Object:extend()
 
 function SoundManager:new()

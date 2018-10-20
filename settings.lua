@@ -1,7 +1,5 @@
 require "stringhelper"
 
-local Object = require "libs/classic/classic"
-
 Settings = Object:extend()
 
 function Settings:new()

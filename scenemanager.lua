@@ -1,5 +1,3 @@
-local Object = require "libs/classic/classic"
-
 SceneManager = Object:extend()
 
 function SceneManager:new()
