@@ -36,6 +36,7 @@ function love.load()
    soundManager:add("laser", "assets/sounds/laser.wav")
    soundManager:add("menuselect", "assets/sounds/menuselect.wav", true)
    soundManager:add("accept", "assets/sounds/accept.mp3", true)
+   soundManager:add("thunder", "assets/sounds/thunder.wav", true)
    soundManager:playLoop("menu")
 
    -- local map = Map("assets/maps/green_valley.lua")
