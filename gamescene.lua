@@ -42,6 +42,12 @@ function GameScene:new()
    self.img_button_y = love.graphics.newImage('assets/images/xb_y.png')
    self.img_button_dpad = love.graphics.newImage('assets/images/xb_dpad.png')
    self.img_button_left_stick = love.graphics.newImage('assets/images/xb_left_stick.png')
+   self.img_button_left_stick = love.graphics.newImage('assets/images/xb_left_stick.png')
+
+   self.img_tank_icon = love.graphics.newImage('assets/images/tank-icon.png')
+   self.img_medic_icon = love.graphics.newImage('assets/images/medic-icon.png')
+   self.img_gunner_icon = love.graphics.newImage('assets/images/gunner-icon.png')
+   self.img_melee_icon = love.graphics.newImage('assets/images/melee-icon.png')
 
    -- Cooldowns
    self.melee_cooldown = COOLDOWN_MELEE
@@ -95,7 +101,8 @@ function GameScene:draw()
    end
 
    if self.state == STATE_IDLE then
-      self:drawUnitCards()
+      -- self:drawUnitCards()
+      self:drawUnitButtons()
    end
 
    -- Mouse pointer rendering
@@ -280,7 +287,7 @@ function GameScene:drawProjectiles()
 end
 
 function GameScene:drawPlacementCursor()
-   love.graphics.setColor(0, 0, 255, 0.5)
+   love.graphics.setColor(0, 0, 1, 0.5)
    love.graphics.rectangle("fill",
                            self.placement_position.x,
                            self.placement_position.y,
@@ -289,7 +296,7 @@ end
 
 function GameScene:drawPlacementInstructions()
    local left_anchor = 60
-   love.graphics.setColor(255,255,255)
+   love.graphics.setColor(255,255,255, 1)
    love.graphics.draw(self.img_button_left_stick, left_anchor, 980)
    love.graphics.draw(self.img_button_dpad, left_anchor + 70, 980)
    love.graphics.print("Mover", left_anchor + 140, 990)
@@ -301,6 +308,36 @@ function GameScene:drawPlacementInstructions()
    love.graphics.print("Cancelar", left_anchor + 510, 990)
 end
 
+function GameScene:drawUnitButtons()
+   love.graphics.setColor(0.4, 0.4, 0.4, 1)
+   love.graphics.circle("fill", 1600, 800, 40)
+   love.graphics.circle("fill", 1500, 900, 40)
+   love.graphics.circle("fill", 1700, 900, 40)
+   love.graphics.circle("fill", 1600, 1000, 40)
+
+   love.graphics.setColor(1, 1, 1, 1)
+   love.graphics.draw(self.img_tank_icon, 1573, 770, 0, 0.4)
+   love.graphics.draw(self.img_medic_icon, 1483, 875, 0, 0.4)
+   love.graphics.draw(self.img_gunner_icon, 1685, 875, 0, 0.4)
+   love.graphics.draw(self.img_melee_icon, 1585, 975, 0, 0.4)
+
+   if self:allowNewTank() then
+      love.graphics.draw(self.img_button_y, 1578, 825)
+   end
+
+   if self:allowNewMedic() then
+      love.graphics.draw(self.img_button_x, 1478, 925)
+   end
+
+   if self:allowNewGunner() then
+      love.graphics.draw(self.img_button_b, 1678, 925)
+   end
+
+   if self:allowNewMelee() then
+      love.graphics.draw(self.img_button_a, 1578, 1025)
+   end
+end
+
 function GameScene:drawUnitCards()
    local left_anchor = 60
    local card_width = 200
@@ -308,7 +345,7 @@ function GameScene:drawUnitCards()
    local horizontal_spacing = 40
 
    -- Cards
-   love.graphics.setColor(40/255, 40/255, 40/255, 0.9)
+   love.graphics.setColor(0.2, 0.2, 0.2, 0.9)
    love.graphics.rectangle("fill", left_anchor, 850, card_width, card_height)
    love.graphics.rectangle("fill", left_anchor + 240, 850, card_width, card_height)
    love.graphics.rectangle("fill", left_anchor + 480, 850, card_width, card_height)
@@ -316,7 +353,7 @@ function GameScene:drawUnitCards()
 
    -- Nomes
    love.graphics.setFont(self.unit_card_font)
-   love.graphics.setColor(255,255,255)
+   love.graphics.setColor(1, 1, 1)
    love.graphics.print("Infantaria", left_anchor + 55, 860)
    love.graphics.print("Pistoleiro", left_anchor + 305, 860)
    love.graphics.print("Médico", left_anchor + 545, 860)
@@ -350,25 +387,25 @@ function GameScene:drawUnitCards()
    -- Cooldown
    love.graphics.setColor(0, 0, 0)
    love.graphics.rectangle("fill", 75, 1020, 170, 20)
-   love.graphics.setColor(255, 127, 0)
+   love.graphics.setColor(1, 0.5, 0)
    local percentage = 1 - (self.melee_cooldown/COOLDOWN_MELEE)
    love.graphics.rectangle("fill", 75, 1020, 170 * percentage , 20)
 
    love.graphics.setColor(0, 0, 0)
    love.graphics.rectangle("fill", 315, 1020, 170, 20)
-   love.graphics.setColor(255, 127, 0)
+   love.graphics.setColor(1, 0.5, 0)
    percentage = 1 - (self.gunner_cooldown/COOLDOWN_GUNNER)
    love.graphics.rectangle("fill", 315, 1020, 170 * percentage , 20)
 
    love.graphics.setColor(0, 0, 0)
    love.graphics.rectangle("fill", 555, 1020, 170, 20)
-   love.graphics.setColor(255, 127, 0)
+   love.graphics.setColor(1, 0.5, 0)
    percentage = 1 - (self.medic_cooldown/COOLDOWN_MEDIC)
    love.graphics.rectangle("fill", 555, 1020, 170 * percentage , 20)
 
    love.graphics.setColor(0, 0, 0)
    love.graphics.rectangle("fill", 795, 1020, 170, 20)
-   love.graphics.setColor(255, 127, 0)
+   love.graphics.setColor(1, 0.5, 0)
    percentage = 1 - (self.tank_cooldown/COOLDOWN_TANK)
    love.graphics.rectangle("fill", 795, 1020, 170 * percentage , 20)
 end
