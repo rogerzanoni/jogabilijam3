@@ -98,8 +98,8 @@ function Gunner:move()
          self.position = self.position + self.velocity
 
          local polar = self.velocity:toPolar()
-         if (polar[1] ~= nil) then
-            self.sprite.flipX = math.cos(polar[1]) >= 0
+         if (polar.x ~= nil) then
+            self.sprite.flipX = math.sin(polar.x) >= 0
          end
 
       else
