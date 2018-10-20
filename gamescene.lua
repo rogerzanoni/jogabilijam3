@@ -64,6 +64,8 @@ function GameScene:new()
    self.img_gunner_icon = love.graphics.newImage('assets/images/gunner-icon.png')
    self.img_melee_icon = love.graphics.newImage('assets/images/melee-icon.png')
 
+   self.background = love.graphics.newImage('assets/images/street.png')
+
    -- Cooldowns
    self.melee_cooldown = COOLDOWN_MELEE
    self.gunner_cooldown = COOLDOWN_GUNNER
@@ -112,6 +114,7 @@ end
 function GameScene:draw()
    love.graphics.clear(67/255, 139/255, 126/255)
 
+   self:drawBackground()
    self:drawUnits()
    self:drawProjectiles()
 
@@ -316,6 +319,13 @@ function GameScene:movePlacementLeft()
 end
 
 -- Drawing
+function GameScene:drawBackground()
+   local bgScaleX = CONF_SCREEN_WIDTH / self.background:getWidth()
+   local bgScaleY = CONF_SCREEN_HEIGHT / self.background:getHeight()
+   love.graphics.setColor({1,1,1,1})
+   love.graphics.draw(self.background, 0, 0, 0, bgScaleX, bgScaleY)
+end
+
 function GameScene:drawUnits()
    for i, char in ipairs(gameworld_officers) do
       char:draw(0, 0)
