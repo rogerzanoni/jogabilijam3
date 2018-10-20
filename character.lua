@@ -13,6 +13,8 @@ function Character:new(x, y, life, damage, loyalty)
    self.max_life = life
    self.damage = damage
    self.loyalty = loyalty
+   self.box_height = 120
+   self.box_width = 80
 end
 
 function Character:isDead()
@@ -61,9 +63,9 @@ function Character:draw(ox, oy)
    -- Draw life bar
    if not self:isDead() then
       love.graphics.setColor(0, 0, 0)
-      love.graphics.rectangle("fill", self.position.x - (self.box_width/2), self.position.y - (self.box_height/2) - 10, self.box_width, 5)
+      love.graphics.rectangle("fill", self.position.x - (self.box_width/2), self.position.y - (self.box_height/2), self.box_width, 5)
       love.graphics.setColor(0, 255, 0)
-      love.graphics.rectangle("fill", self.position.x - (self.box_width/2), self.position.y - (self.box_height/2) - 10, self.box_width * (self.life/self.max_life), 5)
+      love.graphics.rectangle("fill", self.position.x - (self.box_width/2), self.position.y - (self.box_height/2), self.box_width * (self.life/self.max_life), 5)
    end
 end
 

@@ -17,8 +17,6 @@ function Officer:new(x, y, life, damage, loyalty)
    Officer.super.new(self, x, y, life, damage, loyalty)
    self.state = STATE_IDLE
    self.target = nil
-   self.box_height = 32
-   self.box_width = 32
 
    -- Motion
    self.velocity = vector(0, 0)
