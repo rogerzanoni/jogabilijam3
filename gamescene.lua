@@ -72,11 +72,8 @@ end
 function GameScene:draw()
    love.graphics.clear(67/255, 139/255, 126/255)
 
-   love.graphics.print(self.state, 200, 10)
-
    self:drawUnits()
 
-   -- GUI + Overlay
    if self.state == STATE_PLACEMENT then
       self:drawPlacementCursor()
       self:drawPlacementInstructions()
@@ -187,13 +184,13 @@ function GameScene:changeState(state)
 end
 
 function GameScene:placeInitialTroops()
-   table.insert(gameworld_officers, Officer(1200, 200));
-   table.insert(gameworld_officers, Officer(1200, 250));
-   table.insert(gameworld_officers, Tank(1434, 350));
-   table.insert(gameworld_officers, Officer(1200, 300));
-   table.insert(gameworld_officers, Officer(1200, 350));
-   table.insert(gameworld_officers, Gunner(1200, 400));
-   table.insert(gameworld_officers, Gunner(1250, 450));
+   table.insert(gameworld_officers, Officer(600, 200));
+   table.insert(gameworld_officers, Officer(600, 400));
+   table.insert(gameworld_officers, Officer(600, 600));
+   table.insert(gameworld_officers, Officer(600, 800));
+   table.insert(gameworld_officers, Tank(200, 500));
+   table.insert(gameworld_officers, Gunner(400, 400));
+   table.insert(gameworld_officers, Gunner(400, 600));
 end
 
 function GameScene:placeUnit()
