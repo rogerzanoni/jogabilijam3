@@ -24,6 +24,11 @@ function SoundManager:play(name)
    source:play()
 end
 
+function SoundManager:playSfx(name)
+   local source = self.sounds[name]
+   source:clone():play()
+end
+
 function SoundManager:stop(name)
    local source = self.sounds[name]
    source:stop()
