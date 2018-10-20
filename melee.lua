@@ -1,7 +1,7 @@
 local Character = require 'character'
 local steer = require 'steer'
 
-Officer = Character:extend()
+Melee = Character:extend()
 
 -- States
 local STATE_IDLE = 'idle'
@@ -13,8 +13,8 @@ local STATE_DEAD = 'dead'
 local LOAD_FRAMES = 20
 local ATTACK_FRAMES = 40
 
-function Officer:new(x, y, life, damage, loyalty)
-   Officer.super.new(self, x, y, life, damage, loyalty)
+function Melee:new(x, y, life, damage, loyalty)
+   Melee.super.new(self, x, y, life, damage, loyalty)
    self.state = STATE_IDLE
    self.target = nil
 
@@ -35,28 +35,20 @@ function Officer:new(x, y, life, damage, loyalty)
    self.sprite.flipX = self.loyalty == self.LOYALTY_USER
 
    self.sprite:addAnimation(STATE_IDLE,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 1, 7, 1, .1} } })
+       { image = love.graphics.newImage 'assets/images/demonstrator-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_MOVING,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 3, 7, 3, .1} } })
-
-   self.sprite:addAnimation(STATE_LOADING,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 7, 7, 7, .1} } })
-
-   self.sprite:addAnimation(STATE_ATTACKING,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=false, frames={ {1, 9, 7, 9, .1} } })
+       { image = love.graphics.newImage 'assets/images/demonstrator-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 3, 4, 3, .2} } })
 
    self.sprite:addAnimation(STATE_DEAD,
-       { image = love.graphics.newImage 'assets/images/officer-spritesheet.png',
-         frameWidth=32, frameHeight=32, stopAtEnd=true, frames={ {1, 17, 7, 17, .2} } })
+       { image = love.graphics.newImage 'assets/images/demonstrator-spritesheet.png',
+         frameWidth=115, frameHeight=115, stopAtEnd=true, frames={ {1, 2, 4, 2, .2} } })
 end
 
-function Officer:update(dt)
-   Officer.super.update(self, dt)
+function Melee:update(dt)
+   Melee.super.update(self, dt)
    if self.state == STATE_IDLE then
       self:look()
    elseif self.state == STATE_MOVING then
@@ -68,14 +60,14 @@ function Officer:update(dt)
    end
 end
 
-function Officer:receiveDamage(damage)
+function Melee:receiveDamage(damage)
    self.life = math.max(0, self.life - damage)
    if self:isDead() then
       self:changeState(STATE_DEAD)
    end
 end
 
-function Officer:look()
+function Melee:look()
    self:seek_target()
    if not (self.target == nil) then
       self:changeState(STATE_MOVING)
@@ -83,7 +75,7 @@ function Officer:look()
    end
 end
 
-function Officer:move()
+function Melee:move()
    self:seek_target()
    if not (self.target==nil) then
       local distance = self.position:dist(self.target.position)
@@ -98,7 +90,7 @@ function Officer:move()
    end
 end
 
-function Officer:load()
+function Melee:load()
    if self.loading_timer >= LOAD_FRAMES then
       self.loading_timer = 0
       self:changeState(STATE_ATTACKING)
@@ -107,7 +99,7 @@ function Officer:load()
    end
 end
 
-function Officer:attack()
+function Melee:attack()
    if self.attacking_timer >= ATTACK_FRAMES then
       self.attacking_timer = 0
       self.target:receiveDamage(self.damage)
@@ -118,18 +110,24 @@ function Officer:attack()
    end
 end
 
-function Officer:seek_target()
+function Melee:seek_target()
    self.target = nil
    local closer = self.sight_distance
-   for i, dem in ipairs(gameworld_demonstrators) do
-      local distance = self.position:dist(dem.position)
-      if distance < closer and (not dem:isDead()) then
+
+   local enemy_list = gameworld_demonstrators
+   if self.loyalty == Character.LOYALTY_USER then
+       enemy_list = gameworld_officers
+   end
+
+   for i, enemy in ipairs(enemy_list) do
+      local distance = self.position:dist(enemy.position)
+      if distance < closer and (not enemy:isDead()) then
          closer = distance
-         self.target = dem
+         self.target = enemy
          print("Target found!" .. distance)
       end
    end
 end
 
 
-return Officer
+return Melee

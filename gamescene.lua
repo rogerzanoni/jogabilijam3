@@ -1,6 +1,5 @@
 local Character = require 'character'
-local Officer = require 'officer'
-local Demonstrator = require 'demonstrator'
+local Melee = require 'melee'
 local EventManager = require 'eventmanager'
 local Tank = require "tank"
 local Gunner = require 'gunner'
@@ -12,9 +11,9 @@ local STATE_IDLE = "idle"
 
 -- cooldown constants
 local COOLDOWN_MELEE = 3
-local COOLDOWN_GUNNER = 5
-local COOLDOWN_MEDIC = 10
-local COOLDOWN_TANK = 30
+local COOLDOWN_GUNNER = 10
+local COOLDOWN_MEDIC = 15
+local COOLDOWN_TANK = 35
 
 -- UI constants
 local PLACEMENT_WIDTH = CONF_SCREEN_WIDTH / 16
@@ -261,13 +260,13 @@ function GameScene:placeUnit(unit_type)
    local y = self.placement_position.y + (PLACEMENT_HEIGHT/2)
 
    if unit_type == UNIT_TYPE_MELEE then
-      table.insert(gameworld_demonstrators, Demonstrator(x, y, 100, 30, Character.LOYALTY_USER));
+      table.insert(gameworld_demonstrators, Melee(x, y, 250, 30, Character.LOYALTY_USER));
       self.melee_cooldown = COOLDOWN_MELEE
    elseif unit_type == UNIT_TYPE_GUNNER then
-      table.insert(gameworld_demonstrators, Gunner(x, y, 100, 70, Character.LOYALTY_USER));
+      table.insert(gameworld_demonstrators, Gunner(x, y, 200, 60, Character.LOYALTY_USER));
       self.gunner_cooldown = COOLDOWN_GUNNER
    elseif unit_type == UNIT_TYPE_MEDIC then
-      table.insert(gameworld_demonstrators, Medic(x, y, 100, -20, Character.LOYALTY_USER));
+      table.insert(gameworld_demonstrators, Medic(x, y, 200, -20, Character.LOYALTY_USER));
       self.medic_cooldown = COOLDOWN_MEDIC
    elseif unit_type == UNIT_TYPE_TANK then
       table.insert(gameworld_demonstrators, Tank(x, y, 1000, 150, Character.LOYALTY_USER));

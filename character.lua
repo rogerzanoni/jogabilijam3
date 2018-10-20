@@ -37,7 +37,9 @@ end
 
 function Character:changeState(state)
    print("[state] " .. self.state .. " -> " .. state)
-   self.sprite:switch(state)
+   if self.sprite.animations[state] ~= nil then
+      self.sprite:switch(state)
+   end
    self.state = state
 end
 
