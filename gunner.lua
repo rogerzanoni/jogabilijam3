@@ -158,7 +158,8 @@ function Gunner:shoot()
                            self.position.y,
                            self.target.position.x,
                            self.target.position.y,
-                           0.2))
+                           0.2,
+                           self.loyalty))
 end
 
 function Gunner:seek_target()
