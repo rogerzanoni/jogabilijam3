@@ -137,6 +137,22 @@ function GameScene:keyReleased(key, code, isRepeat)
    end
 end
 
+function GameScene:gamepadaxis(joystick, axis, value)
+   if axis == 'lefty' then
+      if value == 1 then
+         self:movePlacementDown()
+      elseif value == -1 then
+         self:movePlacementUp()
+      end
+   elseif axis == 'leftx' then
+      if value == 1 then
+         self:movePlacementRight()
+      elseif value == -1 then
+         self:movePlacementLeft()
+      end
+   end
+end
+
 -- function GameScene:mousepressed(x, y, button, istouch, presses)
     -- print("Mouse pressed", x, y, button, istouch, presses)
     -- if button == 1 then
