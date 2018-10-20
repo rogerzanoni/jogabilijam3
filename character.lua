@@ -9,6 +9,12 @@ Character.LOYALTY_ALLY  = "ally"
 
 Character.VANISH_TIME = 3
 
+STATE_IDLE = 'idle'
+STATE_MOVING = 'moving'
+STATE_LOADING = 'loading'
+STATE_ATTACKING = 'attacking'
+STATE_DEAD = 'dead'
+
 function Character:new(x, y, life, damage, loyalty)
    self.position = vector(x, y)
    self.life = life
@@ -26,6 +32,13 @@ end
 
 function Character:isGone()
    return self.dead_for >= self.VANISH_TIME
+end
+
+function Character:receiveDamage(damage)
+   self.life = math.max(0, self.life - damage)
+   if self:isDead() then
+      self:changeState(STATE_DEAD)
+   end
 end
 
 function Character:isHurt()
@@ -48,6 +61,14 @@ function Character:changeState(state)
       self.sprite:switch(state)
    end
    self.state = state
+
+   if self.state == STATE_DEAD then
+       if self.loyalty == Character.LOYALTY_ENEMY then
+           gameworld_enemy_deaths = gameworld_enemy_deaths + 1
+       else
+           gameworld_player_deaths = gameworld_player_deaths + 1
+       end
+   end
 end
 
 function Character:update(dt)

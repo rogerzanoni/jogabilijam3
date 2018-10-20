@@ -3,13 +3,6 @@ local steer = require 'steer'
 
 Tank = Character:extend()
 
--- States
-local STATE_IDLE = 'idle'
-local STATE_MOVING = 'moving'
-local STATE_LOADING = 'loading'
-local STATE_ATTACKING = 'attacking'
-local STATE_DEAD = 'dead'
-
 local LOAD_FRAMES = 200
 local ATTACK_FRAMES = 20
 
@@ -81,13 +74,6 @@ function Tank:update(dt)
    end
 
    self:clamp()
-end
-
-function Tank:receiveDamage(damage)
-   self.life = math.max(0, self.life - damage)
-   if self:isDead() then
-      self:changeState(STATE_DEAD)
-   end
 end
 
 function Tank:look()

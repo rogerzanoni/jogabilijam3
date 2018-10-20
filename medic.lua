@@ -1,13 +1,9 @@
 local Character = require 'character'
 local steer = require 'steer'
 
-Medic = Character:extend()
+local STATE_HEALING = 'healing'
 
--- States
-local STATE_IDLE = 'idle'
-local STATE_MOVING = 'moving'
-local STATE_HEALING = 'loading'
-local STATE_DEAD = 'dead'
+Medic = Character:extend()
 
 local HEALING_FRAMES = 60
 
@@ -68,13 +64,6 @@ function Medic:update(dt)
    end
 
    self:clamp()
-end
-
-function Medic:receiveDamage(damage)
-   self.life = math.max(0, self.life - damage)
-   if self:isDead() then
-      self:changeState(STATE_DEAD)
-   end
 end
 
 function Medic:look()

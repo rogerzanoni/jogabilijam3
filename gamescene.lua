@@ -21,6 +21,12 @@ local PLACEMENT_HEIGHT = CONF_SCREEN_HEIGHT / 9
 local PLACEMENT_ROWS = 4
 local PLACEMENT_MOVE_INTERVAL = 0.1
 
+-- Power bar
+local BAR_WIDTH = 500
+local BAR_HEIGHT = 80
+local BAR_X = CONF_SCREEN_WIDTH / 2 - BAR_WIDTH / 2
+local BAR_Y = 50
+
 -- Unit constants
 UNIT_TYPE_MELEE = 'melee'
 UNIT_TYPE_GUNNER = 'gunner'
@@ -32,6 +38,9 @@ GameScene = Scene:extend()
 gameworld_officers = {}
 gameworld_demonstrators = {}
 gameworld_projectiles = {}
+
+gameworld_player_deaths = 0
+gameworld_enemy_deaths = 0
 
 function GameScene:new()
    self.state = STATE_IDLE
@@ -74,6 +83,9 @@ function GameScene:new()
 end
 
 function GameScene:init()
+    gameworld_player_deaths = 0
+    gameworld_enemy_deaths = 0
+
     soundManager:stopAll()
     soundManager:playLoop("battle")
     self.eventManager:init()
@@ -139,6 +151,8 @@ function GameScene:draw()
    else
       self:drawUnitButtonsKB()
    end
+
+   self:drawPowerBar()
 end
 
 function GameScene:keyPressed(key, code, isRepeat)
@@ -345,6 +359,20 @@ function GameScene:drawPlacementCursor()
    corner_y = self.placement_position.y + PLACEMENT_HEIGHT
    love.graphics.line(corner_x, corner_y, corner_x - 40, corner_y)
    love.graphics.line(corner_x, corner_y, corner_x, corner_y - 40)
+end
+
+function GameScene:drawPowerBar()
+    local total_deaths = gameworld_player_deaths + gameworld_enemy_deaths
+    local enemy_ratio = gameworld_player_deaths / total_deaths
+    local enemy_pixels = BAR_WIDTH * enemy_ratio
+
+    love.graphics.rectangle("fill", BAR_X, BAR_Y, BAR_WIDTH, BAR_HEIGHT)
+
+    love.graphics.setColor(0, 0, 255)
+    love.graphics.rectangle("fill", BAR_X, BAR_Y, enemy_pixels, BAR_HEIGHT)
+
+    love.graphics.setColor(255, 0, 0)
+    love.graphics.rectangle("fill", BAR_X + enemy_pixels, BAR_Y, BAR_WIDTH - enemy_pixels, BAR_HEIGHT)
 end
 
 function GameScene:drawPlacementInstructions()

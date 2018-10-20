@@ -3,13 +3,6 @@ local steer = require 'steer'
 
 Gunner = Character:extend()
 
--- States
-local STATE_IDLE = 'idle'
-local STATE_MOVING = 'moving'
-local STATE_LOADING = 'loading'
-local STATE_ATTACKING = 'attacking'
-local STATE_DEAD = 'dead'
-
 local LOAD_FRAMES = 20
 local ATTACK_FRAMES = 40
 
@@ -77,13 +70,6 @@ function Gunner:update(dt)
    end
 
    self:clamp()
-end
-
-function Character:receiveDamage(damage)
-   self.life = math.max(0, self.life - damage)
-   if self:isDead() then
-      self:changeState(STATE_DEAD)
-   end
 end
 
 function Gunner:look()
