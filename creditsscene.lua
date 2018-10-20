@@ -8,10 +8,10 @@ function CreditsScene:init()
    self.subtitleFont = assets.fonts.hemi_head_bd_it(assets.config.fonts.creditsSubtitleSize)
    self.textFont = assets.fonts.hemi_head_bd_it(assets.config.fonts.creditsTextSize)
    self.keystrokeCount = 0
-   self.background = love.graphics.newImage('assets/images/bg_intro.png')
+   self.background = love.graphics.newImage('assets/images/bg_intro.jpg')
    self.titleColor = {255, 255, 255, 255}
    self.subtitleColor = {255, 255, 255, 255}
-   self.textColor = {0, 0, 107, 255}
+   self.textColor = {1, 1, 1, 1}
 end
 
 function CreditsScene:update(dt)
@@ -23,7 +23,7 @@ function CreditsScene:draw()
    -- background --
    local bgXScale = CONF_SCREEN_WIDTH/self.background:getWidth()
    local bgYScale = CONF_SCREEN_HEIGHT/self.background:getHeight()
-   love.graphics.setColor({1,1,1,1})
+   love.graphics.setColor({0.8,0.8,0.8,0.8})
    love.graphics.draw(self.background, 0, 0, 0, bgXScale, bgYScale)
 
    -- render static credits --
@@ -82,12 +82,21 @@ function CreditsScene:draw()
    -- Roteiro
    love.graphics.setColor(self.subtitleColor)
    love.graphics.setFont(self.subtitleFont)
-   love.graphics.print("ROTEIRO", second_column, 700)
+   love.graphics.print("ROTEIRO", second_column, 600)
 
    love.graphics.setColor(self.textColor)
    love.graphics.setFont(self.textFont)
-   love.graphics.print("FABIANO MARINHO", second_column, 750)
-   love.graphics.print("LUIZ CAVALCANTI", second_column, 790)
+   love.graphics.print("FABIANO MARINHO", second_column, 650)
+   love.graphics.print("LUIZ CAVALCANTI", second_column, 690)
+
+   -- Roteiro
+   love.graphics.setColor(self.subtitleColor)
+   love.graphics.setFont(self.subtitleFont)
+   love.graphics.print("IMAGEM DE FUNDO", second_column, 800)
+
+   love.graphics.setColor(self.textColor)
+   love.graphics.setFont(self.textFont)
+   love.graphics.print("Criado por Fanjianhua - freepik.com", second_column, 850)
 end
 
 function CreditsScene:keyPressed(key, code, isRepeat)
