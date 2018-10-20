@@ -34,25 +34,49 @@ function Gunner:new(x, y, life, damage, loyalty)
    self.sprite = sodapop.newAnimatedSprite(x, y)
    self.sprite.flipX = self.loyalty == self.LOYALTY_USER
 
+   if self.loyalty==self.LOYALTY_USER then
+      spritesheet = "assets/images/player_gunner.png"
+   end
+
    self.sprite:addAnimation(STATE_IDLE,
-       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_MOVING,
-       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=false, frames={ {1, 4, 4, 4, .2} } })
 
    self.sprite:addAnimation(STATE_LOADING,
-       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 
    self.sprite:addAnimation(STATE_ATTACKING,
-       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=false, frames={ {1, 3, 4, 3, .2} } })
 
    self.sprite:addAnimation(STATE_DEAD,
-       { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-         frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+       { image = love.graphics.newImage(spritesheet),
+         frameWidth=120, frameHeight=120, stopAtEnd=true, frames={ {1, 2, 4, 2, .2} } })
+
+   -- self.sprite:addAnimation(STATE_IDLE,
+   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+
+   -- self.sprite:addAnimation(STATE_MOVING,
+   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+
+   -- self.sprite:addAnimation(STATE_LOADING,
+   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+
+   -- self.sprite:addAnimation(STATE_ATTACKING,
+   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
+
+   -- self.sprite:addAnimation(STATE_DEAD,
+   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
+   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 end
 
 function Gunner:update(dt)
