@@ -3,19 +3,8 @@
 # see https://github.com/MisterDA/love-release for installation instructions
 # on linux you'll probably need to install fakeroot and libzip
 
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    *)          machine="UNKNOWN:${unameOut}"
-esac
-
-echo "Running on ${machine}"
-
-if [ "${machine}" = "Linux" ]; then
-    releaseType="-D"
-else
-    releaseType="-M"
-fi
-
-love-release ${releaseType}
+love-release # .love file
+love-release -M # macos
+love-release -W32 # windows 32bit
+love-release -W64 # windows 64bit
+love-release -D # linux debian package
