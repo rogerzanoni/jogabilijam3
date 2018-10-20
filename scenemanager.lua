@@ -16,7 +16,12 @@ end
 
 function SceneManager:setCurrent(sceneName)
    local scene = self.scenes[sceneName]
-   scene:init()
+
+   if not scene.initialized then
+      scene:init()
+      scene.initialized = true
+   end
+
    SceneManager.current = scene
 end
 

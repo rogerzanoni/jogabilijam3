@@ -1,6 +1,7 @@
 Scene = Object:extend()
 
 function Scene:new()
+    self.initialized = false
 end
 
 function Scene:init()
