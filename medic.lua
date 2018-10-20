@@ -18,7 +18,7 @@ function Medic:new(x, y, life, damage, loyalty)
 
    -- Motion
    self.velocity = vector(0, 0)
-   self.max_velocity = 1.5
+   self.max_velocity = 2.5
 
    -- Distances
    self.sight_distance = 1000
@@ -56,6 +56,11 @@ end
 
 function Medic:update(dt)
    Medic.super.update(self, dt)
+
+   if self:isDead() then
+       return
+   end
+
    if self.state == STATE_IDLE then
       self:look()
    elseif self.state == STATE_MOVING then

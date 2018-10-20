@@ -23,7 +23,7 @@ function Gunner:new(x, y, life, damage, loyalty)
    self.max_velocity = 0.8
 
    -- Distances
-   self.sight_distance = 500
+   self.sight_distance = 1000
    self.attack_distance = 370
 
    -- Timers
@@ -81,6 +81,11 @@ end
 
 function Gunner:update(dt)
    Gunner.super.update(self, dt)
+
+   if self:isDead() then
+       return
+   end
+
    if self.state == STATE_IDLE then
       self:look()
    elseif self.state == STATE_MOVING then
