@@ -64,4 +64,22 @@ function Character:draw(ox, oy)
    end
 end
 
+function Character:getEnemiesList()
+   if self.loyalty == self.LOYALTY_USER then
+      return gameworld_officers
+   elseif self.loyalty == self.LOYALTY_ENEMY then
+      return gameworld_demonstrators
+   end
+
+end
+
+function Character:getFriendsList()
+   if self.loyalty == self.LOYALTY_USER then
+      return gameworld_demonstrators
+   elseif self.loyalty == self.LOYALTY_ENEMY then
+      return gameworld_officers
+   end
+
+end
+
 return Character

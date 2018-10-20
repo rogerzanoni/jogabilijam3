@@ -141,7 +141,7 @@ end
 function Tank:seek_target()
    self.target = nil
    local closer = self.sight_distance
-   for i, dem in ipairs(gameworld_demonstrators) do
+   for i, dem in ipairs(self:getEnemiesList()) do
       local distance = self.position:dist(dem.position)
       if distance < closer and (not dem:isDead()) then
          closer = distance

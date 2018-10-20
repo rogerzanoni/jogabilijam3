@@ -140,7 +140,7 @@ end
 
 function Demonstrator:look_for_menace()
    local closer = self.sight_distance
-   for i, officer in ipairs(gameworld_officers) do
+   for i, officer in ipairs(self:getEnemiesList()) do
       local distance = self.position:dist(officer.position)
       if distance < closer then
          closer = distance

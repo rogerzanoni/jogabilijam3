@@ -108,7 +108,7 @@ end
 function Medic:seek_patient()
    self.patient = nil
    local closer = self.sight_distance
-   for i, char in ipairs(gameworld_demonstrators) do
+   for i, char in ipairs(self:getFriendsList()) do
       local distance = self.position:dist(char.position)
       if not(char==self) and distance < closer and not char:isDead() and char:isHurt() and char:isHealable() then
          closer = distance
