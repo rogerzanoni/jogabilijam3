@@ -80,6 +80,8 @@ function Tank:update(dt)
       self:load()
    elseif self.state == STATE_ATTACKING then
       self:attack()
+   elseif self.state == STATE_DEAD then
+      self.dead_for = self.dead_for + dt
    end
 
    self:clamp()

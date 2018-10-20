@@ -57,26 +57,6 @@ function Gunner:new(x, y, life, damage, loyalty)
    self.sprite:addAnimation(STATE_DEAD,
        { image = love.graphics.newImage(spritesheet),
          frameWidth=120, frameHeight=120, stopAtEnd=true, frames={ {1, 2, 4, 2, .2} } })
-
-   -- self.sprite:addAnimation(STATE_IDLE,
-   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
-
-   -- self.sprite:addAnimation(STATE_MOVING,
-   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
-
-   -- self.sprite:addAnimation(STATE_LOADING,
-   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
-
-   -- self.sprite:addAnimation(STATE_ATTACKING,
-   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
-
-   -- self.sprite:addAnimation(STATE_DEAD,
-   --     { image = love.graphics.newImage 'assets/images/gunner-spritesheet.png',
-   --       frameWidth=115, frameHeight=115, stopAtEnd=false, frames={ {1, 1, 4, 1, .2} } })
 end
 
 function Gunner:update(dt)
@@ -94,6 +74,8 @@ function Gunner:update(dt)
       self:load()
    elseif self.state == STATE_ATTACKING then
       self:attack()
+   elseif self.state == STATE_DEAD then
+      self.dead_for = self.dead_for + dt
    end
 
    self:clamp()

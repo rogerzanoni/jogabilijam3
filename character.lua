@@ -7,6 +7,8 @@ Character.LOYALTY_USER  = "user"
 Character.LOYALTY_ENEMY = "enemy"
 Character.LOYALTY_ALLY  = "ally"
 
+Character.VANISH_TIME = 3
+
 function Character:new(x, y, life, damage, loyalty)
    self.position = vector(x, y)
    self.life = life
@@ -15,10 +17,15 @@ function Character:new(x, y, life, damage, loyalty)
    self.loyalty = loyalty
    self.box_height = 120
    self.box_width = 120
+   self.dead_for = 0
 end
 
 function Character:isDead()
    return self.life <= 0
+end
+
+function Character:isGone()
+   return self.dead_for >= self.VANISH_TIME
 end
 
 function Character:isHurt()

@@ -67,6 +67,8 @@ function Medic:update(dt)
       self:move()
    elseif self.state == STATE_HEALING then
       self:heal()
+   elseif self.state == STATE_DEAD then
+      self.dead_for = self.dead_for + dt
    end
 
    self:clamp()
