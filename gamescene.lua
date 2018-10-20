@@ -52,7 +52,12 @@ function GameScene:new()
    self.img_button_y = love.graphics.newImage('assets/images/xb_y.png')
    self.img_button_dpad = love.graphics.newImage('assets/images/xb_dpad.png')
    self.img_button_left_stick = love.graphics.newImage('assets/images/xb_left_stick.png')
-   self.img_button_left_stick = love.graphics.newImage('assets/images/xb_left_stick.png')
+
+   self.img_key_z = love.graphics.newImage('assets/images/key_z.png')
+   self.img_key_x = love.graphics.newImage('assets/images/key_x.png')
+   self.img_key_a = love.graphics.newImage('assets/images/key_a.png')
+   self.img_key_s = love.graphics.newImage('assets/images/key_s.png')
+   self.img_key_arrows = love.graphics.newImage('assets/images/key_arrows.png')
 
    self.img_tank_icon = love.graphics.newImage('assets/images/tank-icon.png')
    self.img_medic_icon = love.graphics.newImage('assets/images/medic-icon.png')
@@ -352,8 +357,12 @@ function GameScene:drawPlacementInstructions()
    love.graphics.setColor(255,255,255, 1)
    love.graphics.setFont(self.unit_card_font)
 
-   love.graphics.draw(self.img_button_left_stick, left_anchor, 880)
-   love.graphics.draw(self.img_button_dpad, left_anchor + 70, 880)
+   if gamepadConnected() then
+      love.graphics.draw(self.img_button_left_stick, left_anchor, 880)
+      love.graphics.draw(self.img_button_dpad, left_anchor + 70, 880)
+   else
+      love.graphics.draw(self.img_key_arrows, left_anchor + 70, 880)
+   end
    love.graphics.print("Mover", left_anchor + 140, 890)
 end
 
@@ -371,19 +380,35 @@ function GameScene:drawUnitButtons()
    love.graphics.draw(self.img_melee_icon, 1585, 975, 0, 0.4)
 
    if self:allowNewTank() then
-      love.graphics.draw(self.img_button_y, 1578, 825)
+      if gamepadConnected() then
+         love.graphics.draw(self.img_button_y, 1578, 825)
+      else
+         love.graphics.draw(self.img_key_s, 1578, 825)
+      end
    end
 
    if self:allowNewMedic() then
-      love.graphics.draw(self.img_button_x, 1478, 925)
+      if gamepadConnected() then
+         love.graphics.draw(self.img_button_x, 1478, 925)
+      else
+         love.graphics.draw(self.img_key_a, 1478, 925)
+      end
    end
 
    if self:allowNewGunner() then
-      love.graphics.draw(self.img_button_b, 1678, 925)
+      if gamepadConnected() then
+         love.graphics.draw(self.img_button_b, 1678, 925)
+      else
+         love.graphics.draw(self.img_key_x, 1678, 925)
+      end
    end
 
    if self:allowNewMelee() then
-      love.graphics.draw(self.img_button_a, 1578, 1025)
+      if gamepadConnected() then
+         love.graphics.draw(self.img_button_a, 1578, 1025)
+      else
+         love.graphics.draw(self.img_key_z, 1578, 1025)
+      end
    end
 end
 
