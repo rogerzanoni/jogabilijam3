@@ -23,17 +23,17 @@ return {
     { unit=Melee, x=0, y=vertical_increment * 6, life=melee_life, damage=melee_damage, time=0 },
     { unit=Melee, x=0, y=vertical_increment * 7, life=melee_life, damage=melee_damage, time=0 },
 
+    { unit=Gunner, x=0, y=0,                      life=gunner_life, damage=gunner_damage, time=10 },
+    { unit=Gunner, x=0, y=vertical_increment * 7, life=gunner_life, damage=gunner_damage, time=10 },
+
+
     { unit=Medic, x=0, y=vertical_increment * 3, life=100, damage=medic_damage, time=20 },
     { unit=Medic, x=0, y=vertical_increment * 6, life=100, damage=medic_damage, time=20 },
 
     { unit=Melee, x=0, y=0,                      life=melee_life, damage=melee_damage, time=25 },
-    { unit=Melee, x=0, y=vertical_increment,     life=melee_life, damage=melee_damage, time=25 },
     { unit=Melee, x=0, y=vertical_increment * 2, life=melee_life, damage=melee_damage, time=25 },
-    { unit=Melee, x=0, y=vertical_increment * 3, life=melee_life, damage=melee_damage, time=25 },
     { unit=Melee, x=0, y=vertical_increment * 4, life=melee_life, damage=melee_damage, time=25 },
-    { unit=Melee, x=0, y=vertical_increment * 5, life=melee_life, damage=melee_damage, time=25 },
     { unit=Melee, x=0, y=vertical_increment * 6, life=melee_life, damage=melee_damage, time=25 },
-    { unit=Melee, x=0, y=vertical_increment * 7, life=melee_life, damage=melee_damage, time=25 },
 
 
     { unit=Melee, x=0, y=vertical_increment * 2, life=melee_life, damage=melee_damage, time=30 },
@@ -52,6 +52,9 @@ return {
     { unit=Melee, x=0, y=vertical_increment * 5, life=melee_life, damage=melee_damage, time=40 },
     { unit=Melee, x=0, y=vertical_increment * 6, life=melee_life, damage=melee_damage, time=40 },
     { unit=Melee, x=0, y=vertical_increment * 7, life=melee_life, damage=melee_damage, time=40 },
+
+    { unit=Gunner, x=0, y=0,                      life=gunner_life, damage=gunner_damage, time=42 },
+    { unit=Gunner, x=0, y=vertical_increment * 7, life=gunner_life, damage=gunner_damage, time=42 },
 
 
     { unit=Gunner, x=0, y=vertical_increment * 3, life=gunner_life, damage=gunner_damage, time=45 },

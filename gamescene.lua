@@ -10,10 +10,10 @@ local STATE_IDLE = "idle"
 -- TODO: plan other states (gameover, victory, pause?)
 
 -- cooldown constants
-local COOLDOWN_MELEE = 3
-local COOLDOWN_GUNNER = 10
-local COOLDOWN_MEDIC = 15
-local COOLDOWN_TANK = 35
+local COOLDOWN_MELEE = 2
+local COOLDOWN_GUNNER = 7
+local COOLDOWN_MEDIC = 10
+local COOLDOWN_TANK = 25
 
 -- UI constants
 local PLACEMENT_WIDTH = CONF_SCREEN_WIDTH / 16
@@ -33,7 +33,7 @@ UNIT_TYPE_GUNNER = 'gunner'
 UNIT_TYPE_MEDIC = 'medic'
 UNIT_TYPE_TANK = 'tank'
 
-local COUNTDOWN_TIMER = 600.0
+local COUNTDOWN_TIMER = 300.0
 
 GameScene = Scene:extend()
 
