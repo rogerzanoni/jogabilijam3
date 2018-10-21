@@ -26,6 +26,15 @@ return {
     { unit=Medic, x=0, y=vertical_increment * 3, life=100, damage=medic_damage, time=20 },
     { unit=Medic, x=0, y=vertical_increment * 6, life=100, damage=medic_damage, time=20 },
 
+    { unit=Melee, x=0, y=0,                      life=melee_life, damage=melee_damage, time=25 },
+    { unit=Melee, x=0, y=vertical_increment,     life=melee_life, damage=melee_damage, time=25 },
+    { unit=Melee, x=0, y=vertical_increment * 2, life=melee_life, damage=melee_damage, time=25 },
+    { unit=Melee, x=0, y=vertical_increment * 3, life=melee_life, damage=melee_damage, time=25 },
+    { unit=Melee, x=0, y=vertical_increment * 4, life=melee_life, damage=melee_damage, time=25 },
+    { unit=Melee, x=0, y=vertical_increment * 5, life=melee_life, damage=melee_damage, time=25 },
+    { unit=Melee, x=0, y=vertical_increment * 6, life=melee_life, damage=melee_damage, time=25 },
+    { unit=Melee, x=0, y=vertical_increment * 7, life=melee_life, damage=melee_damage, time=25 },
+
 
     { unit=Melee, x=0, y=vertical_increment * 2, life=melee_life, damage=melee_damage, time=30 },
     { unit=Melee, x=0, y=vertical_increment * 6, life=melee_life, damage=melee_damage, time=30 },
