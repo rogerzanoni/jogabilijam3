@@ -38,3 +38,15 @@ end
 function math.Clamp(val, lower, upper)
     return math.max(lower, math.min(upper, val))
 end
+
+function seconds_to_clock(seconds)
+  local seconds = tonumber(seconds)
+
+  if seconds <= 0 then
+    return "00:00";
+  else
+    mins = string.format("%02.f", math.floor(seconds/60));
+    secs = string.format("%02.f", math.floor(seconds - mins *60));
+    return mins..":"..secs
+  end
+end

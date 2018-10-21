@@ -33,6 +33,8 @@ UNIT_TYPE_GUNNER = 'gunner'
 UNIT_TYPE_MEDIC = 'medic'
 UNIT_TYPE_TANK = 'tank'
 
+local COUNTDOWN_TIMER = 600.0
+
 GameScene = Scene:extend()
 
 gameworld_officers = {}
@@ -83,15 +85,23 @@ function GameScene:new()
 end
 
 function GameScene:init()
-    gameworld_player_deaths = 0
-    gameworld_enemy_deaths = 0
+   gameworld_player_deaths = 0
+   gameworld_enemy_deaths = 0
 
-    soundManager:stopAll()
-    soundManager:playLoop("battle")
-    self.eventManager:init()
+   soundManager:stopAll()
+   soundManager:playLoop("battle")
+   self.eventManager:init()
+   self.clockFont = assets.fonts.hemi_head_bd_it(assets.config.fonts.creditsTitleSize)
+   self.textColor = {1, 1, 1, 1}
 end
 
 function GameScene:update(dt)
+    COUNTDOWN_TIMER = COUNTDOWN_TIMER - dt
+
+    if COUNTDOWN_TIMER <= 0 then
+        -- TODO end scene
+    end
+
     self.eventManager:update(dt)
 
    -- remove gone officers
@@ -373,6 +383,10 @@ function GameScene:drawPowerBar()
 
     love.graphics.setColor(255, 0, 0)
     love.graphics.rectangle("fill", BAR_X + enemy_pixels, BAR_Y, BAR_WIDTH - enemy_pixels, BAR_HEIGHT)
+
+    love.graphics.setColor(self.textColor)
+    love.graphics.setFont(self.clockFont)
+    love.graphics.print(seconds_to_clock(math.floor(COUNTDOWN_TIMER)), BAR_X + BAR_WIDTH + 20, BAR_Y)
 end
 
 function GameScene:drawPlacementInstructions()
